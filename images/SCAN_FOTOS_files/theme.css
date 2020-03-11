@@ -1,0 +1,77 @@
+/* COLORS */
+.sky, a.sky, a.sky:hover{
+  color: #00C5FC !important;
+}
+.matisse, a.matisse, a.matisse:hover{
+  color: #15638F !important;
+}
+.cerulean, a.cerulean, a.cerulean:hover{
+  color: #00A6EB !important;
+}
+.bokara, a.bokara, a.bokara:hover{
+  color: #292929 !important;
+}
+.moonstone, a.moonstone, a.moonstone:hover{
+  color: #75A3BD !important;
+}
+.astral, a.astral, a.astral:hover{
+  color: #2679B1 !important;
+}
+.electric_blue, a.electric_blue, a.electric_blue:hover{
+  color: #119AD2 !important;
+}
+
+.bg_sky{
+  background: #00C5FC;
+}
+.bg_matisse{
+  background: #15638F;
+}
+.bg_cerulean{
+  background: #00A6EB;
+}
+.bg_bokara{
+  background: #292929;
+}
+.bg_moonstone{
+  background: #75A3BD;
+}
+.bg_moonstone_light{
+  background: rgba(117, 163, 189, 0.5);
+}
+.bg_iron{
+  background: #D4DBDB;
+}
+.bg_astral{
+  background: #2679B1;
+}
+.bg_electric_blue{
+  background: #119AD2;
+}
+.border-sky{
+  border-color: #00C5FC;
+}
+.border-cerulean{
+  border-color: #00A6EB;
+}
+.border-matisse{
+  border-color: #15638F;
+}
+.border-orange{
+  border-color: #ffeed7;
+}
+.border-light-steel{
+  border-color: #ABCCDA;
+}
+.bg_concrete{
+  background-color: #F4F4F4;
+}
+.bg_wedblue{
+  background-color: #4481A5;
+}
+.bg_orange{
+  background-color: #ffeed7;
+}
+.bg_orange_dark{
+  background-color: #ffc475;
+}
