@@ -18,7 +18,7 @@
         DataSet ds = new DataSet();
         DataRowView ParentRow;
         DataRowView ChildRows;
-        int Consec = 0;
+        int Consec = 0,EditMode = 0;
         private void FrmDevol_Load(object sender, EventArgs e)
         {
             //Creacion de Columnas del Grid.
@@ -45,7 +45,7 @@
         private void APLICAR_ESTILOS_GRID()
         {
             GridDevol.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("product_id", 70, "Product ID.", "product_id", GridDevol);
+            AGREGAR_COLUMN_GRID("product_id", 65, "Product ID.", "product_id", GridDevol);
             DataGridViewButtonColumn col3 = new DataGridViewButtonColumn
             {
                 Name = "SeachProduct",
@@ -53,9 +53,10 @@
                 HeaderText = "..."
             };
             GridDevol.Columns.Add(col3);
-            AGREGAR_COLUMN_GRID("product_name", 290, "Nombre del Producto", "product_name", GridDevol);
-            AGREGAR_COLUMN_GRID("cantidad", 70, "Cantidad", "cantidad", GridDevol);
-            AGREGAR_COLUMN_GRID("roll_id", 70, "Numero ID", "roll_id", GridDevol);
+            AGREGAR_COLUMN_GRID("product_name", 245, "Nombre del Producto", "product_name", GridDevol);
+            AGREGAR_COLUMN_GRID("tipo", 65, "Tipo", "tipo", GridDevol);
+            AGREGAR_COLUMN_GRID("cantidad", 65, "Cantidad", "cantidad", GridDevol);
+            AGREGAR_COLUMN_GRID("roll_id", 65, "Numero ID", "roll_id", GridDevol);
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
@@ -73,8 +74,6 @@
             //MenuOptions
             OptionMenu(0);
             OptionForm(0);
-            //abro textbox
-           
             //abrir un documento de devolucion.
             Consec = Convert.ToInt32(config.GetParameterControl("CONSEC_DEV")) + 1;
             ParentRow = (DataRowView)bs.AddNew();
@@ -84,12 +83,12 @@
             ParentRow.EndEdit();
             TXT_NUMERO.Focus();
             AgregarRenglon();
+            EditMode = 1;
         }
 
         private void AgregarRenglon()
         {
             // Agregar detalle de la factura.
-
             ChildRows = (DataRowView)bsItemRows.AddNew();
             ChildRows.BeginEdit();
             ChildRows["numero"] = TXT_NUMERO.Text;
@@ -126,8 +125,10 @@
                 };
                 products.ShowDialog();
                 GridDevol.Rows[e.RowIndex].Cells["product_id"].Value = products.GetProductId;
-                //GridDevol.Rows[e.RowIndex].Cells["product_name"].Value = products.GetProductName;
+                GridDevol.Rows[e.RowIndex].Cells["tipo"].Value = products.GetProductTipo;
                 GridDevol.Rows[e.RowIndex].Cells["cantidad"].Value = "1";
+                GridDevol.Rows[e.RowIndex].Cells["roll_id"].Value = "";
+                GridDevol.CurrentCell = GridDevol[5, e.RowIndex];
             }
         }
 
@@ -156,14 +157,47 @@
                 return;
             }
             Save();
+            EditMode = 0;
         }
         private void Save()
         {
             manager.Add(CreateObjectDevolucion(),false);
             config.SetParametersControl(Consec.ToString(), "CONSEC_DEV");
+            //actualiza los inventarios.
+            UpdateInventory();
             OptionMenu(1);
             OptionForm(1);
         }
+
+        private void UpdateInventory()
+        {
+            for (int i=0; i <= GridDevol.Rows.Count-1; i++)
+            {
+                string tipo = GridDevol.Rows[i].Cells["tipo"].Value.ToString();
+                string id = GridDevol.Rows[i].Cells["roll_id"].Value.ToString();
+                bool status = true;
+                switch (tipo)
+                {
+                    case R.CONSTANTES.TIPO_MASTER:
+                        // MASTER.
+                        manager.UpdateDataInventory(id,1,status);
+                        break;
+                    case R.CONSTANTES.TIPO_ROLL:
+                        //ROLLO CORTADO.
+                        manager.UpdateDataInventory(id, 2, status);
+                        break;
+                    case R.CONSTANTES.TIPO_GRAP:
+                        //GRAPHICS.
+                        manager.UpdateDataInventory(id, 3, status);
+                        break;
+                    case R.CONSTANTES.TIPO_HOJA:
+                        //HOJAS.
+                        manager.UpdateDataInventory(id, 4, status);
+                        break;
+                }
+            }
+        }
+
         private ClassDevolucion CreateObjectDevolucion() 
         {
             ClassDevolucion documento = new ClassDevolucion
@@ -181,7 +215,8 @@
                     Numero = TXT_NUMERO.Text.ToString(),
                     Product_id = GridDevol.Rows[fila].Cells["product_id"].Value.ToString(),
                     Cantidad = Convert.ToDouble(GridDevol.Rows[fila].Cells["cantidad"].Value.ToString()),
-                    NumeroID = GridDevol.Rows[fila].Cells["roll_id"].Value.ToString()
+                    NumeroID = GridDevol.Rows[fila].Cells["roll_id"].Value.ToString(),
+                    Tipo = GridDevol.Rows[fila].Cells["tipo"].Value.ToString()
                 };
                 documento.items.Add(row);
             }
@@ -225,6 +260,7 @@
             bs.Position = bs.Count - 1;
             OptionMenu(1);
             OptionForm(1);
+            EditMode = 0;
         }
         private void OptionMenu(int state) 
         {
@@ -267,6 +303,9 @@
                     TXT_RAZON_DEVOL.ReadOnly = false;
                     TXT_IDCUST.ReadOnly = false;
                     GridDevol.ReadOnly = false;
+                    GridDevol.Columns[0].ReadOnly = true;
+                    GridDevol.Columns[2].ReadOnly = true;
+                    GridDevol.Columns[3].ReadOnly = true;
                     break;
                 case 1:
                     //modo despues guardar.
@@ -311,6 +350,54 @@
         {
             DataRowView rowSelect = (DataRowView)bsItemRows.Current;
             rowSelect.Row.Delete();
+        }
+
+        private void GridDevol_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (GridDevol.Rows[e.RowIndex].Cells["tipo"].Value == null) 
+            {
+                GridDevol.Rows[e.RowIndex].Cells["tipo"].Value = "";
+                MessageBox.Show("seleccione el producto primero");
+                return;
+            }
+            if (e.ColumnIndex == 5 && EditMode == 1 &&
+                !string.IsNullOrEmpty(GridDevol.Rows[e.RowIndex].Cells["roll_id"].Value.ToString()) &&
+                !string.IsNullOrEmpty(GridDevol.Rows[e.RowIndex].Cells["tipo"].Value.ToString())) 
+            {
+                string id = GridDevol.Rows[e.RowIndex].Cells["roll_id"].Value.ToString();
+                string tipo = GridDevol.Rows[e.RowIndex].Cells["tipo"].Value.ToString();
+                string product_id = GridDevol.Rows[e.RowIndex].Cells["product_id"].Value.ToString();
+
+                if (CheckDataID(id, tipo, product_id))
+                {
+                    //puedo devolver el producto (FUE DESPACHADO)
+                    MessageBox.Show("Correcto.");
+                    GridDevol.CurrentCell = GridDevol[0, e.RowIndex];
+                }
+                else
+                {
+                    //no lo puedo devolver
+                    MessageBox.Show("no puede devolver ese producto....");
+                    GridDevol.Rows[e.RowIndex].Cells["roll_id"].Value = "";
+                }
+            }
+        }
+        private bool CheckDataID(string id, string tipo_product, string product_id)
+        {
+            //devulve verdadero si lo puedo devolver false si no se puede devolver.
+            switch (tipo_product) 
+            {
+                case R.CONSTANTES.TIPO_MASTER:
+                     return manager.CheckStatusDespachoID(id, 1,product_id);
+                case R.CONSTANTES.TIPO_ROLL:
+                    return manager.CheckStatusDespachoID(id, 2, product_id);
+                case R.CONSTANTES.TIPO_GRAP:
+                    return manager.CheckStatusDespachoID(id, 3, product_id);
+                case R.CONSTANTES.TIPO_HOJA:
+                     return manager.CheckStatusDespachoID(id, 4, product_id);
+                default:
+                    return false;
+            }
         }
     }
 }

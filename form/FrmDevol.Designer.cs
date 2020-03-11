@@ -300,6 +300,7 @@
             this.GridDevol.Size = new System.Drawing.Size(568, 192);
             this.GridDevol.TabIndex = 49;
             this.GridDevol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridDevol_CellContentClick);
+            this.GridDevol.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridDevol_CellEndEdit);
             // 
             // RA_DOCUMENT_STATUS
             // 
