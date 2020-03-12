@@ -252,13 +252,13 @@ namespace RitramaAPP
                 public class DEVOLUCION 
                 {
                     public static string SQL_SELECT_DEVOLUCIONES_SELECT_HEADER = "SELECT numero,fecha,customer_id,razon,doc_status FROM Devoluciones";
-                    public static string SQL_SELECT_DEVOLUCIONES_SELECT_ITEMSROWS = "SELECT numero,product_id,cantidad,roll_id FROM Item_Devol";
+                    public static string SQL_SELECT_DEVOLUCIONES_SELECT_ITEMSROWS = "SELECT numero,product_id,cantidad,roll_id,tipo FROM Item_Devol";
                     public static string SQL_INSERT_HEADER = "INSERT INTO Devoluciones (numero, fecha, customer_id, razon, doc_status) values(@p1, @p2, @p3, @p4, @p5)";
-                    public static string SQL_INSERT_ITEMROWS = "INSERT INTO Item_Devol (numero, product_id, cantidad, roll_id) values(@p1, @p2, @p3, @p4)";
+                    public static string SQL_INSERT_ITEMROWS = "INSERT INTO Item_Devol (numero, product_id, cantidad, roll_id, tipo) values(@p1, @p2, @p3, @p4, @p5)";
 
                     public const string SQL_CHECK_ID_MASTER_DEVOL = "SELECT * FROM MasterInic WHERE (roll_id=@p1 AND product_id=@p2 AND disponible=0)";
                     public const string SQL_CHECK_ID_ROLL_DEVOL = "SELECT * FROM  RollsInic WHERE (unique_code=@p1 AND product_id=@p2 AND disponible=0)";
-                    public const string SQL_CHECK_ID_GRAPHICS_DEVOL = "SELECT * FROM GraphicsInic WHERE (roll_id=@p1 AND product_id=@p2 AND disponible=0)";
+                    public const string SQL_CHECK_ID_GRAPHICS_DEVOL = "SELECT * FROM GraphicsInic WHERE (roll_id=@p1 AND part_number=@p2 AND disponible=0)";
                     public const string SQL_CHECK_ID_HOJAS_DEVOL = "SELECT * FROM HojasInic WHERE (roll_id=@p1 AND product_id=@p2 AND disponible=0)";
 
                     public const string SQL_UPDATE_INVENTORY_MASTER_DEVOL = "UPDATE MasterInic SET disponible=@p2 WHERE (roll_id=@p1)";

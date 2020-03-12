@@ -62,6 +62,7 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = items.Product_id},
                 new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Decimal, Value = items.Cantidad},
                 new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = items.NumeroID},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = items.Tipo},
             };
             return sp;
         }
