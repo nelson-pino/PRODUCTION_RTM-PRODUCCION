@@ -14,6 +14,7 @@ namespace RitramaAPP.form
         public string ItemSelected { get; set; }
         public string GetProductId { get; set; }
         public string GetProductName { get; set; }
+        public string GetProductTipo { get; set; }
         public Boolean GetMasterRolls { get; set; }
         public Boolean GetResma { get; set; }
         public Boolean Getgraphics { get; set; }
@@ -105,6 +106,7 @@ namespace RitramaAPP.form
             ItemSelected = grid_productos.Rows[e.RowIndex].Cells[0].Value.ToString();
             GetProductId = grid_productos.Rows[e.RowIndex].Cells[0].Value.ToString();
             GetProductName = grid_productos.Rows[e.RowIndex].Cells[1].Value.ToString();
+            GetProductTipo= grid_productos.Rows[e.RowIndex].Cells[2].Value.ToString();
             GetMasterRolls = Convert.ToBoolean(grid_productos.Rows[e.RowIndex].Cells[3].Value);
             GetResma = Convert.ToBoolean(grid_productos.Rows[e.RowIndex].Cells[4].Value);
             Getgraphics = Convert.ToBoolean(grid_productos.Rows[e.RowIndex].Cells[5].Value);

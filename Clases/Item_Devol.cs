@@ -10,6 +10,7 @@ namespace RitramaAPP.Clases
     {
         public string Numero { get; set; }
         public string Product_id { get; set; }
+        public string  Tipo { get; set; }
         public double Cantidad { get; set; }
         public string NumeroID { get; set; }
     }

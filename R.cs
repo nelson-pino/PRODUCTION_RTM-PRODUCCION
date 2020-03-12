@@ -255,6 +255,16 @@ namespace RitramaAPP
                     public static string SQL_SELECT_DEVOLUCIONES_SELECT_ITEMSROWS = "SELECT numero,product_id,cantidad,roll_id FROM Item_Devol";
                     public static string SQL_INSERT_HEADER = "INSERT INTO Devoluciones (numero, fecha, customer_id, razon, doc_status) values(@p1, @p2, @p3, @p4, @p5)";
                     public static string SQL_INSERT_ITEMROWS = "INSERT INTO Item_Devol (numero, product_id, cantidad, roll_id) values(@p1, @p2, @p3, @p4)";
+
+                    public const string SQL_CHECK_ID_MASTER_DEVOL = "SELECT * FROM MasterInic WHERE (roll_id=@p1 AND product_id=@p2 AND disponible=0)";
+                    public const string SQL_CHECK_ID_ROLL_DEVOL = "SELECT * FROM  RollsInic WHERE (unique_code=@p1 AND product_id=@p2 AND disponible=0)";
+                    public const string SQL_CHECK_ID_GRAPHICS_DEVOL = "SELECT * FROM GraphicsInic WHERE (roll_id=@p1 AND product_id=@p2 AND disponible=0)";
+                    public const string SQL_CHECK_ID_HOJAS_DEVOL = "SELECT * FROM HojasInic WHERE (roll_id=@p1 AND product_id=@p2 AND disponible=0)";
+
+                    public const string SQL_UPDATE_INVENTORY_MASTER_DEVOL = "UPDATE MasterInic SET disponible=@p2 WHERE (roll_id=@p1)";
+                    public const string SQL_UPDATE_INVENTORY_ROLL_DEVOL = "UPDATE RollsInic SET disponible=@p2 WHERE (unique_code=@p1)";
+                    public const string SQL_UPDATE_INVENTORY_GRAPHICS_DEVOL = "UPDATE GraphicsInic SET disponible=@p2 WHERE (roll_id=@p1)";
+                    public const string SQL_UPDATE_INVENTORY_HOJAS_DEVOL = "UPDATE HojasInic SET disponible=@p2 WHERE (roll_id=@p1)";
                 }
             }
         }
@@ -375,6 +385,13 @@ namespace RitramaAPP
             public static Double FACTOR_PIES_METROS = 0.3048;
             public static Double FACTOR_CALCULO_MSI = 0.012;
             public static Double FACTOR_MM_PULGADAS = 0.0393701;
+            public const string TIPO_MASTER = "Master";
+            public const string TIPO_ROLL = "Rollo Cortado";
+            public const string TIPO_GRAP = "Graphics";
+            public const string TIPO_HOJA = "Hoja";
+
+
+
         }
 
     }
