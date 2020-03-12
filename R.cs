@@ -256,15 +256,18 @@ namespace RitramaAPP
                     public static string SQL_INSERT_HEADER = "INSERT INTO Devoluciones (numero, fecha, customer_id, razon, doc_status) values(@p1, @p2, @p3, @p4, @p5)";
                     public static string SQL_INSERT_ITEMROWS = "INSERT INTO Item_Devol (numero, product_id, cantidad, roll_id, tipo) values(@p1, @p2, @p3, @p4, @p5)";
 
-                    public const string SQL_CHECK_ID_MASTER_DEVOL = "SELECT * FROM MasterInic WHERE (roll_id=@p1 AND product_id=@p2 AND disponible=0)";
+                    public const string SQL_CHECK_ID_MASTER_DEVOL = "SELECT * FROM MasterInic WHERE (roll_id=@p1 AND part_number=@p2 AND disponible=0)";
                     public const string SQL_CHECK_ID_ROLL_DEVOL = "SELECT * FROM  RollsInic WHERE (unique_code=@p1 AND product_id=@p2 AND disponible=0)";
                     public const string SQL_CHECK_ID_GRAPHICS_DEVOL = "SELECT * FROM GraphicsInic WHERE (roll_id=@p1 AND part_number=@p2 AND disponible=0)";
-                    public const string SQL_CHECK_ID_HOJAS_DEVOL = "SELECT * FROM HojasInic WHERE (roll_id=@p1 AND product_id=@p2 AND disponible=0)";
+                    public const string SQL_CHECK_ID_HOJAS_DEVOL = "SELECT * FROM HojasInic WHERE (roll_id=@p1 AND part_number=@p2 AND disponible=0)";
 
                     public const string SQL_UPDATE_INVENTORY_MASTER_DEVOL = "UPDATE MasterInic SET disponible=@p2 WHERE (roll_id=@p1)";
                     public const string SQL_UPDATE_INVENTORY_ROLL_DEVOL = "UPDATE RollsInic SET disponible=@p2 WHERE (unique_code=@p1)";
                     public const string SQL_UPDATE_INVENTORY_GRAPHICS_DEVOL = "UPDATE GraphicsInic SET disponible=@p2 WHERE (roll_id=@p1)";
                     public const string SQL_UPDATE_INVENTORY_HOJAS_DEVOL = "UPDATE HojasInic SET disponible=@p2 WHERE (roll_id=@p1)";
+
+                    public const string SQL_ANULAR_DOCUMENTO_DEVOL = "UPDATE devoluciones SET doc_status=1 WHERE (numero=@p1)";
+
                 }
             }
         }
@@ -281,10 +284,7 @@ namespace RitramaAPP
                 public static string MESSAGE_SELECT_DEV_ERROR_ITEMROWS = "Error al cargar los items de la tabla de renglones de devoluciones.";
                 public static string MESSAGE_ERROR_INSERT_HEADER = "Error al insertar registro en el Encabezado de la devolucion a clientes.";
                 public static string MESSAGE_ERROR_INSERT_ITEMROWS = "Error al insertar registro en el Detalle de la devolucion a clientes.";
-
-
-
-
+                public static string MESSAGE_ERROR_ANULAR_DOC = "Error al tratar de anular documentos de devoluciones de clientes.";
             }
             public class INVENTARIO
             {
@@ -388,7 +388,7 @@ namespace RitramaAPP
             public const string TIPO_MASTER = "Master";
             public const string TIPO_ROLL = "Rollo Cortado";
             public const string TIPO_GRAP = "Graphics";
-            public const string TIPO_HOJA = "Hoja";
+            public const string TIPO_HOJA = "Hojas";
 
 
 

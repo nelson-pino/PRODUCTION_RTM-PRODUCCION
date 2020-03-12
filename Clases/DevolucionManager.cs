@@ -136,6 +136,110 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public Boolean CommandSqlGenericTwoParameter(string db, string query, string id, string product_id, Boolean msg, string messagerror)
+        {
+            // Ejecuta comando sql query y no devuleve ni valor ni datos.
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter();
+                DataTable dt = new DataTable();
+                micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                SqlParameter p1 = new SqlParameter("@p1", id);
+                SqlParameter p2 = new SqlParameter("@p2", product_id);
+                comando.Parameters.Add(@p1);
+                comando.Parameters.Add(@p2);
+                da.SelectCommand = comando;
+                comando.ExecuteNonQuery();
+                da.Fill(dt);
+
+                comando.Dispose();
+                micomm.Desconectar();
+                if (msg)
+                {
+                    MessageBox.Show("proceso realizado con exito...");
+                }
+                if (dt.Rows.Count == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(messagerror + ex);
+                return false;
+            }
+        }
+        public Boolean SqlGenericTwoParamOnlyUpdate(string db, string query, string id, bool status, Boolean msg, string messagerror)
+        {
+            // Ejecuta comando sql query y no devuleve ni valor ni datos.
+            try
+            {
+                micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                SqlParameter p1 = new SqlParameter("@p1", id);
+                SqlParameter p2 = new SqlParameter("@p2", status);
+                comando.Parameters.Add(@p1);
+                comando.Parameters.Add(@p2);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                micomm.Desconectar();
+                if (msg)
+                {
+                    MessageBox.Show("proceso realizado con exito...");
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(messagerror + ex);
+                return false;
+            }
+        }
+        public Boolean CommandSqlGenericOneParameter(string db, string query, string par, Boolean msg, string messagerror)
+        {
+            // Ejecuta comando sql query y no devuleve ni valor ni datos.
+            try
+            {
+                micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                SqlParameter p1 = new SqlParameter("@p1", par);
+                comando.Parameters.Add(@p1);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                micomm.Desconectar();
+                if (msg)
+                {
+                    MessageBox.Show("proceso realizado con exito...");
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(messagerror + ex);
+                return false;
+            }
+        }
         public DataTable GetCustomers() 
         {
 			DataTable dt = new DataTable();
@@ -244,50 +348,6 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public Boolean CommandSqlGenericTwoParameter(string db, string query, string id, string product_id, Boolean msg, string messagerror)
-        {
-            // Ejecuta comando sql query y no devuleve ni valor ni datos.
-            try
-            {
-                SqlDataAdapter da = new SqlDataAdapter();
-                DataTable dt = new DataTable();
-                micomm.Conectar(db);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = query
-                };
-                SqlParameter p1 = new SqlParameter("@p1", id);
-                SqlParameter p2 = new SqlParameter("@p2", product_id);
-                comando.Parameters.Add(@p1);
-                comando.Parameters.Add(@p2);
-                da.SelectCommand = comando;
-                comando.ExecuteNonQuery();
-                da.Fill(dt);
-                
-                comando.Dispose();
-                micomm.Desconectar();
-                if (msg)
-                {
-                    MessageBox.Show("proceso realizado con exito...");
-                }
-                if (dt.Rows.Count == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(messagerror + ex);
-                return false;
-            }
-        }
         public bool CheckStatusDespachoID(string id, int tipo_product, string product_id) 
         {
             switch (tipo_product)
@@ -310,37 +370,6 @@ namespace RitramaAPP.Clases
                         R.SQL.QUERY_SQL.DEVOLUCION.SQL_CHECK_ID_HOJAS_DEVOL, id, product_id, false, "");
                 default:
                     return false;
-            }
-        }
-        public Boolean SqlGenericTwoParamOnlyUpdate(string db, string query, string id, bool status, Boolean msg, string messagerror)
-        {
-            // Ejecuta comando sql query y no devuleve ni valor ni datos.
-            try
-            {
-                micomm.Conectar(db);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = query
-                };
-                SqlParameter p1 = new SqlParameter("@p1", id);
-                SqlParameter p2 = new SqlParameter("@p2", status);
-                comando.Parameters.Add(@p1);
-                comando.Parameters.Add(@p2);
-                comando.ExecuteNonQuery();
-                comando.Dispose();
-                micomm.Desconectar();
-                if (msg)
-                {
-                    MessageBox.Show("proceso realizado con exito...");
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(messagerror + ex);
-                return false;
             }
         }
         public void UpdateDataInventory(string id, int tipo_product, bool status) 
@@ -368,6 +397,22 @@ namespace RitramaAPP.Clases
                     R.SQL.QUERY_SQL.DEVOLUCION.SQL_UPDATE_INVENTORY_HOJAS_DEVOL, id, status, false, "");
                     break;
             }
+        }
+        public bool DisableDocument(string numero) 
+        {
+            try
+            {
+                CommandSqlGenericOneParameter(R.DATABASES.RITRAMA,
+                R.SQL.QUERY_SQL.DEVOLUCION.SQL_ANULAR_DOCUMENTO_DEVOL, numero, false, "");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(R.ERROR_MESSAGES.DEVOLUCIONES.
+                    MESSAGE_ERROR_ANULAR_DOC + ex.ToString());
+                return false;
+            }
+            
         }
     }
 }

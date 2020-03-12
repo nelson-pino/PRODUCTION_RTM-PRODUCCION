@@ -36,6 +36,7 @@
             TXT_IDCUST.DataBindings.Add("text", bs, "customer_id");
             TXT_CUSTOMER_NAME.DataBindings.Add("text", bs, "customer_name");
             TXT_RAZON_DEVOL.DataBindings.Add("text", bs, "razon");
+            RA_DOCUMENT_STATUS.DataBindings.Add("Checked", bs, "doc_status");
             bsItemRows.DataSource = bs;
             bsItemRows.DataMember = "FK_MASTER_DETAILS";
             GridDevol.DataSource = bsItemRows;
@@ -74,12 +75,14 @@
             //MenuOptions
             OptionMenu(0);
             OptionForm(0);
+            RA_DOCUMENT_STATUS.DataBindings.Clear();
             //abrir un documento de devolucion.
             Consec = Convert.ToInt32(config.GetParameterControl("CONSEC_DEV")) + 1;
             ParentRow = (DataRowView)bs.AddNew();
             ParentRow.BeginEdit();
             ParentRow["numero"] = Convert.ToString(Consec);
             ParentRow["fecha"] = DateTime.Today;
+            ParentRow["doc_status"] = false;
             ParentRow.EndEdit();
             TXT_NUMERO.Focus();
             AgregarRenglon();
@@ -157,6 +160,7 @@
                 return;
             }
             Save();
+            RA_DOCUMENT_STATUS.DataBindings.Add("Checked", bs, "doc_status");
             EditMode = 0;
         }
         private void Save()
@@ -164,18 +168,18 @@
             manager.Add(CreateObjectDevolucion(),false);
             config.SetParametersControl(Consec.ToString(), "CONSEC_DEV");
             //actualiza los inventarios.
-            UpdateInventory();
+            UpdateInventory(true);
             OptionMenu(1);
             OptionForm(1);
         }
 
-        private void UpdateInventory()
+        private void UpdateInventory(bool st)
         {
             for (int i=0; i <= GridDevol.Rows.Count-1; i++)
             {
                 string tipo = GridDevol.Rows[i].Cells["tipo"].Value.ToString();
                 string id = GridDevol.Rows[i].Cells["roll_id"].Value.ToString();
-                bool status = true;
+                bool status = st;
                 switch (tipo)
                 {
                     case R.CONSTANTES.TIPO_MASTER:
@@ -260,6 +264,7 @@
             bs.Position = bs.Count - 1;
             OptionMenu(1);
             OptionForm(1);
+            RA_DOCUMENT_STATUS.DataBindings.Add("Checked", bs, "doc_status");
             EditMode = 0;
         }
         private void OptionMenu(int state) 
@@ -274,7 +279,8 @@
                     bot_siguiente.Enabled = false;
                     bot_primero.Enabled = false;
                     bot_ultimo.Enabled = false;
-                    bot_buscar.Enabled = false;
+                    Bot_Anular.Enabled = false;
+                    //bot_buscar.Enabled = false;
                     bot_nuevo.Enabled = false;
                     break;
                 case 1:
@@ -285,8 +291,9 @@
                     bot_siguiente.Enabled = true;
                     bot_primero.Enabled = true;
                     bot_ultimo.Enabled = true;
-                    bot_buscar.Enabled = true;
+                    //bot_buscar.Enabled = true;
                     bot_nuevo.Enabled = true;
+                    Bot_Anular.Enabled = true;
                     break;
             }
         }
@@ -382,6 +389,29 @@
                 }
             }
         }
+
+        private void Bot_Anular_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Esta seguro de Anular este documento (S/N)?",
+               "Advertencia", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    //actualizar la base de datos.
+                    manager.DisableDocument(TXT_NUMERO.Text);
+                    //actualizar la interfaz grafica.
+                    ParentRow = (DataRowView)bs.Current;
+                    ParentRow.BeginEdit();
+                    ParentRow["doc_status"] = true;
+                    ParentRow.EndEdit();
+                    //actualizar los inventarios
+                    UpdateInventory(false);
+                    break;
+                case DialogResult.No:
+                    break;
+            }
+        }
+
         private bool CheckDataID(string id, string tipo_product, string product_id)
         {
             //devulve verdadero si lo puedo devolver false si no se puede devolver.

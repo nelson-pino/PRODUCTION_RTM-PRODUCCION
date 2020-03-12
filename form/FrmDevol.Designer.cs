@@ -39,7 +39,6 @@
             this.bot_nuevo = new System.Windows.Forms.ToolStripButton();
             this.bot_cancelar = new System.Windows.Forms.ToolStripButton();
             this.bot_grabar = new System.Windows.Forms.ToolStripButton();
-            this.bot_buscar = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.TXT_NUMERO = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,6 +57,7 @@
             this.REGISTER_COUNT = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.Bot_Anular = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolsbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridDevol)).BeginInit();
@@ -98,7 +98,7 @@
             this.bot_nuevo,
             this.bot_cancelar,
             this.bot_grabar,
-            this.bot_buscar});
+            this.Bot_Anular});
             this.toolsbar.Location = new System.Drawing.Point(0, 82);
             this.toolsbar.Name = "toolsbar";
             this.toolsbar.Size = new System.Drawing.Size(800, 27);
@@ -176,16 +176,6 @@
             this.bot_grabar.Size = new System.Drawing.Size(80, 24);
             this.bot_grabar.Text = "Grabar";
             this.bot_grabar.Click += new System.EventHandler(this.Bot_grabar_Click);
-            // 
-            // bot_buscar
-            // 
-            this.bot_buscar.AutoSize = false;
-            this.bot_buscar.Image = ((System.Drawing.Image)(resources.GetObject("bot_buscar.Image")));
-            this.bot_buscar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bot_buscar.Name = "bot_buscar";
-            this.bot_buscar.Size = new System.Drawing.Size(80, 24);
-            this.bot_buscar.Text = "Buscar";
-            this.bot_buscar.Click += new System.EventHandler(this.Bot_buscar_Click);
             // 
             // label1
             // 
@@ -380,6 +370,15 @@
             this.label6.TabIndex = 55;
             this.label6.Text = "Detalle de Devolución";
             // 
+            // Bot_Anular
+            // 
+            this.Bot_Anular.Image = ((System.Drawing.Image)(resources.GetObject("Bot_Anular.Image")));
+            this.Bot_Anular.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Bot_Anular.Name = "Bot_Anular";
+            this.Bot_Anular.Size = new System.Drawing.Size(66, 24);
+            this.Bot_Anular.Text = "Anular";
+            this.Bot_Anular.Click += new System.EventHandler(this.Bot_Anular_Click);
+            // 
             // FrmDevol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -422,7 +421,6 @@
         private System.Windows.Forms.ToolStripButton bot_nuevo;
         private System.Windows.Forms.ToolStripButton bot_cancelar;
         private System.Windows.Forms.ToolStripButton bot_grabar;
-        private System.Windows.Forms.ToolStripButton bot_buscar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TXT_NUMERO;
         private System.Windows.Forms.Label label2;
@@ -441,5 +439,6 @@
         private System.Windows.Forms.Label REGISTER_COUNT;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ToolStripButton Bot_Anular;
     }
 }
