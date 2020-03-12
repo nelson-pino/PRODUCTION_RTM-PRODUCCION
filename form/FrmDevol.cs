@@ -392,6 +392,12 @@
 
         private void Bot_Anular_Click(object sender, EventArgs e)
         {
+            if (RA_DOCUMENT_STATUS.Checked) 
+            {
+                MessageBox.Show("Este Documento ya esta anulado...");
+                return;
+            }
+
             DialogResult dr = MessageBox.Show("Esta seguro de Anular este documento (S/N)?",
                "Advertencia", MessageBoxButtons.YesNo);
             switch (dr)
