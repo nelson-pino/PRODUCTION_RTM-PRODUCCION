@@ -53,7 +53,7 @@ namespace RitramaAPP
             AGREGAR_COLUMN_GRID("width", 70, "Width [Pulg.]", "width", GridItemsMaster);
             AGREGAR_COLUMN_GRID("lenght", 70, "Lenght [Pulg.]", "lenght", GridItemsMaster);
             AGREGAR_COLUMN_GRID("lenght_p", 70, "L. Restan [Pulg.]", "lenght_p", GridItemsMaster);
-            AGREGAR_COLUMN_GRID("lenght_c", 70, "Consumos PArciales", "lenght_c", GridItemsMaster);
+            AGREGAR_COLUMN_GRID("lenght_c", 70, "Consumos Parciales", "lenght_c", GridItemsMaster);
             AGREGAR_COLUMN_GRID("width_metros", 70, "Width [Mts.]", "width_metros", GridItemsMaster);
             AGREGAR_COLUMN_GRID("lenght_metros", 70, "Lenght [Mts.]", "lenght_metros", GridItemsMaster);
             AGREGAR_COLUMN_GRID("splice", 70, "# Empalmes", "splice", GridItemsMaster);
@@ -279,6 +279,11 @@ namespace RitramaAPP
                 DvRolls.RowFilter = "";
                 RECORD_FOUND_GRA.Text = "0 ENCONTRADOS.";
             }
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

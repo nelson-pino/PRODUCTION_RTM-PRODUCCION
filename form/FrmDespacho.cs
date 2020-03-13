@@ -26,6 +26,7 @@ namespace RitramaAPP.form
         readonly decimal PORC_ITBIS = 18;
         ClassDespacho despacho;
         readonly List<Roll_Details> listarc = new List<Roll_Details>();
+        List<Paleta> ListPalet = new List<Paleta>();
         private void FrmDespacho_Load(object sender, EventArgs e)
         {
             AplicarEstilosGrid();
@@ -375,6 +376,11 @@ namespace RitramaAPP.form
                     grid_items.Enabled = true;
                     grid_items.ReadOnly = false;
                     grid_items.Columns["total_renglon"].ReadOnly = true;
+                    grid_paleta.ReadOnly = false;
+                    grid_paleta.Columns[0].ReadOnly = true;
+                    //abrir el detalle de paleta.
+                    bot_addpalet.Enabled = true;
+                    bot_deletepalet.Enabled = true;
                     break;
                 case 1:
                     // cerrar el formulario para no permitir mas cambio y colocarlo en modo readonly.
@@ -774,6 +780,20 @@ namespace RitramaAPP.form
             AGREGAR_COLUMN_GRID("tipo_mov", 25, "tipo_mov", "tipo_mov", grid_UniqueCode);
             grid_items.Columns["action"].Visible = false;
             grid_UniqueCode.Columns["action"].Visible = false;
+            //GRID PALETA
+            grid_paleta.AutoGenerateColumns = false;
+            AGREGAR_COLUMN_GRID("number_palet", 40, "# Paleta", "number_palet", grid_paleta);
+            AGREGAR_COLUMN_GRID("medida", 60, "Medida", "medida", grid_paleta);
+            AGREGAR_COLUMN_GRID("contenido", 170, "Contenido", "contenido", grid_paleta);
+            DataGridViewButtonColumn contectCol = new DataGridViewButtonColumn
+            {
+                Name = "content",
+                Width = 20,
+                HeaderText = "..."
+            };
+            grid_paleta.Columns.Add(contectCol);
+            AGREGAR_COLUMN_GRID("Kilos_netos", 50, "Kilos Netos", "kilo_neto", grid_paleta);
+            AGREGAR_COLUMN_GRID("Kilos_brutos", 50, "Kilos Brutos", "kilo_bruto", grid_paleta);
         }
         #endregion
         #region BOTONES_BUSQUEDA_MENU
@@ -913,31 +933,7 @@ namespace RitramaAPP.form
         {
             FrmReportViewCrystal frmReportView = new FrmReportViewCrystal();
             ReportDocument reporte = new ReportDocument();
-            //TableLogOnInfos crtablelogoninfos = new TableLogOnInfos();
-            //TableLogOnInfo crtablelogoninfo = new TableLogOnInfo();
-
             reporte.Load(Application.StartupPath + @"\Reports\ConduceConPrecio.rpt");
-            //reporte.SetParameterValue("NUMERO", txt_numero_despacho.Text.Trim());
-
-            //Tables CrTables;
-            //CrTables = reporte.Database.Tables;
-
-            //ConnectionInfo ConexInfo = new ConnectionInfo
-            //{
-            //    ServerName = R.SERVERS.SERVER_RITRAMA,
-            //    DatabaseName = R.DATABASES.RITRAMA,
-            //    UserID = R.USERS.UserMaster,
-            //    Password = R.USERS.KeyMaster
-            //};
-
-            //foreach (Table table in CrTables)
-            //{
-            //    crtablelogoninfo = table.LogOnInfo;
-            //    crtablelogoninfo.ConnectionInfo = ConexInfo;
-            //    table.ApplyLogOnInfo(crtablelogoninfo);
-            //}
-
-
             frmReportView.crystalReportViewer1.ReportSource = reporte;
             frmReportView.Refresh();
             frmReportView.crystalReportViewer1.Zoom(80);
@@ -946,12 +942,44 @@ namespace RitramaAPP.form
             frmReportView.Height = 700;
             frmReportView.Refresh();
             frmReportView.ShowDialog();
-
         }
 
         private void BOT_BUSCAR_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void bot_addpalet_Click(object sender, EventArgs e)
+        {
+            grid_paleta.Columns[2].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            grid_paleta.Rows[0].Cells[2].Value = "linea 1" + Environment.NewLine + "linea 2" + Environment.NewLine + "linea 3";
+            Paleta item = new Paleta
+            {
+                Number_palet = ListPalet.Count +1
+            };
+            ListPalet.Add(item);
+            grid_paleta.DataSource = null;
+            grid_paleta.DataSource = ListPalet;
+            if (ListPalet.Count > 0)
+            {
+                bot_deletepalet.Enabled = true;
+            }
+            
+        }
+
+        private void grid_paleta_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 3) 
+            {
+                frmContentPalet ContentPalet = new frmContentPalet();
+                if (!string.IsNullOrEmpty(ContentPalet.ContentText) &&
+                    !string.IsNullOrEmpty(grid_paleta.Rows[e.RowIndex].Cells[2].Value.ToString())) 
+                {
+                    ContentPalet.ContentText = grid_paleta.Rows[e.RowIndex].Cells[2].Value.ToString();
+                }
+                ContentPalet.ShowDialog();
+                grid_paleta.Rows[e.RowIndex].Cells[2].Value = ContentPalet.ContentText;
+            }
         }
 
         private void Grid_items_CellContentClick(object sender, DataGridViewCellEventArgs e)

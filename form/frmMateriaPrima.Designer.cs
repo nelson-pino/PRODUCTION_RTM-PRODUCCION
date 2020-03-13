@@ -347,7 +347,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(908, 82);
+            this.panel1.Size = new System.Drawing.Size(992, 82);
             this.panel1.TabIndex = 33;
             // 
             // label15
@@ -389,7 +389,7 @@
             this.bot_excel});
             this.toolsbar.Location = new System.Drawing.Point(0, 82);
             this.toolsbar.Name = "toolsbar";
-            this.toolsbar.Size = new System.Drawing.Size(908, 27);
+            this.toolsbar.Size = new System.Drawing.Size(992, 27);
             this.toolsbar.TabIndex = 35;
             this.toolsbar.Text = "toolStrip1";
             this.toolsbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolsbar_ItemClicked);
@@ -844,7 +844,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(908, 609);
+            this.ClientSize = new System.Drawing.Size(992, 609);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.Txt_fecha_recep);
             this.Controls.Add(this.txt_width_metros);

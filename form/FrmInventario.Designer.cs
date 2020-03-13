@@ -158,6 +158,7 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "MASTERS";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // bot_cargar
             // 

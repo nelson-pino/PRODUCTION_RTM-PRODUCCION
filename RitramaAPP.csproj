@@ -106,6 +106,7 @@
     <Compile Include="Clases\ConfigManager.cs" />
     <Compile Include="Clases\CustomerManager.cs" />
     <Compile Include="Clases\Orden_Items.cs" />
+    <Compile Include="Clases\Paleta.cs" />
     <Compile Include="Clases\ProduccionManager.cs" />
     <Compile Include="Clases\ProductsManager.cs" />
     <Compile Include="Clases\RecepcionManager.cs" />
@@ -134,6 +135,12 @@
     </Compile>
     <Compile Include="form\frmBuscarRollid.Designer.cs">
       <DependentUpon>frmBuscarRollid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\frmContentPalet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmContentPalet.Designer.cs">
+      <DependentUpon>frmContentPalet.cs</DependentUpon>
     </Compile>
     <Compile Include="form\FrmDespacho.cs">
       <SubType>Form</SubType>
@@ -303,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmBuscarRollid.resx">
       <DependentUpon>frmBuscarRollid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmContentPalet.resx">
+      <DependentUpon>frmContentPalet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\FrmDespacho.resx">
       <DependentUpon>FrmDespacho.cs</DependentUpon>
