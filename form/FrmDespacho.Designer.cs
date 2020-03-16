@@ -64,6 +64,17 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label20 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.BOT_PRIMERO = new System.Windows.Forms.ToolStripButton();
+            this.BOT_ANTERIOR = new System.Windows.Forms.ToolStripButton();
+            this.BOT_SIGUIENTE = new System.Windows.Forms.ToolStripButton();
+            this.BOT_ULTIMO = new System.Windows.Forms.ToolStripButton();
+            this.bot_nuevo = new System.Windows.Forms.ToolStripButton();
+            this.BOT_CANCELAR = new System.Windows.Forms.ToolStripButton();
+            this.BOT_SAVE = new System.Windows.Forms.ToolStripButton();
+            this.bot_modificar = new System.Windows.Forms.ToolStripButton();
+            this.BOT_BUSCAR = new System.Windows.Forms.ToolStripButton();
+            this.BOT_IMPRIMIR = new System.Windows.Forms.ToolStripButton();
+            this.bot_sincro = new System.Windows.Forms.ToolStripButton();
             this.label13 = new System.Windows.Forms.Label();
             this.txt_tipo_embalaje = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -91,20 +102,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.grid_paleta = new System.Windows.Forms.DataGridView();
             this.bot_SavePalet = new System.Windows.Forms.Button();
-            this.BOT_PRIMERO = new System.Windows.Forms.ToolStripButton();
-            this.BOT_ANTERIOR = new System.Windows.Forms.ToolStripButton();
-            this.BOT_SIGUIENTE = new System.Windows.Forms.ToolStripButton();
-            this.BOT_ULTIMO = new System.Windows.Forms.ToolStripButton();
-            this.bot_nuevo = new System.Windows.Forms.ToolStripButton();
-            this.BOT_CANCELAR = new System.Windows.Forms.ToolStripButton();
-            this.BOT_SAVE = new System.Windows.Forms.ToolStripButton();
-            this.bot_modificar = new System.Windows.Forms.ToolStripButton();
-            this.BOT_BUSCAR = new System.Windows.Forms.ToolStripButton();
-            this.BOT_IMPRIMIR = new System.Windows.Forms.ToolStripButton();
-            this.bot_sincro = new System.Windows.Forms.ToolStripButton();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.bot_loadpalet = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_items)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -482,6 +483,109 @@
             this.toolStrip1.TabIndex = 35;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // BOT_PRIMERO
+            // 
+            this.BOT_PRIMERO.Image = ((System.Drawing.Image)(resources.GetObject("BOT_PRIMERO.Image")));
+            this.BOT_PRIMERO.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_PRIMERO.Name = "BOT_PRIMERO";
+            this.BOT_PRIMERO.Size = new System.Drawing.Size(73, 24);
+            this.BOT_PRIMERO.Text = "Primero";
+            this.BOT_PRIMERO.Click += new System.EventHandler(this.BOT_PRIMERO_Click);
+            // 
+            // BOT_ANTERIOR
+            // 
+            this.BOT_ANTERIOR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_ANTERIOR.Image")));
+            this.BOT_ANTERIOR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_ANTERIOR.Name = "BOT_ANTERIOR";
+            this.BOT_ANTERIOR.Size = new System.Drawing.Size(74, 24);
+            this.BOT_ANTERIOR.Text = "Anterior";
+            this.BOT_ANTERIOR.Click += new System.EventHandler(this.BOT_ANTERIOR_Click);
+            // 
+            // BOT_SIGUIENTE
+            // 
+            this.BOT_SIGUIENTE.Image = ((System.Drawing.Image)(resources.GetObject("BOT_SIGUIENTE.Image")));
+            this.BOT_SIGUIENTE.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_SIGUIENTE.Name = "BOT_SIGUIENTE";
+            this.BOT_SIGUIENTE.Size = new System.Drawing.Size(80, 24);
+            this.BOT_SIGUIENTE.Text = "Siguiente";
+            this.BOT_SIGUIENTE.Click += new System.EventHandler(this.BOT_SIGUIENTE_Click);
+            // 
+            // BOT_ULTIMO
+            // 
+            this.BOT_ULTIMO.Image = ((System.Drawing.Image)(resources.GetObject("BOT_ULTIMO.Image")));
+            this.BOT_ULTIMO.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_ULTIMO.Name = "BOT_ULTIMO";
+            this.BOT_ULTIMO.Size = new System.Drawing.Size(67, 24);
+            this.BOT_ULTIMO.Text = "Ultimo";
+            this.BOT_ULTIMO.Click += new System.EventHandler(this.BOT_ULTIMO_Click);
+            // 
+            // bot_nuevo
+            // 
+            this.bot_nuevo.Image = ((System.Drawing.Image)(resources.GetObject("bot_nuevo.Image")));
+            this.bot_nuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot_nuevo.Name = "bot_nuevo";
+            this.bot_nuevo.Size = new System.Drawing.Size(66, 24);
+            this.bot_nuevo.Text = "Nuevo";
+            this.bot_nuevo.Click += new System.EventHandler(this.Bot_nuevo_Click);
+            // 
+            // BOT_CANCELAR
+            // 
+            this.BOT_CANCELAR.Enabled = false;
+            this.BOT_CANCELAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_CANCELAR.Image")));
+            this.BOT_CANCELAR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_CANCELAR.Name = "BOT_CANCELAR";
+            this.BOT_CANCELAR.Size = new System.Drawing.Size(77, 24);
+            this.BOT_CANCELAR.Text = "Cancelar";
+            this.BOT_CANCELAR.Click += new System.EventHandler(this.BOT_CANCELAR_Click);
+            // 
+            // BOT_SAVE
+            // 
+            this.BOT_SAVE.Enabled = false;
+            this.BOT_SAVE.Image = ((System.Drawing.Image)(resources.GetObject("BOT_SAVE.Image")));
+            this.BOT_SAVE.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_SAVE.Name = "BOT_SAVE";
+            this.BOT_SAVE.Size = new System.Drawing.Size(55, 24);
+            this.BOT_SAVE.Text = "Save";
+            this.BOT_SAVE.Click += new System.EventHandler(this.BOT_SAVE_Click);
+            // 
+            // bot_modificar
+            // 
+            this.bot_modificar.AutoSize = false;
+            this.bot_modificar.Image = ((System.Drawing.Image)(resources.GetObject("bot_modificar.Image")));
+            this.bot_modificar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot_modificar.Name = "bot_modificar";
+            this.bot_modificar.Size = new System.Drawing.Size(80, 24);
+            this.bot_modificar.Text = "Modif";
+            // 
+            // BOT_BUSCAR
+            // 
+            this.BOT_BUSCAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_BUSCAR.Image")));
+            this.BOT_BUSCAR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_BUSCAR.Name = "BOT_BUSCAR";
+            this.BOT_BUSCAR.Size = new System.Drawing.Size(66, 24);
+            this.BOT_BUSCAR.Text = "Buscar";
+            this.BOT_BUSCAR.Click += new System.EventHandler(this.BOT_BUSCAR_Click);
+            // 
+            // BOT_IMPRIMIR
+            // 
+            this.BOT_IMPRIMIR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_IMPRIMIR.Image")));
+            this.BOT_IMPRIMIR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_IMPRIMIR.Name = "BOT_IMPRIMIR";
+            this.BOT_IMPRIMIR.Size = new System.Drawing.Size(77, 24);
+            this.BOT_IMPRIMIR.Text = "Imprimir";
+            this.BOT_IMPRIMIR.Click += new System.EventHandler(this.BOT_IMPRIMIR_Click);
+            // 
+            // bot_sincro
+            // 
+            this.bot_sincro.AutoSize = false;
+            this.bot_sincro.Enabled = false;
+            this.bot_sincro.Image = ((System.Drawing.Image)(resources.GetObject("bot_sincro.Image")));
+            this.bot_sincro.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot_sincro.Name = "bot_sincro";
+            this.bot_sincro.Size = new System.Drawing.Size(80, 24);
+            this.bot_sincro.Text = "Sincro";
+            this.bot_sincro.Click += new System.EventHandler(this.Bot_sincro_Click);
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -704,18 +808,18 @@
             // bot_addpalet
             // 
             this.bot_addpalet.Enabled = false;
-            this.bot_addpalet.Location = new System.Drawing.Point(449, 486);
+            this.bot_addpalet.Location = new System.Drawing.Point(509, 486);
             this.bot_addpalet.Name = "bot_addpalet";
             this.bot_addpalet.Size = new System.Drawing.Size(47, 23);
             this.bot_addpalet.TabIndex = 61;
             this.bot_addpalet.Text = "Add";
             this.bot_addpalet.UseVisualStyleBackColor = true;
-            this.bot_addpalet.Click += new System.EventHandler(this.bot_addpalet_Click);
+            this.bot_addpalet.Click += new System.EventHandler(this.Bot_addpalet_Click);
             // 
             // bot_deletepalet
             // 
             this.bot_deletepalet.Enabled = false;
-            this.bot_deletepalet.Location = new System.Drawing.Point(449, 515);
+            this.bot_deletepalet.Location = new System.Drawing.Point(509, 515);
             this.bot_deletepalet.Name = "bot_deletepalet";
             this.bot_deletepalet.Size = new System.Drawing.Size(47, 23);
             this.bot_deletepalet.TabIndex = 62;
@@ -735,126 +839,32 @@
             // 
             // grid_paleta
             // 
+            this.grid_paleta.AllowUserToAddRows = false;
+            this.grid_paleta.AllowUserToDeleteRows = false;
+            this.grid_paleta.AllowUserToOrderColumns = true;
+            this.grid_paleta.AllowUserToResizeColumns = false;
+            this.grid_paleta.AllowUserToResizeRows = false;
+            this.grid_paleta.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.grid_paleta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_paleta.Location = new System.Drawing.Point(12, 486);
             this.grid_paleta.Name = "grid_paleta";
+            this.grid_paleta.ReadOnly = true;
+            this.grid_paleta.RowHeadersVisible = false;
             this.grid_paleta.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.grid_paleta.Size = new System.Drawing.Size(431, 116);
+            this.grid_paleta.Size = new System.Drawing.Size(492, 116);
             this.grid_paleta.TabIndex = 64;
-            this.grid_paleta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_paleta_CellContentClick);
+            this.grid_paleta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_paleta_CellContentClick);
             // 
             // bot_SavePalet
             // 
             this.bot_SavePalet.Enabled = false;
-            this.bot_SavePalet.Location = new System.Drawing.Point(450, 544);
+            this.bot_SavePalet.Location = new System.Drawing.Point(510, 544);
             this.bot_SavePalet.Name = "bot_SavePalet";
             this.bot_SavePalet.Size = new System.Drawing.Size(47, 23);
             this.bot_SavePalet.TabIndex = 65;
             this.bot_SavePalet.Text = "Guardar";
             this.bot_SavePalet.UseVisualStyleBackColor = true;
-            // 
-            // BOT_PRIMERO
-            // 
-            this.BOT_PRIMERO.Image = ((System.Drawing.Image)(resources.GetObject("BOT_PRIMERO.Image")));
-            this.BOT_PRIMERO.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_PRIMERO.Name = "BOT_PRIMERO";
-            this.BOT_PRIMERO.Size = new System.Drawing.Size(73, 24);
-            this.BOT_PRIMERO.Text = "Primero";
-            this.BOT_PRIMERO.Click += new System.EventHandler(this.BOT_PRIMERO_Click);
-            // 
-            // BOT_ANTERIOR
-            // 
-            this.BOT_ANTERIOR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_ANTERIOR.Image")));
-            this.BOT_ANTERIOR.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_ANTERIOR.Name = "BOT_ANTERIOR";
-            this.BOT_ANTERIOR.Size = new System.Drawing.Size(74, 24);
-            this.BOT_ANTERIOR.Text = "Anterior";
-            this.BOT_ANTERIOR.Click += new System.EventHandler(this.BOT_ANTERIOR_Click);
-            // 
-            // BOT_SIGUIENTE
-            // 
-            this.BOT_SIGUIENTE.Image = ((System.Drawing.Image)(resources.GetObject("BOT_SIGUIENTE.Image")));
-            this.BOT_SIGUIENTE.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_SIGUIENTE.Name = "BOT_SIGUIENTE";
-            this.BOT_SIGUIENTE.Size = new System.Drawing.Size(80, 24);
-            this.BOT_SIGUIENTE.Text = "Siguiente";
-            this.BOT_SIGUIENTE.Click += new System.EventHandler(this.BOT_SIGUIENTE_Click);
-            // 
-            // BOT_ULTIMO
-            // 
-            this.BOT_ULTIMO.Image = ((System.Drawing.Image)(resources.GetObject("BOT_ULTIMO.Image")));
-            this.BOT_ULTIMO.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_ULTIMO.Name = "BOT_ULTIMO";
-            this.BOT_ULTIMO.Size = new System.Drawing.Size(67, 24);
-            this.BOT_ULTIMO.Text = "Ultimo";
-            this.BOT_ULTIMO.Click += new System.EventHandler(this.BOT_ULTIMO_Click);
-            // 
-            // bot_nuevo
-            // 
-            this.bot_nuevo.Image = ((System.Drawing.Image)(resources.GetObject("bot_nuevo.Image")));
-            this.bot_nuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bot_nuevo.Name = "bot_nuevo";
-            this.bot_nuevo.Size = new System.Drawing.Size(66, 24);
-            this.bot_nuevo.Text = "Nuevo";
-            this.bot_nuevo.Click += new System.EventHandler(this.Bot_nuevo_Click);
-            // 
-            // BOT_CANCELAR
-            // 
-            this.BOT_CANCELAR.Enabled = false;
-            this.BOT_CANCELAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_CANCELAR.Image")));
-            this.BOT_CANCELAR.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_CANCELAR.Name = "BOT_CANCELAR";
-            this.BOT_CANCELAR.Size = new System.Drawing.Size(77, 24);
-            this.BOT_CANCELAR.Text = "Cancelar";
-            this.BOT_CANCELAR.Click += new System.EventHandler(this.BOT_CANCELAR_Click);
-            // 
-            // BOT_SAVE
-            // 
-            this.BOT_SAVE.Enabled = false;
-            this.BOT_SAVE.Image = ((System.Drawing.Image)(resources.GetObject("BOT_SAVE.Image")));
-            this.BOT_SAVE.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_SAVE.Name = "BOT_SAVE";
-            this.BOT_SAVE.Size = new System.Drawing.Size(55, 24);
-            this.BOT_SAVE.Text = "Save";
-            this.BOT_SAVE.Click += new System.EventHandler(this.BOT_SAVE_Click);
-            // 
-            // bot_modificar
-            // 
-            this.bot_modificar.AutoSize = false;
-            this.bot_modificar.Image = ((System.Drawing.Image)(resources.GetObject("bot_modificar.Image")));
-            this.bot_modificar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bot_modificar.Name = "bot_modificar";
-            this.bot_modificar.Size = new System.Drawing.Size(80, 24);
-            this.bot_modificar.Text = "Modif";
-            // 
-            // BOT_BUSCAR
-            // 
-            this.BOT_BUSCAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_BUSCAR.Image")));
-            this.BOT_BUSCAR.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_BUSCAR.Name = "BOT_BUSCAR";
-            this.BOT_BUSCAR.Size = new System.Drawing.Size(66, 24);
-            this.BOT_BUSCAR.Text = "Buscar";
-            this.BOT_BUSCAR.Click += new System.EventHandler(this.BOT_BUSCAR_Click);
-            // 
-            // BOT_IMPRIMIR
-            // 
-            this.BOT_IMPRIMIR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_IMPRIMIR.Image")));
-            this.BOT_IMPRIMIR.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_IMPRIMIR.Name = "BOT_IMPRIMIR";
-            this.BOT_IMPRIMIR.Size = new System.Drawing.Size(77, 24);
-            this.BOT_IMPRIMIR.Text = "Imprimir";
-            this.BOT_IMPRIMIR.Click += new System.EventHandler(this.BOT_IMPRIMIR_Click);
-            // 
-            // bot_sincro
-            // 
-            this.bot_sincro.AutoSize = false;
-            this.bot_sincro.Enabled = false;
-            this.bot_sincro.Image = ((System.Drawing.Image)(resources.GetObject("bot_sincro.Image")));
-            this.bot_sincro.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bot_sincro.Name = "bot_sincro";
-            this.bot_sincro.Size = new System.Drawing.Size(80, 24);
-            this.bot_sincro.Text = "Sincro";
-            this.bot_sincro.Click += new System.EventHandler(this.Bot_sincro_Click);
+            this.bot_SavePalet.Click += new System.EventHandler(this.Bot_SavePalet_Click);
             // 
             // label21
             // 
@@ -882,12 +892,23 @@
             this.label23.TabIndex = 68;
             this.label23.Text = "Total2";
             // 
+            // bot_loadpalet
+            // 
+            this.bot_loadpalet.Location = new System.Drawing.Point(510, 573);
+            this.bot_loadpalet.Name = "bot_loadpalet";
+            this.bot_loadpalet.Size = new System.Drawing.Size(47, 23);
+            this.bot_loadpalet.TabIndex = 69;
+            this.bot_loadpalet.Text = "Load";
+            this.bot_loadpalet.UseVisualStyleBackColor = true;
+            this.bot_loadpalet.Click += new System.EventHandler(this.Bot_loadpalet_Click);
+            // 
             // FrmDespacho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(925, 632);
+            this.Controls.Add(this.bot_loadpalet);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
@@ -1046,5 +1067,6 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Button bot_loadpalet;
     }
 }

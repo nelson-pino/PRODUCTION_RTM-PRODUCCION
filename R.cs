@@ -221,13 +221,13 @@ namespace RitramaAPP
                     public static string SQL_UPDATE_UNIQUE_CODE_FALSE = "UPDATE rolls_details SET disponible=0 WHERE unique_code=@p1";
                     public static string SQL_UPDATE_GRAPHICS_MOV_DISPOFALSE = "UPDATE OrdenRecepcion SET disponible=0 WHERE roll_id=@p1";
                     public static string SQL_UPDATE_GRAPHICS_INI_DISPOFALSE = "UPDATE GraphicsInic SET disponible=0 WHERE roll_id=@p1";
-
                     public static string SQL_UPDATE_UNIQUE_CODE_FALSE_INITIAL = "UPDATE RollsInic SET disponible=0 WHERE unique_code=@p1";
                     public static string SQL_UPDATE_INVENTORY_HOJAS_MOVIM_COMPLETE = "UPDATE OrdenRecepcion SET disponible=0,paletpag_c=palet_pag WHERE roll_id=@p1 and resma=1";
                     public static string SQL_UPDATE_INVENTORY_HOJAS_COMPLETE_INITIAL = "UPDATE HojasInic SET disponible=0,paletpag_c=palet_pag WHERE roll_id=@p1 and resma=1";
                     public static string SQL_UPDATE_INVENTORY_HOJAS_MOVIM_PARCIAL = "UPDATE OrdenRecepcion SET paletpag_c=paletpag_c+@p2 WHERE roll_id=@p1 and resma=1";
                     public static string SQL_UPDATE_INVENTORY_HOJAS_PARCIAL_INITIAL = "UPDATE HojasInic SET paletpag_c=paletpag_c+@p2 WHERE roll_id=@p1 and resma=1";
-
+                    public const string SQL_INSERT_DATA_PALET_DESPACHO = "INSERT INTO Paleta (numero,number_palet,medida,contenido,kilo_neto,kilo_bruto) VALUES(@p1, @p2, @p3, @p4, @p5, @p6)";
+                    public const string SQL_SELECT_DATA_PALET_DESPACHO = "SELECT number_palet,medida,contenido,kilo_neto,kilo_bruto FROM Paleta WHERE numero=@p1";
                 }
                 public class INVENTARIO
                 {
@@ -360,7 +360,9 @@ namespace RitramaAPP
                 public static string MESSAGE_SELECT_UNIQUECODE_DETAILS_DESPACHOS = "Error al tratar de traer la data ";
                 public static string MESSAGE_UPDATE_UNIQUECODE_DISPOFALSE = "Ha ocurrido un error al tratar de actualizar los unique code para el inventario.";
                 public static string MESSAGE_UPDATE_graphics = "Ha ocurrido un error al tratar de actualizar los inventario. tipo de producto graphics.";
-              
+                public static string MESSAGE_SELECT_ADDPALET = "Error al tratar de Agregar los datos de la Paleta.";
+                public static string MESSAGE_SELECT_GETDATAPALET = "Error al traer la informacion del detalle de la paleta.";
+
 
             }
         }

@@ -6,7 +6,6 @@ using System.Windows.Forms;
 
 namespace RitramaAPP.Clases
 {
-
     public class DespachosManager
     {
         readonly Conexion Micomm = new Conexion();
@@ -27,7 +26,6 @@ namespace RitramaAPP.Clases
         readonly DataTable dtitems = new DataTable();
         readonly DataTable dtproducto = new DataTable();
         public DataSet ds = new DataSet();
-
         public DespachosManager()
         {
             GetProducto();
@@ -259,8 +257,6 @@ namespace RitramaAPP.Clases
                     break;
             }
         }
-
-
         public void Add(ClassDespacho datos, Boolean ismessage)
         {
             //ADD HEADER DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
@@ -516,6 +512,79 @@ namespace RitramaAPP.Clases
                 return lista;
             }
         }
+        public Boolean AddPalet(List<Paleta> lista) 
+        {
+            try
+            {
+                foreach (Paleta item in lista) 
+                {
+                    if (!string.IsNullOrEmpty(item.Medida) || !string.IsNullOrEmpty(item.Contenido)) 
+                    {
+                        CommandSqlGeneric(R.DATABASES.RITRAMA, R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_DATA_PALET_DESPACHO,
+                            SetParametersAddDataPalet(item), false, "");
+                    }
+                    
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(R.ERROR_MESSAGES.DESPACHOS.MESSAGE_SELECT_ADDPALET + ex);
+                return false;
+            }
 
+        }
+        public List<SqlParameter> SetParametersAddDataPalet(Paleta datos)
+        {
+          
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = datos.Numero},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = datos.Number_palet},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.NVarChar, Value = datos.Medida},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.Contenido},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.Decimal, Value = datos.Kilo_neto},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = datos.Kilo_bruto},
+            };
+            return sp;
+        }
+        public List<Paleta> GetDataPalet(string conduce) 
+        {
+            List<Paleta> lista = new List<Paleta>();
+            try
+            {
+                Micomm.Conectar(R.SQL.DATABASE.NAME);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_DATA_PALET_DESPACHO
+                };
+                SqlParameter p1 = new SqlParameter("@p1", conduce);
+                comando.Parameters.Add(p1);
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    Paleta rollo = new Paleta
+                    {
+                        Number_palet = reader.GetString(0),
+                        Medida = reader.GetString(1),
+                        Contenido = reader.GetString(2),
+                        Kilo_bruto = reader.GetDecimal(3),
+                        Kilo_neto = reader.GetDecimal(4)
+                    };
+                    lista.Add(rollo);
+                }
+                comando.Dispose();
+                Micomm.Desconectar();
+                return lista;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(R.ERROR_MESSAGES.DESPACHOS.
+                    MESSAGE_SELECT_GETDATAPALET + ex);
+                return lista;
+            }
+        }
     }
 }

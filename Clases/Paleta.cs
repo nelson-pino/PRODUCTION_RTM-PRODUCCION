@@ -2,11 +2,11 @@
 {
     public class Paleta
     {
-        public int Number_palet { get; set; }
+        public string Numero { get; set; }
+        public string Number_palet { get; set; }
         public string Medida { get; set; }
         public string Contenido { get; set; }
-        public string Full_Content { get; set; }
-        public double Kilo_neto { get; set; }
-        public double Kilo_bruto { get; set; }
+        public decimal Kilo_neto { get; set; }
+        public decimal Kilo_bruto { get; set; }
     }
 }

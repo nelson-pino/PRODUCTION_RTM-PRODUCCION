@@ -26,12 +26,12 @@ namespace RitramaAPP.form
         readonly decimal PORC_ITBIS = 18;
         ClassDespacho despacho;
         readonly List<Roll_Details> listarc = new List<Roll_Details>();
-        List<Paleta> ListPalet = new List<Paleta>();
+        readonly List<Paleta> ListPalet = new List<Paleta>();
         private void FrmDespacho_Load(object sender, EventArgs e)
         {
             AplicarEstilosGrid();
             ENLACE_DATOS();
-            LoadDataRC();
+            RefreshFormData();
         }
        
         #region DATOS_PICKING
@@ -381,6 +381,7 @@ namespace RitramaAPP.form
                     //abrir el detalle de paleta.
                     bot_addpalet.Enabled = true;
                     bot_deletepalet.Enabled = true;
+                    bot_SavePalet.Enabled = true;
                     break;
                 case 1:
                     // cerrar el formulario para no permitir mas cambio y colocarlo en modo readonly.
@@ -398,6 +399,7 @@ namespace RitramaAPP.form
                     bot_agregar_renglon.Enabled = false;
                     bot_sincro.Enabled = false;
                     grid_items.Enabled = false;
+                    grid_paleta.Enabled = false;
                     break;
                 case 2:
                     break;
@@ -431,7 +433,7 @@ namespace RitramaAPP.form
                 rowcurrent = (DataRowView)bs.Current;
                 rowcurrent.Row.Delete();
                 bs.EndEdit();
-                ContadorRegistros();
+                RefreshFormData();
                 bs.Position = bs.Count - 1;
                 //activo la funciones del menu
                 OptionsMenu(1);
@@ -510,17 +512,16 @@ namespace RitramaAPP.form
             despachomanager.Add(CrearObjectDespacho(), false);
             // grabar el detalle de los uniques code
             despachomanager.AddRC(listarc, txt_numero_despacho.Text.Trim());
+            despachomanager.AddPalet(ListPalet);
             //grabar el consecutivo en la tabla de parametros.
             config.SetParametersControl(Consec.ToString(), "CONSEC_DP");
             //Actualizar los inventarios
             Actualizarinventarios();
-
             OptionsMenu(1);
             OptionsForm(1);
-
             //BORRO LA LISTA DE ID.
             listarc.Clear();
-
+            ListPalet.Clear();
         }
         private void ToSaveUpdate()
         {
@@ -575,6 +576,7 @@ namespace RitramaAPP.form
             grid_UniqueCode.DataSource = "";
             grid_items.Focus();
             grid_items.Rows[0].Cells[0].Selected = true;
+            grid_paleta.DataSource = "";
         }
         #endregion
         #region IMPRESION
@@ -783,8 +785,8 @@ namespace RitramaAPP.form
             //GRID PALETA
             grid_paleta.AutoGenerateColumns = false;
             AGREGAR_COLUMN_GRID("number_palet", 40, "# Paleta", "number_palet", grid_paleta);
-            AGREGAR_COLUMN_GRID("medida", 60, "Medida", "medida", grid_paleta);
-            AGREGAR_COLUMN_GRID("contenido", 170, "Contenido", "contenido", grid_paleta);
+            AGREGAR_COLUMN_GRID("medida", 50, "Medida", "medida", grid_paleta);
+            AGREGAR_COLUMN_GRID("contenido", 250, "Contenido", "contenido", grid_paleta);
             DataGridViewButtonColumn contectCol = new DataGridViewButtonColumn
             {
                 Name = "content",
@@ -794,6 +796,7 @@ namespace RitramaAPP.form
             grid_paleta.Columns.Add(contectCol);
             AGREGAR_COLUMN_GRID("Kilos_netos", 50, "Kilos Netos", "kilo_neto", grid_paleta);
             AGREGAR_COLUMN_GRID("Kilos_brutos", 50, "Kilos Brutos", "kilo_bruto", grid_paleta);
+            grid_paleta.Columns[2].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
         }
         #endregion
         #region BOTONES_BUSQUEDA_MENU
@@ -854,29 +857,31 @@ namespace RitramaAPP.form
         private void BOT_SIGUIENTE_Click(object sender, EventArgs e)
         {
             bs.Position += 1;
-            ContadorRegistros();
-            LoadDataRC();
+            RefreshFormData();
         }
 
         private void BOT_ANTERIOR_Click(object sender, EventArgs e)
         {
             bs.Position -= 1;
-            ContadorRegistros();
-            LoadDataRC();
+            RefreshFormData();
         }
 
         private void BOT_PRIMERO_Click(object sender, EventArgs e)
         {
             bs.Position = 0;
+            RefreshFormData();
+        }
+        private void RefreshFormData() 
+        {
             ContadorRegistros();
             LoadDataRC();
+            DatosPaleta();
         }
 
         private void BOT_ULTIMO_Click(object sender, EventArgs e)
         {
             bs.Position = bs.Count - 1;
-            ContadorRegistros();
-            LoadDataRC();
+            RefreshFormData();
         }
         #endregion
         #region INTERFACE-GRID
@@ -949,13 +954,16 @@ namespace RitramaAPP.form
 
         }
 
-        private void bot_addpalet_Click(object sender, EventArgs e)
+        private void Bot_addpalet_Click(object sender, EventArgs e)
         {
-            grid_paleta.Columns[2].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            grid_paleta.Rows[0].Cells[2].Value = "linea 1" + Environment.NewLine + "linea 2" + Environment.NewLine + "linea 3";
+            if (!ValidRowPalet())
+            {
+                return;
+            }
             Paleta item = new Paleta
             {
-                Number_palet = ListPalet.Count +1
+                Number_palet = (ListPalet.Count +1).ToString(),
+                Numero = txt_numero_despacho.Text
             };
             ListPalet.Add(item);
             grid_paleta.DataSource = null;
@@ -967,7 +975,7 @@ namespace RitramaAPP.form
             
         }
 
-        private void grid_paleta_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Grid_paleta_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if(e.ColumnIndex == 3) 
             {
@@ -980,6 +988,16 @@ namespace RitramaAPP.form
                 ContentPalet.ShowDialog();
                 grid_paleta.Rows[e.RowIndex].Cells[2].Value = ContentPalet.ContentText;
             }
+        }
+
+        private void Bot_SavePalet_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Bot_loadpalet_Click(object sender, EventArgs e)
+        {
+            grid_paleta.DataSource = despachomanager.GetDataPalet(txt_numero_despacho.Text);
         }
 
         private void Grid_items_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1019,6 +1037,42 @@ namespace RitramaAPP.form
                 }
                 SendKeys.Send("{TAB}");
             }
+        }
+        private void DatosPaleta() 
+        {
+            grid_paleta.DataSource = despachomanager.GetDataPalet(txt_numero_despacho.Text);
+        }
+        private bool ValidRowPalet()
+        {
+            Boolean chk = true;
+            for (int i = 0; i <= grid_paleta.Rows.Count - 1; i++)
+            {
+                if (Convert.ToString(grid_paleta.Rows[i].Cells["medida"].Value) == "")
+                {
+                    MessageBox.Show("Datos de la medida de paleta.?");
+                    chk = false;
+                    break;
+                }
+                if (Convert.ToString(grid_paleta.Rows[i].Cells["contenido"].Value) == "")
+                {
+                    MessageBox.Show("Introduzca el contenido de la paleta.?");
+                    chk = false;
+                    break;
+                }
+                if (Convert.ToDecimal(grid_paleta.Rows[i].Cells["kilos_netos"].Value) <= 0)
+                {
+                    MessageBox.Show("Kilo neto.?");
+                    chk = false;
+                    break;
+                }
+                if (Convert.ToDecimal(grid_paleta.Rows[i].Cells["kilos_brutos"].Value) <= 0)
+                {
+                    MessageBox.Show("Kilo bruto.?");
+                    chk = false;
+                    break;
+                }
+            }
+            return chk;
         }
         #endregion
     }
