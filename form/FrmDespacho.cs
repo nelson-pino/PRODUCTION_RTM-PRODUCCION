@@ -1038,6 +1038,22 @@ namespace RitramaAPP.form
                 SendKeys.Send("{TAB}");
             }
         }
+
+        private void Bot_deletepalet_Click(object sender, EventArgs e)
+        {
+            var itemToRemove = ListPalet.Single(r => r.Number_palet ==
+            Convert.ToString(grid_paleta.Rows[grid_paleta.CurrentRow.Index].Cells["number_palet"].Value));
+            ListPalet.Remove(itemToRemove);
+            int row = 1;
+            foreach (Paleta item in ListPalet)
+            {
+                item.Number_palet = row.ToString();
+                row++;
+            }
+            grid_paleta.DataSource = null;
+            grid_paleta.DataSource = ListPalet;
+        }
+
         private void DatosPaleta() 
         {
             grid_paleta.DataSource = despachomanager.GetDataPalet(txt_numero_despacho.Text);

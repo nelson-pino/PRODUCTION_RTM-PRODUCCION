@@ -825,6 +825,7 @@
             this.bot_deletepalet.TabIndex = 62;
             this.bot_deletepalet.Text = "Delete";
             this.bot_deletepalet.UseVisualStyleBackColor = true;
+            this.bot_deletepalet.Click += new System.EventHandler(this.Bot_deletepalet_Click);
             // 
             // label5
             // 
