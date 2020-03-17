@@ -377,7 +377,7 @@ namespace RitramaAPP
             public static string PATH_REPORTS_FORMAT_CONDUCE = @"\Reports\Format_Despacho.rpt";
             public static string PATH_REPORTS_DETALLE_RC = @"\Reports\detalle_RC.rpt";
             public static string PATH_REPORTS_FORMAT_CONDUCE_SP = @"\Reports\Format_Despacho_sinprecio.rpt";
-
+            public static string PATH_REPORTS_DETALLE_PALETA = @"\Reports\detalle_Paleta.rpt";
         }
         public class CONSTANTES
         {

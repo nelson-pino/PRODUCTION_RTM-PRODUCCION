@@ -95,17 +95,18 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grid_UniqueCode = new System.Windows.Forms.DataGridView();
-            this.chk_print_unique = new System.Windows.Forms.CheckBox();
-            this.chk_without_price = new System.Windows.Forms.CheckBox();
             this.bot_addpalet = new System.Windows.Forms.Button();
             this.bot_deletepalet = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.grid_paleta = new System.Windows.Forms.DataGridView();
-            this.bot_SavePalet = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.bot_loadpalet = new System.Windows.Forms.Button();
+            this.ra_reporte3 = new System.Windows.Forms.RadioButton();
+            this.ra_reporte2 = new System.Windows.Forms.RadioButton();
+            this.ra_reporte4 = new System.Windows.Forms.RadioButton();
+            this.ra_reporte1 = new System.Windows.Forms.RadioButton();
+            this.bot_UpdatePalet = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_items)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -598,7 +599,7 @@
             // 
             // txt_tipo_embalaje
             // 
-            this.txt_tipo_embalaje.Location = new System.Drawing.Point(727, 140);
+            this.txt_tipo_embalaje.Location = new System.Drawing.Point(776, 167);
             this.txt_tipo_embalaje.Margin = new System.Windows.Forms.Padding(2);
             this.txt_tipo_embalaje.Name = "txt_tipo_embalaje";
             this.txt_tipo_embalaje.ReadOnly = true;
@@ -608,7 +609,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(725, 123);
+            this.label14.Location = new System.Drawing.Point(683, 170);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(89, 13);
@@ -617,7 +618,7 @@
             // 
             // txt_otrabajo
             // 
-            this.txt_otrabajo.Location = new System.Drawing.Point(727, 178);
+            this.txt_otrabajo.Location = new System.Drawing.Point(776, 191);
             this.txt_otrabajo.Margin = new System.Windows.Forms.Padding(2);
             this.txt_otrabajo.Name = "txt_otrabajo";
             this.txt_otrabajo.ReadOnly = true;
@@ -627,7 +628,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(725, 162);
+            this.label15.Location = new System.Drawing.Point(682, 194);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(90, 13);
@@ -636,7 +637,7 @@
             // 
             // txt_ocompra
             // 
-            this.txt_ocompra.Location = new System.Drawing.Point(726, 216);
+            this.txt_ocompra.Location = new System.Drawing.Point(775, 215);
             this.txt_ocompra.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ocompra.Name = "txt_ocompra";
             this.txt_ocompra.ReadOnly = true;
@@ -646,7 +647,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(724, 200);
+            this.label16.Location = new System.Drawing.Point(697, 218);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(75, 13);
@@ -706,7 +707,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(616, 534);
+            this.label19.Location = new System.Drawing.Point(615, 535);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(44, 13);
@@ -785,26 +786,6 @@
             this.grid_UniqueCode.Size = new System.Drawing.Size(735, 193);
             this.grid_UniqueCode.TabIndex = 0;
             // 
-            // chk_print_unique
-            // 
-            this.chk_print_unique.AutoSize = true;
-            this.chk_print_unique.Location = new System.Drawing.Point(726, 87);
-            this.chk_print_unique.Name = "chk_print_unique";
-            this.chk_print_unique.Size = new System.Drawing.Size(113, 17);
-            this.chk_print_unique.TabIndex = 58;
-            this.chk_print_unique.Text = "Imprimir detalle RC";
-            this.chk_print_unique.UseVisualStyleBackColor = true;
-            // 
-            // chk_without_price
-            // 
-            this.chk_without_price.AutoSize = true;
-            this.chk_without_price.Location = new System.Drawing.Point(726, 102);
-            this.chk_without_price.Name = "chk_without_price";
-            this.chk_without_price.Size = new System.Drawing.Size(146, 17);
-            this.chk_without_price.TabIndex = 59;
-            this.chk_without_price.Text = "Imprimir reporte sin Precio";
-            this.chk_without_price.UseVisualStyleBackColor = true;
-            // 
             // bot_addpalet
             // 
             this.bot_addpalet.Enabled = false;
@@ -856,17 +837,6 @@
             this.grid_paleta.TabIndex = 64;
             this.grid_paleta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_paleta_CellContentClick);
             // 
-            // bot_SavePalet
-            // 
-            this.bot_SavePalet.Enabled = false;
-            this.bot_SavePalet.Location = new System.Drawing.Point(510, 544);
-            this.bot_SavePalet.Name = "bot_SavePalet";
-            this.bot_SavePalet.Size = new System.Drawing.Size(47, 23);
-            this.bot_SavePalet.TabIndex = 65;
-            this.bot_SavePalet.Text = "Guardar";
-            this.bot_SavePalet.UseVisualStyleBackColor = true;
-            this.bot_SavePalet.Click += new System.EventHandler(this.Bot_SavePalet_Click);
-            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -893,15 +863,60 @@
             this.label23.TabIndex = 68;
             this.label23.Text = "Total2";
             // 
-            // bot_loadpalet
+            // ra_reporte3
             // 
-            this.bot_loadpalet.Location = new System.Drawing.Point(510, 573);
-            this.bot_loadpalet.Name = "bot_loadpalet";
-            this.bot_loadpalet.Size = new System.Drawing.Size(47, 23);
-            this.bot_loadpalet.TabIndex = 69;
-            this.bot_loadpalet.Text = "Load";
-            this.bot_loadpalet.UseVisualStyleBackColor = true;
-            this.bot_loadpalet.Click += new System.EventHandler(this.Bot_loadpalet_Click);
+            this.ra_reporte3.AutoSize = true;
+            this.ra_reporte3.Location = new System.Drawing.Point(686, 116);
+            this.ra_reporte3.Name = "ra_reporte3";
+            this.ra_reporte3.Size = new System.Drawing.Size(112, 17);
+            this.ra_reporte3.TabIndex = 71;
+            this.ra_reporte3.TabStop = true;
+            this.ra_reporte3.Text = "Imprimir detalle RC";
+            this.ra_reporte3.UseVisualStyleBackColor = true;
+            // 
+            // ra_reporte2
+            // 
+            this.ra_reporte2.AutoSize = true;
+            this.ra_reporte2.Location = new System.Drawing.Point(686, 101);
+            this.ra_reporte2.Name = "ra_reporte2";
+            this.ra_reporte2.Size = new System.Drawing.Size(155, 17);
+            this.ra_reporte2.TabIndex = 72;
+            this.ra_reporte2.TabStop = true;
+            this.ra_reporte2.Text = "Imprimir Conduce sin Precio";
+            this.ra_reporte2.UseVisualStyleBackColor = true;
+            // 
+            // ra_reporte4
+            // 
+            this.ra_reporte4.AutoSize = true;
+            this.ra_reporte4.Location = new System.Drawing.Point(686, 131);
+            this.ra_reporte4.Name = "ra_reporte4";
+            this.ra_reporte4.Size = new System.Drawing.Size(144, 17);
+            this.ra_reporte4.TabIndex = 73;
+            this.ra_reporte4.TabStop = true;
+            this.ra_reporte4.Text = "Imprimir Detalle de Paleta";
+            this.ra_reporte4.UseVisualStyleBackColor = true;
+            this.ra_reporte4.CheckedChanged += new System.EventHandler(this.RadioButton3_CheckedChanged);
+            // 
+            // ra_reporte1
+            // 
+            this.ra_reporte1.AutoSize = true;
+            this.ra_reporte1.Location = new System.Drawing.Point(686, 86);
+            this.ra_reporte1.Name = "ra_reporte1";
+            this.ra_reporte1.Size = new System.Drawing.Size(160, 17);
+            this.ra_reporte1.TabIndex = 74;
+            this.ra_reporte1.TabStop = true;
+            this.ra_reporte1.Text = "Imprimir Conduce con Precio";
+            this.ra_reporte1.UseVisualStyleBackColor = true;
+            // 
+            // bot_UpdatePalet
+            // 
+            this.bot_UpdatePalet.Location = new System.Drawing.Point(510, 544);
+            this.bot_UpdatePalet.Name = "bot_UpdatePalet";
+            this.bot_UpdatePalet.Size = new System.Drawing.Size(47, 23);
+            this.bot_UpdatePalet.TabIndex = 75;
+            this.bot_UpdatePalet.Text = "Modif";
+            this.bot_UpdatePalet.UseVisualStyleBackColor = true;
+            this.bot_UpdatePalet.Click += new System.EventHandler(this.bot_UpdatePalet_Click);
             // 
             // FrmDespacho
             // 
@@ -909,17 +924,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(925, 632);
-            this.Controls.Add(this.bot_loadpalet);
+            this.Controls.Add(this.bot_UpdatePalet);
+            this.Controls.Add(this.ra_reporte1);
+            this.Controls.Add(this.ra_reporte4);
+            this.Controls.Add(this.ra_reporte2);
+            this.Controls.Add(this.ra_reporte3);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
-            this.Controls.Add(this.bot_SavePalet);
             this.Controls.Add(this.grid_paleta);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.bot_deletepalet);
             this.Controls.Add(this.bot_addpalet);
-            this.Controls.Add(this.chk_without_price);
-            this.Controls.Add(this.chk_print_unique);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.bot_agregar_renglon);
             this.Controls.Add(this.bot_buscar_clientes);
@@ -1058,16 +1074,17 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView grid_UniqueCode;
-        private System.Windows.Forms.CheckBox chk_print_unique;
-        private System.Windows.Forms.CheckBox chk_without_price;
         private System.Windows.Forms.Button bot_addpalet;
         private System.Windows.Forms.Button bot_deletepalet;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView grid_paleta;
-        private System.Windows.Forms.Button bot_SavePalet;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Button bot_loadpalet;
+        private System.Windows.Forms.RadioButton ra_reporte3;
+        private System.Windows.Forms.RadioButton ra_reporte2;
+        private System.Windows.Forms.RadioButton ra_reporte4;
+        private System.Windows.Forms.RadioButton ra_reporte1;
+        private System.Windows.Forms.Button bot_UpdatePalet;
     }
 }

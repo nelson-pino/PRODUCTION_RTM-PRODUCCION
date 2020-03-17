@@ -15,18 +15,19 @@ namespace RitramaAPP.form
         public FrmDespacho()
         {
             InitializeComponent();
-        }
+        } 
         readonly DespachosManager despachomanager = new DespachosManager();
+        readonly ReportsManager reportManager = new ReportsManager();
         DataSet ds = new DataSet();
         readonly BindingSource bs = new BindingSource();
         readonly ConfigManager config = new ConfigManager();
         readonly BindingSource bsitem = new BindingSource();
         DataRowView ParentRow, ChildRows;
-        int EditMode = 0, Consec = 0;
+        int EditMode = 0, Consec = 0, UpdatePaleta = 0;
         readonly decimal PORC_ITBIS = 18;
         ClassDespacho despacho;
         readonly List<Roll_Details> listarc = new List<Roll_Details>();
-        readonly List<Paleta> ListPalet = new List<Paleta>();
+        List<Paleta> ListPalet = new List<Paleta>();
         private void FrmDespacho_Load(object sender, EventArgs e)
         {
             AplicarEstilosGrid();
@@ -381,7 +382,6 @@ namespace RitramaAPP.form
                     //abrir el detalle de paleta.
                     bot_addpalet.Enabled = true;
                     bot_deletepalet.Enabled = true;
-                    bot_SavePalet.Enabled = true;
                     break;
                 case 1:
                     // cerrar el formulario para no permitir mas cambio y colocarlo en modo readonly.
@@ -583,127 +583,21 @@ namespace RitramaAPP.form
         private void BOT_IMPRIMIR_Click(object sender, EventArgs e)
         {
             //entra al detalle de los Unique Code RC
-            if (chk_print_unique.Checked)
+            if (ra_reporte1.Checked)
             {
-                using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
-                {
-                    
-                    ReportDocument reporte = new ReportDocument();
-                    TableLogOnInfos crtablelogoninfos = new TableLogOnInfos();
-                    TableLogOnInfo crtablelogoninfo = new TableLogOnInfo();
-
-                    reporte.Load(Application.StartupPath + R.PATH_FILES.PATH_REPORTS_DETALLE_RC);
-                    reporte.SetParameterValue("NUMERO", txt_numero_despacho.Text.Trim());
-
-                    Tables CrTables;
-                    CrTables = reporte.Database.Tables;
-
-                    ConnectionInfo ConexInfo = new ConnectionInfo
-                    {
-                        ServerName = R.SERVERS.SERVER_RITRAMA,
-                        DatabaseName = R.DATABASES.RITRAMA,
-                        UserID = R.USERS.UserMaster,
-                        Password = R.USERS.KeyMaster
-                    };
-
-                    foreach (Table table in CrTables)
-                    {
-                        crtablelogoninfo = table.LogOnInfo;
-                        crtablelogoninfo.ConnectionInfo = ConexInfo;
-                        table.ApplyLogOnInfo(crtablelogoninfo);
-                    }
-                    
-                   
-                    frmReportView.crystalReportViewer1.ReportSource = reporte;
-                    frmReportView.Refresh();
-                    frmReportView.crystalReportViewer1.Zoom(80);
-                    frmReportView.Text = "Detalle de los Unique Code (RC)";
-                    frmReportView.Width = 900;
-                    frmReportView.Height = 700;
-                    frmReportView.Refresh();
-                    frmReportView.ShowDialog();
-                }
+                reportManager.Conduce_Precio(txt_numero_despacho.Text);
             }
-            //formato de conduce sin precio
-            else if (chk_without_price.Checked)
+            if (ra_reporte2.Checked)
             {
-                using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
-                {
-                    ReportDocument reporte = new ReportDocument();
-                    TableLogOnInfos crtablelogoninfos = new TableLogOnInfos();
-                    TableLogOnInfo crtablelogoninfo = new TableLogOnInfo();
-
-                    reporte.Load(Application.StartupPath + R.PATH_FILES.PATH_REPORTS_FORMAT_CONDUCE_SP);
-                    reporte.SetParameterValue("NUMERO", txt_numero_despacho.Text.Trim());
-                    
-                    Tables CrTables;
-                    CrTables = reporte.Database.Tables;
-
-                    ConnectionInfo ConexInfo = new ConnectionInfo
-                    {
-                        ServerName = R.SERVERS.SERVER_RITRAMA,
-                        DatabaseName = R.DATABASES.RITRAMA,
-                        UserID = R.USERS.UserMaster,
-                        Password = R.USERS.KeyMaster
-                    };
-
-                    foreach (Table table in CrTables)
-                    {
-                        crtablelogoninfo = table.LogOnInfo;
-                        crtablelogoninfo.ConnectionInfo = ConexInfo;
-                        table.ApplyLogOnInfo(crtablelogoninfo);
-                    }
-
-                    frmReportView.crystalReportViewer1.ReportSource = reporte;
-                    frmReportView.crystalReportViewer1.Zoom(140);
-                    frmReportView.Text = "(Formato de Conduce Ritrama Sin precio)";
-                    frmReportView.Width = 900;
-                    frmReportView.Height = 700;
-                    frmReportView.ShowDialog();
-                }
-
+                reportManager.Conduce_sin_Precio(txt_numero_despacho.Text);
             }
-            //formato de conduce con precio
-            else
+            if (ra_reporte3.Checked)
             {
-                using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
-                {
-                    ReportDocument reporte = new ReportDocument();
-                    
-                    TableLogOnInfos crtablelogoninfos = new TableLogOnInfos();
-                    TableLogOnInfo crtablelogoninfo = new TableLogOnInfo();
-
-                    reporte.Load(Application.StartupPath +  R.PATH_FILES.PATH_REPORTS_FORMAT_CONDUCE);
-                    reporte.SetParameterValue("NUMERO", txt_numero_despacho.Text.Trim());
-
-                    ConnectionInfo ConexInfo = new ConnectionInfo
-                    {
-                        ServerName = "ritramasrv01",
-                        DatabaseName = "ritrama",
-                        UserID = "Npino",
-                        Password = "Jossycar5%"
-                    };
-                    
-                    Tables CrTables;
-                    CrTables = reporte.Database.Tables;
-
-                    
-                    foreach (Table table in CrTables)
-                    {
-                        crtablelogoninfo = table.LogOnInfo;
-                        
-                        crtablelogoninfo.ConnectionInfo = ConexInfo;
-                        table.ApplyLogOnInfo(crtablelogoninfo);
-                    }
-
-                    frmReportView.crystalReportViewer1.ReportSource = reporte;
-                    frmReportView.crystalReportViewer1.Zoom(140);
-                    frmReportView.Text = "Formato de Conduce Ritrama";
-                    frmReportView.Width = 900;
-                    frmReportView.Height = 700;
-                    frmReportView.Refresh();
-                    frmReportView.ShowDialog();
-                }
+                reportManager.Detalle_RC(txt_numero_despacho.Text);
+            }
+            if (ra_reporte4.Checked)
+            {
+                reportManager.Detalle_Paleta(txt_numero_despacho.Text);
             }
         }
         #endregion
@@ -1054,9 +948,25 @@ namespace RitramaAPP.form
             grid_paleta.DataSource = ListPalet;
         }
 
+        private void RadioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void bot_UpdatePalet_Click(object sender, EventArgs e)
+        {
+            if (UpdatePaleta == 0) 
+            {
+                this.Text = "Save";
+                bot_addpalet.Enabled = true;
+                bot_deletepalet.Enabled = true;
+            }
+            
+        }
+
         private void DatosPaleta() 
         {
-            grid_paleta.DataSource = despachomanager.GetDataPalet(txt_numero_despacho.Text);
+            ListPalet = despachomanager.GetDataPalet(txt_numero_despacho.Text);
+            grid_paleta.DataSource = ListPalet; 
         }
         private bool ValidRowPalet()
         {
