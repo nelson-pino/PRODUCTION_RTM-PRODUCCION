@@ -952,13 +952,22 @@ namespace RitramaAPP.form
         {
 
         }
-        private void bot_UpdatePalet_Click(object sender, EventArgs e)
+        private void Bot_UpdatePalet_Click(object sender, EventArgs e)
         {
             if (UpdatePaleta == 0) 
             {
                 this.Text = "Save";
                 bot_addpalet.Enabled = true;
                 bot_deletepalet.Enabled = true;
+                UpdatePaleta = 1;
+            }
+            else 
+            {
+                despachomanager.UpdatePalet(ListPalet);
+                this.Text = "Modif";
+                bot_addpalet.Enabled = false;
+                bot_deletepalet.Enabled = false;
+                UpdatePaleta = 0;
             }
             
         }

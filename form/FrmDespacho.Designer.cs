@@ -916,7 +916,7 @@
             this.bot_UpdatePalet.TabIndex = 75;
             this.bot_UpdatePalet.Text = "Modif";
             this.bot_UpdatePalet.UseVisualStyleBackColor = true;
-            this.bot_UpdatePalet.Click += new System.EventHandler(this.bot_UpdatePalet_Click);
+            this.bot_UpdatePalet.Click += new System.EventHandler(this.Bot_UpdatePalet_Click);
             // 
             // FrmDespacho
             // 
