@@ -100,8 +100,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.grid_paleta = new System.Windows.Forms.DataGridView();
             this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
+            this.total_kilos1 = new System.Windows.Forms.Label();
+            this.total_kilos2 = new System.Windows.Forms.Label();
             this.ra_reporte3 = new System.Windows.Forms.RadioButton();
             this.ra_reporte2 = new System.Windows.Forms.RadioButton();
             this.ra_reporte4 = new System.Windows.Forms.RadioButton();
@@ -836,6 +836,7 @@
             this.grid_paleta.Size = new System.Drawing.Size(492, 116);
             this.grid_paleta.TabIndex = 64;
             this.grid_paleta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_paleta_CellContentClick);
+            this.grid_paleta.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_paleta_CellEndEdit);
             // 
             // label21
             // 
@@ -845,23 +846,25 @@
             this.label21.Size = new System.Drawing.Size(0, 13);
             this.label21.TabIndex = 66;
             // 
-            // label22
+            // total_kilos1
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(346, 605);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(37, 13);
-            this.label22.TabIndex = 67;
-            this.label22.Text = "Total1";
+            this.total_kilos1.AutoSize = true;
+            this.total_kilos1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.total_kilos1.Location = new System.Drawing.Point(377, 605);
+            this.total_kilos1.Name = "total_kilos1";
+            this.total_kilos1.Size = new System.Drawing.Size(43, 13);
+            this.total_kilos1.TabIndex = 67;
+            this.total_kilos1.Text = "Total1";
             // 
-            // label23
+            // total_kilos2
             // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(394, 605);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(37, 13);
-            this.label23.TabIndex = 68;
-            this.label23.Text = "Total2";
+            this.total_kilos2.AutoSize = true;
+            this.total_kilos2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.total_kilos2.Location = new System.Drawing.Point(441, 605);
+            this.total_kilos2.Name = "total_kilos2";
+            this.total_kilos2.Size = new System.Drawing.Size(43, 13);
+            this.total_kilos2.TabIndex = 68;
+            this.total_kilos2.Text = "Total2";
             // 
             // ra_reporte3
             // 
@@ -895,7 +898,6 @@
             this.ra_reporte4.TabStop = true;
             this.ra_reporte4.Text = "Imprimir Detalle de Paleta";
             this.ra_reporte4.UseVisualStyleBackColor = true;
-            this.ra_reporte4.CheckedChanged += new System.EventHandler(this.RadioButton3_CheckedChanged);
             // 
             // ra_reporte1
             // 
@@ -929,8 +931,8 @@
             this.Controls.Add(this.ra_reporte4);
             this.Controls.Add(this.ra_reporte2);
             this.Controls.Add(this.ra_reporte3);
-            this.Controls.Add(this.label23);
-            this.Controls.Add(this.label22);
+            this.Controls.Add(this.total_kilos2);
+            this.Controls.Add(this.total_kilos1);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.grid_paleta);
             this.Controls.Add(this.label5);
@@ -1079,8 +1081,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView grid_paleta;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label total_kilos1;
+        private System.Windows.Forms.Label total_kilos2;
         private System.Windows.Forms.RadioButton ra_reporte3;
         private System.Windows.Forms.RadioButton ra_reporte2;
         private System.Windows.Forms.RadioButton ra_reporte4;

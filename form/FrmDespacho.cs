@@ -382,6 +382,7 @@ namespace RitramaAPP.form
                     //abrir el detalle de paleta.
                     bot_addpalet.Enabled = true;
                     bot_deletepalet.Enabled = true;
+                    bot_UpdatePalet.Enabled = false;
                     break;
                 case 1:
                     // cerrar el formulario para no permitir mas cambio y colocarlo en modo readonly.
@@ -400,6 +401,7 @@ namespace RitramaAPP.form
                     bot_sincro.Enabled = false;
                     grid_items.Enabled = false;
                     grid_paleta.Enabled = false;
+                    bot_UpdatePalet.Enabled = true;
                     break;
                 case 2:
                     break;
@@ -577,6 +579,8 @@ namespace RitramaAPP.form
             grid_items.Focus();
             grid_items.Rows[0].Cells[0].Selected = true;
             grid_paleta.DataSource = "";
+            total_kilos1.Text = "0";
+            total_kilos2.Text = "0";
         }
         #endregion
         #region IMPRESION
@@ -857,7 +861,9 @@ namespace RitramaAPP.form
             Paleta item = new Paleta
             {
                 Number_palet = (ListPalet.Count +1).ToString(),
-                Numero = txt_numero_despacho.Text
+                Numero = txt_numero_despacho.Text,
+                Medida="",
+                Contenido=""
             };
             ListPalet.Add(item);
             grid_paleta.DataSource = null;
@@ -865,6 +871,10 @@ namespace RitramaAPP.form
             if (ListPalet.Count > 0)
             {
                 bot_deletepalet.Enabled = true;
+            }
+            if (ListPalet.Count > 1) 
+            {
+                grid_paleta.CurrentCell = grid_paleta[1, ListPalet.Count - 1];
             }
             
         }
@@ -874,11 +884,11 @@ namespace RitramaAPP.form
             if(e.ColumnIndex == 3) 
             {
                 frmContentPalet ContentPalet = new frmContentPalet();
-                if (!string.IsNullOrEmpty(ContentPalet.ContentText) &&
-                    !string.IsNullOrEmpty(grid_paleta.Rows[e.RowIndex].Cells[2].Value.ToString())) 
+                if(grid_paleta.Rows[e.RowIndex].Cells[2].Value == null) 
                 {
-                    ContentPalet.ContentText = grid_paleta.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    grid_paleta.Rows[e.RowIndex].Cells[2].Value = "";
                 }
+                ContentPalet.ContentText = grid_paleta.Rows[e.RowIndex].Cells[2].Value.ToString();
                 ContentPalet.ShowDialog();
                 grid_paleta.Rows[e.RowIndex].Cells[2].Value = ContentPalet.ContentText;
             }
@@ -935,6 +945,10 @@ namespace RitramaAPP.form
 
         private void Bot_deletepalet_Click(object sender, EventArgs e)
         {
+            if (ListPalet.Count == 1) 
+            {
+                return;
+            }
             var itemToRemove = ListPalet.Single(r => r.Number_palet ==
             Convert.ToString(grid_paleta.Rows[grid_paleta.CurrentRow.Index].Cells["number_palet"].Value));
             ListPalet.Remove(itemToRemove);
@@ -947,35 +961,60 @@ namespace RitramaAPP.form
             grid_paleta.DataSource = null;
             grid_paleta.DataSource = ListPalet;
         }
-
-        private void RadioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
         private void Bot_UpdatePalet_Click(object sender, EventArgs e)
         {
             if (UpdatePaleta == 0) 
             {
-                this.Text = "Save";
+                
+                if (grid_paleta.Rows.Count == 0)
+                {
+                    ListPalet.Clear();
+                    Paleta item = new Paleta
+                    {
+                        Number_palet = (ListPalet.Count + 1).ToString(),
+                        Numero = txt_numero_despacho.Text,
+                    };
+                    ListPalet.Add(item);
+                    grid_paleta.DataSource = null;
+                    grid_paleta.DataSource = ListPalet;
+                    grid_items.Refresh();
+                }
+                if(grid_paleta.Rows.Count > 0)
+                {
+                    ListPalet = (List<Paleta>)grid_paleta.DataSource;
+                }
+                bot_UpdatePalet.Text = "Save";
                 bot_addpalet.Enabled = true;
                 bot_deletepalet.Enabled = true;
+                grid_paleta.ReadOnly = false;
                 UpdatePaleta = 1;
             }
             else 
             {
-                despachomanager.UpdatePalet(ListPalet);
-                this.Text = "Modif";
+                //Borro la paleta anterior en BD.
+                despachomanager.DeletePalet(txt_numero_despacho.Text);
+                //Agrego la nueva Paleta
+                despachomanager.AddPalet(ListPalet);
+                bot_UpdatePalet.Text = "Modif";
                 bot_addpalet.Enabled = false;
                 bot_deletepalet.Enabled = false;
+                grid_paleta.ReadOnly = true;
                 UpdatePaleta = 0;
             }
-            
+        }
+
+        private void Grid_paleta_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 5)
+            {
+                TotalkilosPalet();
+            }
         }
 
         private void DatosPaleta() 
         {
-            ListPalet = despachomanager.GetDataPalet(txt_numero_despacho.Text);
-            grid_paleta.DataSource = ListPalet; 
+            grid_paleta.DataSource = despachomanager.GetDataPalet(txt_numero_despacho.Text);
+            TotalkilosPalet();
         }
         private bool ValidRowPalet()
         {
@@ -1008,6 +1047,18 @@ namespace RitramaAPP.form
                 }
             }
             return chk;
+        }
+        private void TotalkilosPalet() 
+        {
+            decimal tk_brutos = 0;
+            decimal tk_netos = 0;
+            for (int i = 0; i <= grid_paleta.Rows.Count-1; i++) 
+            {
+                tk_netos += Convert.ToDecimal(grid_paleta.Rows[i].Cells["kilos_netos"].Value);
+                tk_brutos += Convert.ToDecimal(grid_paleta.Rows[i].Cells["kilos_brutos"].Value);
+            }
+            total_kilos1.Text = tk_netos.ToString();
+            total_kilos2.Text = tk_brutos.ToString();
         }
         #endregion
     }

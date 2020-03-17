@@ -518,7 +518,8 @@ namespace RitramaAPP.Clases
             {
                 foreach (Paleta item in lista) 
                 {
-                    if (!string.IsNullOrEmpty(item.Medida) || !string.IsNullOrEmpty(item.Contenido)) 
+                    if (!string.IsNullOrEmpty(item.Medida) && !string.IsNullOrEmpty(item.Contenido))
+                        
                     {
                         CommandSqlGeneric(R.DATABASES.RITRAMA, R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_DATA_PALET_DESPACHO,
                             SetParametersAddDataPalet(item), false, "");
@@ -571,7 +572,8 @@ namespace RitramaAPP.Clases
                         Medida = reader.GetString(1),
                         Contenido = reader.GetString(2),
                         Kilo_bruto = reader.GetDecimal(3),
-                        Kilo_neto = reader.GetDecimal(4)
+                        Kilo_neto = reader.GetDecimal(4),
+                        Numero = reader.GetString(5)
                     };
                     lista.Add(rollo);
                 }
@@ -584,6 +586,20 @@ namespace RitramaAPP.Clases
                 MessageBox.Show(R.ERROR_MESSAGES.DESPACHOS.
                     MESSAGE_SELECT_GETDATAPALET + ex);
                 return lista;
+            }
+        }
+        public bool DeletePalet(string numero)
+        {
+            try
+            {
+                CommandSqlGenericOneParameter(R.DATABASES.RITRAMA, 
+                R.SQL.QUERY_SQL.DESPACHOS.SQL_DELETE_DATA_PALET_DESPACHO,numero,false,"");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
             }
         }
     }

@@ -227,7 +227,10 @@ namespace RitramaAPP
                     public static string SQL_UPDATE_INVENTORY_HOJAS_MOVIM_PARCIAL = "UPDATE OrdenRecepcion SET paletpag_c=paletpag_c+@p2 WHERE roll_id=@p1 and resma=1";
                     public static string SQL_UPDATE_INVENTORY_HOJAS_PARCIAL_INITIAL = "UPDATE HojasInic SET paletpag_c=paletpag_c+@p2 WHERE roll_id=@p1 and resma=1";
                     public const string SQL_INSERT_DATA_PALET_DESPACHO = "INSERT INTO Paleta (numero,number_palet,medida,contenido,kilo_neto,kilo_bruto) VALUES(@p1, @p2, @p3, @p4, @p5, @p6)";
-                    public const string SQL_SELECT_DATA_PALET_DESPACHO = "SELECT number_palet,medida,contenido,kilo_neto,kilo_bruto FROM Paleta WHERE numero=@p1";
+                    public const string SQL_SELECT_DATA_PALET_DESPACHO = "SELECT number_palet,medida,contenido,kilo_bruto,kilo_neto,numero FROM Paleta WHERE numero=@p1";
+                    public const string SQL_DELETE_DATA_PALET_DESPACHO = "DELETE Paleta WHERE numero=@p1";
+
+
                 }
                 public class INVENTARIO
                 {
@@ -362,8 +365,6 @@ namespace RitramaAPP
                 public static string MESSAGE_UPDATE_graphics = "Ha ocurrido un error al tratar de actualizar los inventario. tipo de producto graphics.";
                 public static string MESSAGE_SELECT_ADDPALET = "Error al tratar de Agregar los datos de la Paleta.";
                 public static string MESSAGE_SELECT_GETDATAPALET = "Error al traer la informacion del detalle de la paleta.";
-
-
             }
         }
         public class PATH_FILES
