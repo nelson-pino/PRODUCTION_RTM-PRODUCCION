@@ -112,6 +112,7 @@
     <Compile Include="Clases\ProductsManager.cs" />
     <Compile Include="Clases\RecepcionManager.cs" />
     <Compile Include="Clases\ReportsManager.cs" />
+    <Compile Include="Clases\Reserva.cs" />
     <Compile Include="Clases\Roll_Details.cs" />
     <Compile Include="Clases\SupplyManager.cs" />
     <Compile Include="CrystalReport1.cs">

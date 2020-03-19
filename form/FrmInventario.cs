@@ -321,7 +321,7 @@ namespace RitramaAPP
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (CHK_SELECT_ALL.Checked) 
             {
@@ -340,10 +340,14 @@ namespace RitramaAPP
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BOT_RESERVA_Click(object sender, EventArgs e)
         {
-            FrmReservas reserva = new FrmReservas();
+            FrmReservas reserva = new FrmReservas
+            {
+                Dtcustomers = inimanager.GetCustomers()
+            };
             reserva.ShowDialog();
+            inimanager.AddReserva(reserva.DocumReserva);
         }
     }
 }

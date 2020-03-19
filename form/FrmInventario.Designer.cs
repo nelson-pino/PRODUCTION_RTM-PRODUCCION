@@ -78,7 +78,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label17 = new System.Windows.Forms.Label();
             this.TXT_SELECT_NUMBER = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BOT_RESERVA = new System.Windows.Forms.Button();
             this.CHK_SELECT_ALL = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -622,7 +622,7 @@
             // 
             this.tabPage4.Controls.Add(this.label17);
             this.tabPage4.Controls.Add(this.TXT_SELECT_NUMBER);
-            this.tabPage4.Controls.Add(this.button1);
+            this.tabPage4.Controls.Add(this.BOT_RESERVA);
             this.tabPage4.Controls.Add(this.CHK_SELECT_ALL);
             this.tabPage4.Controls.Add(this.label4);
             this.tabPage4.Controls.Add(this.label2);
@@ -666,17 +666,17 @@
             this.TXT_SELECT_NUMBER.TextChanged += new System.EventHandler(this.TXT_SELECT_NUMBER_TextChanged);
             this.TXT_SELECT_NUMBER.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TXT_SELECT_NUMBER_KeyPress);
             // 
-            // button1
+            // BOT_RESERVA
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(448, 509);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 42);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "Reservar";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.BOT_RESERVA.Image = ((System.Drawing.Image)(resources.GetObject("BOT_RESERVA.Image")));
+            this.BOT_RESERVA.Location = new System.Drawing.Point(448, 509);
+            this.BOT_RESERVA.Name = "BOT_RESERVA";
+            this.BOT_RESERVA.Size = new System.Drawing.Size(100, 42);
+            this.BOT_RESERVA.TabIndex = 24;
+            this.BOT_RESERVA.Text = "Reservar";
+            this.BOT_RESERVA.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BOT_RESERVA.UseVisualStyleBackColor = true;
+            this.BOT_RESERVA.Click += new System.EventHandler(this.BOT_RESERVA_Click);
             // 
             // CHK_SELECT_ALL
             // 
@@ -687,7 +687,7 @@
             this.CHK_SELECT_ALL.TabIndex = 23;
             this.CHK_SELECT_ALL.Text = "Marcar Todos los Seleccionados";
             this.CHK_SELECT_ALL.UseVisualStyleBackColor = true;
-            this.CHK_SELECT_ALL.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.CHK_SELECT_ALL.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // label4
             // 
@@ -1007,7 +1007,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txt_wid_search;
         private System.Windows.Forms.CheckBox CHK_SELECT_ALL;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BOT_RESERVA;
         private System.Windows.Forms.TextBox TXT_SELECT_NUMBER;
         private System.Windows.Forms.Label label17;
     }

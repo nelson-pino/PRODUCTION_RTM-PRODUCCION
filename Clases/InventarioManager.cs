@@ -202,7 +202,6 @@ namespace RitramaAPP.Clases
                 R.SQL.QUERY_SQL.INVENTARIO.SQL_SELECT_SALIDAS_MASTER,
                 R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_SALIDAS_MASTER, rollid);
         }
-
         public DataTable CargaMovimientoEntradaRollosCortados(string product_id)
         {
             return CommandSqlGenericDtOnePar(R.SQL.DATABASE.NAME,
@@ -215,6 +214,63 @@ namespace RitramaAPP.Clases
             return CommandSqlGenericDtOnePar(R.SQL.DATABASE.NAME,
                    R.SQL.QUERY_SQL.INVENTARIO.SQL_QUERY_SALIDAS_ROLLOS_CORTADOS_WHERE_PRODUCT_ID,
                    R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_SALIDAS_ROLLO_CORTADO, product_id);
+        }
+        public DataTable GetCustomers()
+        {
+            DataTable dt = new DataTable();
+            using (SqlDataAdapter da = new SqlDataAdapter())
+            {
+                try
+                {
+                    Micomm.Conectar(R.SQL.DATABASE.NAME);
+                    SqlCommand comando = new SqlCommand
+                    {
+                        Connection = Micomm.cnn,
+                        CommandType = CommandType.Text,
+                        CommandText = R.SQL.QUERY_SQL.CUSTOMERS.SQL_SELECT_CUSTOMERS
+                    };
+                    comando.ExecuteNonQuery();
+                    da.SelectCommand = comando;
+                    da.Fill(dt);
+                    comando.Dispose();
+                    Micomm.Desconectar();
+                    return dt;
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(R.ERROR_MESSAGES.CUSTOMERS.MESSAGE_ERROR_GETLISTCUSTOMERS + ex);
+                    return dt;
+                }
+            }
+        }
+        public bool AddReserva(Reserva item) 
+        {
+            try
+            {
+                CommandSqlGeneric(R.DATABASES.RITRAMA,
+                R.SQL.QUERY_SQL.INVENTARIO.SQL_INSERT_DATA_RESERVA,
+                ParamReserva(item), false, "");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+        public List<SqlParameter> ParamReserva(Reserva item)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = item.Transac},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = item.OrdenTrabajo},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.NVarChar, Value = item.OrdenServicio},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.DateTime, Value = item.FechaReserva},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.DateTime, Value = item.FechaPlan},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.NVarChar, Value = item.IdCust},
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.NVarChar, Value = item.Commentary}
+            };
+            return sp;
         }
     }
     public class Item
