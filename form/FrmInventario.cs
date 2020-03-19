@@ -237,7 +237,16 @@ namespace RitramaAPP
         {
             if (RA_PRODUCTID_COR.Checked)
             {
-                DvRolls.RowFilter = "product_id LIKE '%" + this.txtbuscar_cor.Text + "%'";
+                if (string.IsNullOrEmpty(txt_wid_search.Text)) 
+                {
+                    DvRolls.RowFilter = "product_id LIKE '%" + this.txtbuscar_cor.Text.Trim() + "%'";
+                }
+                else 
+                {
+                    DvRolls.RowFilter = "product_id LIKE '%" + this.txtbuscar_cor.Text.Trim() + "%' " +
+                        "AND width = "  + this.txt_wid_search.Text ;
+                }
+                
             }
             if (RA_PRODUCTNAME_COR.Checked)
             {
@@ -281,9 +290,60 @@ namespace RitramaAPP
             }
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
+        private void TabPage1_Click(object sender, EventArgs e)
         {
 
+        }
+        private void TXT_SELECT_NUMBER_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(TXT_SELECT_NUMBER.Text)) 
+            {
+                return;
+            }
+            int SelectNumber = Convert.ToInt16(TXT_SELECT_NUMBER.Text);
+            foreach (DataGridViewRow item in GridItemsCortados.Rows)
+            {
+                item.Selected = false;
+            }
+            for (int i = 1; i <= SelectNumber; i++ )
+            {
+                GridItemsCortados.Rows[i-1].Selected = true;
+            }
+        }
+
+        private void TXT_SELECT_NUMBER_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CHK_SELECT_ALL.Checked) 
+            {
+                for (int i = 1; i <= GridItemsCortados.Rows.Count; i++)
+                {
+                    GridItemsCortados.Rows[i - 1].Selected = true;
+                }
+            }
+            else 
+            {
+                foreach (DataGridViewRow item in GridItemsCortados.Rows)
+                {
+                    item.Selected = false;
+                }
+            }
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmReservas reserva = new FrmReservas();
+            reserva.ShowDialog();
         }
     }
 }

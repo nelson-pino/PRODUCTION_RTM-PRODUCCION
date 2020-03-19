@@ -399,7 +399,7 @@ namespace RitramaAPP.form
                     bot_transport_search.Enabled = false;
                     bot_agregar_renglon.Enabled = false;
                     bot_sincro.Enabled = false;
-                    grid_items.Enabled = false;
+                    grid_items.ReadOnly = true;
                     grid_paleta.Enabled = false;
                     bot_UpdatePalet.Enabled = true;
                     break;
