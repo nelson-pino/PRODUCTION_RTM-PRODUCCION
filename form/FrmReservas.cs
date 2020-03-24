@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Data;
 using RitramaAPP.Clases;
+using System.Collections.Generic;
 
 namespace RitramaAPP.form
 {
@@ -14,15 +15,18 @@ namespace RitramaAPP.form
         Reserva ProductsReserva;
         public DataTable Dtcustomers { get; set; }
         public Reserva DocumReserva { get; set; }
+        public int NumTransac { get; set; }
+        public List<string> Ids { get; set; }
         private void FrmReservas_Load(object sender, EventArgs e)
         {
             ProductsReserva = new Reserva
             {
-                Transac="0001",
-                FechaReserva=DateTime.Today,
-                FechaPlan = DateTime.Today
+                Transac = NumTransac,
+                FechaReserva = DateTime.Today,
+                FechaPlan = DateTime.Today,
+                items = Ids
             };
-            TXT_TRANSACC.Text = ProductsReserva.Transac;
+            TXT_TRANSACC.Text = Convert.ToString(ProductsReserva.Transac);
             TXT_FECHA_ENTREGA.Text = Convert.ToString(ProductsReserva.FechaPlan);
             TXT_FECHA_RESERVA.Text = Convert.ToString(ProductsReserva.FechaReserva);
         }
@@ -40,6 +44,25 @@ namespace RitramaAPP.form
 
         private void BOT_GUARDAR_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(TXT_ORDEN_TRA.Text)) 
+            {
+                MessageBox.Show("Introduzca la Orden de TRabajo.");
+                return; 
+            }
+            if (string.IsNullOrEmpty(TXT_ORDEN_SER.Text))
+            {
+                MessageBox.Show("Introduzca la Orden de Servicio.");
+                return;
+            }
+            if (string.IsNullOrEmpty(TXT_IDCUST.Text))
+            {
+                MessageBox.Show("Seleccione un cliente.");
+                return;
+            }
+
+
+
+
             ProductsReserva.OrdenTrabajo = TXT_ORDEN_TRA.Text;
             ProductsReserva.OrdenServicio = TXT_ORDEN_SER.Text;
             ProductsReserva.FechaPlan = Convert.ToDateTime(TXT_FECHA_ENTREGA.Text);

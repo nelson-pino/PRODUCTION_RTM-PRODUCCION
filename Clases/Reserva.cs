@@ -8,13 +8,18 @@ namespace RitramaAPP.Clases
 {
     public class Reserva
     {
-        public string Transac { get; set; }
+        public int Transac { get; set; }
         public string OrdenTrabajo { get; set; }
         public string OrdenServicio { get; set; }
         public DateTime FechaReserva { get; set; }
         public DateTime FechaPlan { get; set; }
         public string IdCust { get; set; }
         public string Commentary { get; set; }
-
+        
+        public  List<string> items;
+        public Reserva()
+        {
+            items = new List<string>();
+        }
     }
 }

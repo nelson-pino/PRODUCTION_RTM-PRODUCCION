@@ -337,16 +337,27 @@ namespace RitramaAPP
                     item.Selected = false;
                 }
             }
-            
         }
 
         private void BOT_RESERVA_Click(object sender, EventArgs e)
         {
+            //buscar las filas seleccionadas.
+            List<string> ids = new List<string>();
+            foreach (DataGridViewRow item in GridItemsCortados.SelectedRows) 
+            {
+                string id = item.Cells["unique_code"].Value.ToString();
+                ids.Add(id);
+                
+                 
+            }
             FrmReservas reserva = new FrmReservas
             {
-                Dtcustomers = inimanager.GetCustomers()
+                Dtcustomers = inimanager.GetCustomers(),
+                NumTransac = inimanager.GetTransacReserva(),
+                Ids = ids
             };
             reserva.ShowDialog();
+
             inimanager.AddReserva(reserva.DocumReserva);
         }
     }

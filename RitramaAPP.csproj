@@ -98,6 +98,7 @@
     <Compile Include="Clases\DespachosManager.cs" />
     <Compile Include="Clases\DevolucionManager.cs" />
     <Compile Include="Clases\InventarioManager.cs" />
+    <Compile Include="Clases\Item.cs" />
     <Compile Include="Clases\Items_despacho.cs" />
     <Compile Include="Clases\Item_Devol.cs" />
     <Compile Include="Clases\Orden.cs" />

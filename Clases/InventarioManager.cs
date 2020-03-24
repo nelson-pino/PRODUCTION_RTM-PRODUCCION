@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using System.Windows.Forms;
-
-namespace RitramaAPP.Clases
+﻿namespace RitramaAPP.Clases
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.IO;
+    using System.Windows.Forms;
     public class InventarioManager
     {
         readonly Conexion Micomm = new Conexion();
@@ -243,13 +242,16 @@ namespace RitramaAPP.Clases
                 }
             }
         }
-        public bool AddReserva(Reserva item) 
+        public bool AddReserva(Reserva doc) 
         {
             try
             {
-                CommandSqlGeneric(R.DATABASES.RITRAMA,
-                R.SQL.QUERY_SQL.INVENTARIO.SQL_INSERT_DATA_RESERVA,
-                ParamReserva(item), false, "");
+                foreach (string id in doc.items) 
+                {
+                    CommandSqlGeneric(R.DATABASES.RITRAMA,
+                    R.SQL.QUERY_SQL.INVENTARIO.SQL_INSERT_DATA_RESERVA,
+                    ParamReserva(doc,id), false, "");
+                }
                 return true;
             }
             catch (Exception ex)
@@ -258,7 +260,7 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public List<SqlParameter> ParamReserva(Reserva item)
+        public List<SqlParameter> ParamReserva(Reserva item,string id)
         {
             List<SqlParameter> sp = new List<SqlParameter>()
             {
@@ -268,21 +270,33 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.DateTime, Value = item.FechaReserva},
                 new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.DateTime, Value = item.FechaPlan},
                 new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.NVarChar, Value = item.IdCust},
-                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.NVarChar, Value = item.Commentary}
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.NVarChar, Value = item.Commentary},
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.NVarChar, Value = id}
             };
             return sp;
         }
+        public int GetTransacReserva() 
+        {
+            int cant_value;
+            Micomm.Conectar(R.DATABASES.RITRAMA);
+            SqlCommand comando = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = R.SQL.QUERY_SQL.INVENTARIO.SQL_TRANSACT_DATA_RESERVA,
+                Connection = Micomm.cnn
+            };
+            try
+            {
+                cant_value = (int) comando.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_TRANSAC_RESERVAS + ex);
+                cant_value = 0;
+            }
+                Micomm.Desconectar();
+                comando.Dispose();
+                return cant_value;
+            }
+        }
     }
-    public class Item
-    {
-        public string Tipo { get; set; }
-        public string Product_id { get; set; }
-        public string Product_name { get; set; }
-        public decimal Width { get; set; }
-        public decimal Lenght { get; set; }
-        public decimal Msi { get; set; }
-        public string Ubic { get; set; }
-        public string Documento { get; set; }
-        public decimal Cantidad { get; set; }
-    }
-}
