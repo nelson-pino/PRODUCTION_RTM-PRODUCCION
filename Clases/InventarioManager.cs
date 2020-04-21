@@ -271,7 +271,8 @@
                 new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.DateTime, Value = item.FechaPlan},
                 new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.NVarChar, Value = item.IdCust},
                 new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.NVarChar, Value = item.Commentary},
-                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.NVarChar, Value = id}
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.NVarChar, Value = id},
+                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Int, Value = item.IndexProduct}
             };
             return sp;
         }

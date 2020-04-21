@@ -3,6 +3,7 @@ using RitramaAPP.form;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 
 
@@ -139,7 +140,15 @@ namespace RitramaAPP
         {
             if (RA_PRODUCTID.Checked)
             {
-                DvGeneral.RowFilter = "part_number LIKE '%" + this.txt_buscar.Text + "%'";
+                if (string.IsNullOrEmpty(TXT_SEARCH_WIDTH_MASTER.Text)) 
+                {
+                    DvGeneral.RowFilter = "part_number LIKE '%" + this.txt_buscar.Text + "%'";
+                }
+                else 
+                {
+                    DvGeneral.RowFilter = "part_number LIKE '%" + this.txt_buscar.Text.Trim() + "%' " +
+                        "AND width = " + this.TXT_SEARCH_WIDTH_MASTER.Text;
+                }
             }
             if (RA_PRODUCTNAME.Checked)
             {
@@ -178,7 +187,18 @@ namespace RitramaAPP
         {
             if (RACODIGO_HOJ.Checked)
             {
-                DvHojas.RowFilter = "part_number LIKE '%" + this.txtbuscar_hoj.Text + "%'";
+                if (string.IsNullOrEmpty(TXT_SEARCH_WIDTH_HOJA.Text)) 
+                {
+                    DvHojas.RowFilter = "part_number LIKE '%" + this.txtbuscar_hoj.Text + "%'";
+                }
+                else 
+                {
+                    DvHojas.RowFilter = "part_number LIKE '%" + this.txtbuscar_hoj.Text.Trim() + "%' " +
+                            "AND width = " + this.TXT_SEARCH_WIDTH_HOJA.Text;
+                }
+
+
+                
             }
             if (RAPRODUCTNAME_HOJ.Checked)
             {
@@ -209,7 +229,15 @@ namespace RitramaAPP
         {
             if (RA_PRODUCTID_GRA.Checked)
             {
-                DvGraphics.RowFilter = "part_number LIKE '%" + this.txtbuscar_gra.Text + "%'";
+                if (string.IsNullOrEmpty(TXT_SEARCH_WIDTH_GRAP.Text)) 
+                {
+                    DvGraphics.RowFilter = "part_number LIKE '%" + this.txtbuscar_gra.Text + "%'";
+                }
+                else 
+                {
+                    DvGraphics.RowFilter = "part_number LIKE '%" + this.txtbuscar_cor.Text.Trim() + "%' " +
+                            "AND width = " + this.TXT_SEARCH_WIDTH_GRAP.Text;
+                }     
             }
             if (RA_PRODUCTNAME_GRA.Checked)
             {
@@ -261,10 +289,12 @@ namespace RitramaAPP
                 DvRolls.RowFilter = "unique_code LIKE '%" + this.txtbuscar_cor.Text + "%'";
             }
             RECORDFOUND_COR.Text = DvRolls.Count.ToString() + " ENCONTRADOS.";
+            DataGridViewRow item = GridItemsCortados.Rows[0];
+            item.Selected = false;
         }
 
         private void Txtbuscar_hoj_TextChanged(object sender, EventArgs e)
-        {
+     {
             if (txtbuscar_hoj.Text.Length == 0)
             {
                 DvHojas.RowFilter = "";
@@ -289,26 +319,9 @@ namespace RitramaAPP
                 RECORD_FOUND_GRA.Text = "0 ENCONTRADOS.";
             }
         }
-
-        private void TabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
         private void TXT_SELECT_NUMBER_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(TXT_SELECT_NUMBER.Text)) 
-            {
-                return;
-            }
-            int SelectNumber = Convert.ToInt16(TXT_SELECT_NUMBER.Text);
-            foreach (DataGridViewRow item in GridItemsCortados.Rows)
-            {
-                item.Selected = false;
-            }
-            for (int i = 1; i <= SelectNumber; i++ )
-            {
-                GridItemsCortados.Rows[i-1].Selected = true;
-            }
+            SELECCIONAR_NUMERO_RESERVA(TXT_SELECT_NUMBER, GridItemsCortados);
         }
 
         private void TXT_SELECT_NUMBER_KeyPress(object sender, KeyPressEventArgs e)
@@ -323,32 +336,146 @@ namespace RitramaAPP
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (CHK_SELECT_ALL.Checked) 
+            SELECT_ALL_ROWS_RESERVA(CHK_SELECT_ALL, GridItemsCortados);
+        }
+
+        private void BOT_RESERVA_Click(object sender, EventArgs e)
+        {
+            
+        }
+        private void TXT_RESER_CANT_MASTER_TextChanged(object sender, EventArgs e)
+        {
+            SELECCIONAR_NUMERO_RESERVA(TXT_RESER_CANT_MASTER, GridItemsMaster);
+        }
+        private void Chk_select_all_master_CheckedChanged(object sender, EventArgs e)
+        {
+            SELECT_ALL_ROWS_RESERVA(chk_select_all_master, GridItemsMaster);
+        }
+        private void SELECCIONAR_NUMERO_RESERVA(TextBox tb, DataGridView grid)
+        {
+            if (string.IsNullOrEmpty(tb.Text))
             {
-                for (int i = 1; i <= GridItemsCortados.Rows.Count; i++)
+                return;
+            }
+            int SelectNumber = Convert.ToInt16(tb.Text);
+            foreach (DataGridViewRow item in grid.Rows)
+            {
+                item.Selected = false;
+            }
+            if (SelectNumber > grid.Rows.Count) 
+            {
+                MessageBox.Show("el numero suministrado es mayor que la lista de seleccionados...");
+                tb.Text = "";
+                return;
+            }
+            for (int i = 1; i <= SelectNumber; i++)
+            {
+                grid.Rows[i - 1].Selected = true;
+            }
+        }
+        private void SELECT_ALL_ROWS_RESERVA(CheckBox cb, DataGridView grid)
+        {
+            if (cb.Checked)
+            {
+                for (int i = 1; i <= grid.Rows.Count; i++)
                 {
-                    GridItemsCortados.Rows[i - 1].Selected = true;
+                    grid.Rows[i - 1].Selected = true;
                 }
             }
-            else 
+            else
             {
-                foreach (DataGridViewRow item in GridItemsCortados.Rows)
+                foreach (DataGridViewRow item in grid.Rows)
                 {
                     item.Selected = false;
                 }
             }
         }
 
-        private void BOT_RESERVA_Click(object sender, EventArgs e)
+        private void Txt_ReserCant_Hojas_TextChanged(object sender, EventArgs e)
+        {
+            SELECCIONAR_NUMERO_RESERVA(Txt_ReserCant_Hojas, GridItemHojas);
+        }
+
+        private void Chk_Select_All_Hojas_CheckedChanged(object sender, EventArgs e)
+        {
+            SELECT_ALL_ROWS_RESERVA(Chk_Select_All_Hojas, GridItemHojas);
+        }
+
+        private void Txt_ReserCant_Graf_TextChanged(object sender, EventArgs e)
+        {
+            SELECCIONAR_NUMERO_RESERVA(Txt_ReserCant_Graf, GridItemGraphics);
+        }
+
+        private void Chk_Select_All_Graf_CheckedChanged(object sender, EventArgs e)
+        {
+            SELECT_ALL_ROWS_RESERVA(Chk_Select_All_Graf, GridItemGraphics);
+        }
+
+        private void Link_menu1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            int page_active = TABINVENTARIO.SelectedIndex;
+            DataGridView dg;
+            string nameid;
+            int indexProd;
+            switch (page_active) 
+            {
+                case 0:
+                    dg = GridItemsMaster;
+                    nameid = "roll_id";
+                    indexProd = 0;
+                    if (dg.SelectedRows.Count == 0)
+                    {
+                        MessageBox.Show("no se puede crear un documento de reserva si no tiene registros seleccionados...");
+                        return;
+                    }
+                    PROC_RESERVA_PRODUCTS(dg, nameid, indexProd);
+                    break;
+                case 1:
+                    dg = GridItemHojas;
+                    nameid = "roll_id";
+                    indexProd = 1;
+                    if (dg.SelectedRows.Count == 0)
+                    {
+                        MessageBox.Show("no se puede crear un documento de reserva si no tiene registros seleccionados...");
+                        return;
+                    }
+                    PROC_RESERVA_PRODUCTS(dg, nameid, indexProd);
+                    break;
+                case 2:
+                    dg = GridItemGraphics;
+                    nameid = "roll_id";
+                    indexProd = 2;
+                    if (dg.SelectedRows.Count == 0)
+                    {
+                        MessageBox.Show("no se puede crear un documento de reserva si no tiene registros seleccionados...");
+                        return;
+                    }
+                    PROC_RESERVA_PRODUCTS(dg, nameid, indexProd);
+                    break;
+                case 3:
+                    //procedimiento para los rollos cortados
+                    dg = GridItemsCortados;
+                    nameid = "unique_code";
+                    indexProd = 3;
+                    if (dg.SelectedRows.Count == 0)
+                    {
+                        MessageBox.Show("no se puede crear un documento de reserva si no tiene registros seleccionados...");
+                        return;
+                    }
+                    PROC_RESERVA_PRODUCTS(dg,nameid,indexProd);
+                    break;
+            }   
+        }
+        private void PROC_RESERVA_PRODUCTS(DataGridView dg,string name_id,int idx_produt) 
         {
             //buscar las filas seleccionadas.
             List<string> ids = new List<string>();
-            foreach (DataGridViewRow item in GridItemsCortados.SelectedRows) 
+            foreach (DataGridViewRow item in dg.SelectedRows)
             {
-                string id = item.Cells["unique_code"].Value.ToString();
+                string id = item.Cells[name_id].Value.ToString();
                 ids.Add(id);
-                
-                 
+
+
             }
             FrmReservas reserva = new FrmReservas
             {
@@ -357,8 +484,18 @@ namespace RitramaAPP
                 Ids = ids
             };
             reserva.ShowDialog();
-
+            reserva.DocumReserva.IndexProduct = idx_produt;
             inimanager.AddReserva(reserva.DocumReserva);
+        }
+
+        private void GridItemHojas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void TABINVENTARIO_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

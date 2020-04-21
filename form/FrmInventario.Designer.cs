@@ -31,9 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInventario));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.link_menu1 = new System.Windows.Forms.LinkLabel();
             this.label15 = new System.Windows.Forms.Label();
             this.TABINVENTARIO = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_select_all_master = new System.Windows.Forms.CheckBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.TXT_RESER_CANT_MASTER = new System.Windows.Forms.TextBox();
             this.bot_cargar = new System.Windows.Forms.Button();
             this.FOUND_COUNTER = new System.Windows.Forms.Label();
             this.TXT_RECORDS = new System.Windows.Forms.TextBox();
@@ -41,6 +45,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.filter = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.TXT_SEARCH_WIDTH_MASTER = new System.Windows.Forms.TextBox();
             this.RA_ROLLID = new System.Windows.Forms.RadioButton();
             this.RA_PRODUCTNAME = new System.Windows.Forms.RadioButton();
             this.RA_PRODUCTID = new System.Windows.Forms.RadioButton();
@@ -48,10 +54,15 @@
             this.txt_buscar = new System.Windows.Forms.TextBox();
             this.GridItemsMaster = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.Chk_Select_All_Hojas = new System.Windows.Forms.CheckBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.Txt_ReserCant_Hojas = new System.Windows.Forms.TextBox();
             this.FOUND_HOJAS = new System.Windows.Forms.Label();
             this.TXT_RECORDNUMBER_HOJ = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.TXT_SEARCH_WIDTH_HOJA = new System.Windows.Forms.TextBox();
             this.RAROLLID_HOJ = new System.Windows.Forms.RadioButton();
             this.RAPRODUCTNAME_HOJ = new System.Windows.Forms.RadioButton();
             this.RACODIGO_HOJ = new System.Windows.Forms.RadioButton();
@@ -62,10 +73,15 @@
             this.botbuscar_hoj = new System.Windows.Forms.Button();
             this.txtbuscar_hoj = new System.Windows.Forms.TextBox();
             this.TAB_GRAPHICS = new System.Windows.Forms.TabPage();
+            this.Chk_Select_All_Graf = new System.Windows.Forms.CheckBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.Txt_ReserCant_Graf = new System.Windows.Forms.TextBox();
             this.RECORD_FOUND_GRA = new System.Windows.Forms.Label();
             this.TXTRECORD_GRA = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.TXT_SEARCH_WIDTH_GRAP = new System.Windows.Forms.TextBox();
             this.RA_ROLLID_GRA = new System.Windows.Forms.RadioButton();
             this.RA_PRODUCTNAME_GRA = new System.Windows.Forms.RadioButton();
             this.RA_PRODUCTID_GRA = new System.Windows.Forms.RadioButton();
@@ -78,7 +94,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label17 = new System.Windows.Forms.Label();
             this.TXT_SELECT_NUMBER = new System.Windows.Forms.TextBox();
-            this.BOT_RESERVA = new System.Windows.Forms.Button();
             this.CHK_SELECT_ALL = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -121,12 +136,24 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.link_menu1);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Location = new System.Drawing.Point(9, 10);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(846, 98);
             this.panel1.TabIndex = 36;
+            // 
+            // link_menu1
+            // 
+            this.link_menu1.AutoSize = true;
+            this.link_menu1.Location = new System.Drawing.Point(9, 73);
+            this.link_menu1.Name = "link_menu1";
+            this.link_menu1.Size = new System.Drawing.Size(113, 13);
+            this.link_menu1.TabIndex = 1;
+            this.link_menu1.TabStop = true;
+            this.link_menu1.Text = "Reserva de Productos";
+            this.link_menu1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_menu1_LinkClicked);
             // 
             // label15
             // 
@@ -151,9 +178,13 @@
             this.TABINVENTARIO.SelectedIndex = 0;
             this.TABINVENTARIO.Size = new System.Drawing.Size(846, 795);
             this.TABINVENTARIO.TabIndex = 37;
+            this.TABINVENTARIO.SelectedIndexChanged += new System.EventHandler(this.TABINVENTARIO_SelectedIndexChanged);
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_select_all_master);
+            this.tabPage1.Controls.Add(this.label21);
+            this.tabPage1.Controls.Add(this.TXT_RESER_CANT_MASTER);
             this.tabPage1.Controls.Add(this.bot_cargar);
             this.tabPage1.Controls.Add(this.FOUND_COUNTER);
             this.tabPage1.Controls.Add(this.TXT_RECORDS);
@@ -172,7 +203,35 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "MASTERS";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.TabPage1_Click);
+            // 
+            // chk_select_all_master
+            // 
+            this.chk_select_all_master.AutoSize = true;
+            this.chk_select_all_master.Location = new System.Drawing.Point(550, 472);
+            this.chk_select_all_master.Name = "chk_select_all_master";
+            this.chk_select_all_master.Size = new System.Drawing.Size(181, 17);
+            this.chk_select_all_master.TabIndex = 29;
+            this.chk_select_all_master.Text = "Marcar Todos los Seleccionados";
+            this.chk_select_all_master.UseVisualStyleBackColor = true;
+            this.chk_select_all_master.CheckedChanged += new System.EventHandler(this.Chk_select_all_master_CheckedChanged);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(443, 451);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(101, 13);
+            this.label21.TabIndex = 28;
+            this.label21.Text = "Reservar Cantidad :";
+            // 
+            // TXT_RESER_CANT_MASTER
+            // 
+            this.TXT_RESER_CANT_MASTER.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TXT_RESER_CANT_MASTER.Location = new System.Drawing.Point(550, 448);
+            this.TXT_RESER_CANT_MASTER.Name = "TXT_RESER_CANT_MASTER";
+            this.TXT_RESER_CANT_MASTER.Size = new System.Drawing.Size(100, 20);
+            this.TXT_RESER_CANT_MASTER.TabIndex = 27;
+            this.TXT_RESER_CANT_MASTER.TextChanged += new System.EventHandler(this.TXT_RESER_CANT_MASTER_TextChanged);
             // 
             // bot_cargar
             // 
@@ -235,15 +294,33 @@
             // 
             // filter
             // 
+            this.filter.Controls.Add(this.label18);
+            this.filter.Controls.Add(this.TXT_SEARCH_WIDTH_MASTER);
             this.filter.Controls.Add(this.RA_ROLLID);
             this.filter.Controls.Add(this.RA_PRODUCTNAME);
             this.filter.Controls.Add(this.RA_PRODUCTID);
             this.filter.Location = new System.Drawing.Point(9, 428);
             this.filter.Name = "filter";
-            this.filter.Size = new System.Drawing.Size(200, 92);
+            this.filter.Size = new System.Drawing.Size(200, 117);
             this.filter.TabIndex = 3;
             this.filter.TabStop = false;
             this.filter.Text = "Filtros de Busquedas";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(10, 92);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(81, 13);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "Ancho (Width) :";
+            // 
+            // TXT_SEARCH_WIDTH_MASTER
+            // 
+            this.TXT_SEARCH_WIDTH_MASTER.Location = new System.Drawing.Point(94, 89);
+            this.TXT_SEARCH_WIDTH_MASTER.Name = "TXT_SEARCH_WIDTH_MASTER";
+            this.TXT_SEARCH_WIDTH_MASTER.Size = new System.Drawing.Size(100, 20);
+            this.TXT_SEARCH_WIDTH_MASTER.TabIndex = 6;
             // 
             // RA_ROLLID
             // 
@@ -310,6 +387,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.Chk_Select_All_Hojas);
+            this.tabPage3.Controls.Add(this.label22);
+            this.tabPage3.Controls.Add(this.Txt_ReserCant_Hojas);
             this.tabPage3.Controls.Add(this.FOUND_HOJAS);
             this.tabPage3.Controls.Add(this.TXT_RECORDNUMBER_HOJ);
             this.tabPage3.Controls.Add(this.label8);
@@ -328,6 +408,35 @@
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "HOJAS";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // Chk_Select_All_Hojas
+            // 
+            this.Chk_Select_All_Hojas.AutoSize = true;
+            this.Chk_Select_All_Hojas.Location = new System.Drawing.Point(551, 476);
+            this.Chk_Select_All_Hojas.Name = "Chk_Select_All_Hojas";
+            this.Chk_Select_All_Hojas.Size = new System.Drawing.Size(181, 17);
+            this.Chk_Select_All_Hojas.TabIndex = 32;
+            this.Chk_Select_All_Hojas.Text = "Marcar Todos los Seleccionados";
+            this.Chk_Select_All_Hojas.UseVisualStyleBackColor = true;
+            this.Chk_Select_All_Hojas.CheckedChanged += new System.EventHandler(this.Chk_Select_All_Hojas_CheckedChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(444, 455);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(101, 13);
+            this.label22.TabIndex = 31;
+            this.label22.Text = "Reservar Cantidad :";
+            // 
+            // Txt_ReserCant_Hojas
+            // 
+            this.Txt_ReserCant_Hojas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Txt_ReserCant_Hojas.Location = new System.Drawing.Point(551, 452);
+            this.Txt_ReserCant_Hojas.Name = "Txt_ReserCant_Hojas";
+            this.Txt_ReserCant_Hojas.Size = new System.Drawing.Size(100, 20);
+            this.Txt_ReserCant_Hojas.TabIndex = 30;
+            this.Txt_ReserCant_Hojas.TextChanged += new System.EventHandler(this.Txt_ReserCant_Hojas_TextChanged);
             // 
             // FOUND_HOJAS
             // 
@@ -358,15 +467,33 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.TXT_SEARCH_WIDTH_HOJA);
             this.groupBox1.Controls.Add(this.RAROLLID_HOJ);
             this.groupBox1.Controls.Add(this.RAPRODUCTNAME_HOJ);
             this.groupBox1.Controls.Add(this.RACODIGO_HOJ);
             this.groupBox1.Location = new System.Drawing.Point(6, 433);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 92);
+            this.groupBox1.Size = new System.Drawing.Size(209, 119);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de Busquedas";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(16, 92);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(81, 13);
+            this.label19.TabIndex = 7;
+            this.label19.Text = "Ancho (Width) :";
+            // 
+            // TXT_SEARCH_WIDTH_HOJA
+            // 
+            this.TXT_SEARCH_WIDTH_HOJA.Location = new System.Drawing.Point(100, 89);
+            this.TXT_SEARCH_WIDTH_HOJA.Name = "TXT_SEARCH_WIDTH_HOJA";
+            this.TXT_SEARCH_WIDTH_HOJA.Size = new System.Drawing.Size(100, 20);
+            this.TXT_SEARCH_WIDTH_HOJA.TabIndex = 6;
             // 
             // RAROLLID_HOJ
             // 
@@ -409,6 +536,7 @@
             this.GridItemHojas.ReadOnly = true;
             this.GridItemHojas.Size = new System.Drawing.Size(826, 376);
             this.GridItemHojas.TabIndex = 14;
+            this.GridItemHojas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridItemHojas_CellContentClick);
             // 
             // label7
             // 
@@ -465,6 +593,9 @@
             // 
             // TAB_GRAPHICS
             // 
+            this.TAB_GRAPHICS.Controls.Add(this.Chk_Select_All_Graf);
+            this.TAB_GRAPHICS.Controls.Add(this.label23);
+            this.TAB_GRAPHICS.Controls.Add(this.Txt_ReserCant_Graf);
             this.TAB_GRAPHICS.Controls.Add(this.RECORD_FOUND_GRA);
             this.TAB_GRAPHICS.Controls.Add(this.TXTRECORD_GRA);
             this.TAB_GRAPHICS.Controls.Add(this.label10);
@@ -483,6 +614,35 @@
             this.TAB_GRAPHICS.TabIndex = 4;
             this.TAB_GRAPHICS.Text = "GRAPHICS";
             this.TAB_GRAPHICS.UseVisualStyleBackColor = true;
+            // 
+            // Chk_Select_All_Graf
+            // 
+            this.Chk_Select_All_Graf.AutoSize = true;
+            this.Chk_Select_All_Graf.Location = new System.Drawing.Point(551, 478);
+            this.Chk_Select_All_Graf.Name = "Chk_Select_All_Graf";
+            this.Chk_Select_All_Graf.Size = new System.Drawing.Size(181, 17);
+            this.Chk_Select_All_Graf.TabIndex = 35;
+            this.Chk_Select_All_Graf.Text = "Marcar Todos los Seleccionados";
+            this.Chk_Select_All_Graf.UseVisualStyleBackColor = true;
+            this.Chk_Select_All_Graf.CheckedChanged += new System.EventHandler(this.Chk_Select_All_Graf_CheckedChanged);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(444, 457);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(101, 13);
+            this.label23.TabIndex = 34;
+            this.label23.Text = "Reservar Cantidad :";
+            // 
+            // Txt_ReserCant_Graf
+            // 
+            this.Txt_ReserCant_Graf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Txt_ReserCant_Graf.Location = new System.Drawing.Point(551, 454);
+            this.Txt_ReserCant_Graf.Name = "Txt_ReserCant_Graf";
+            this.Txt_ReserCant_Graf.Size = new System.Drawing.Size(100, 20);
+            this.Txt_ReserCant_Graf.TabIndex = 33;
+            this.Txt_ReserCant_Graf.TextChanged += new System.EventHandler(this.Txt_ReserCant_Graf_TextChanged);
             // 
             // RECORD_FOUND_GRA
             // 
@@ -513,15 +673,33 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.TXT_SEARCH_WIDTH_GRAP);
             this.groupBox3.Controls.Add(this.RA_ROLLID_GRA);
             this.groupBox3.Controls.Add(this.RA_PRODUCTNAME_GRA);
             this.groupBox3.Controls.Add(this.RA_PRODUCTID_GRA);
             this.groupBox3.Location = new System.Drawing.Point(6, 433);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 92);
+            this.groupBox3.Size = new System.Drawing.Size(200, 124);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Filtros de Busquedas";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(10, 92);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(81, 13);
+            this.label20.TabIndex = 7;
+            this.label20.Text = "Ancho (Width) :";
+            // 
+            // TXT_SEARCH_WIDTH_GRAP
+            // 
+            this.TXT_SEARCH_WIDTH_GRAP.Location = new System.Drawing.Point(94, 89);
+            this.TXT_SEARCH_WIDTH_GRAP.Name = "TXT_SEARCH_WIDTH_GRAP";
+            this.TXT_SEARCH_WIDTH_GRAP.Size = new System.Drawing.Size(100, 20);
+            this.TXT_SEARCH_WIDTH_GRAP.TabIndex = 6;
             // 
             // RA_ROLLID_GRA
             // 
@@ -622,7 +800,6 @@
             // 
             this.tabPage4.Controls.Add(this.label17);
             this.tabPage4.Controls.Add(this.TXT_SELECT_NUMBER);
-            this.tabPage4.Controls.Add(this.BOT_RESERVA);
             this.tabPage4.Controls.Add(this.CHK_SELECT_ALL);
             this.tabPage4.Controls.Add(this.label4);
             this.tabPage4.Controls.Add(this.label2);
@@ -665,18 +842,6 @@
             this.TXT_SELECT_NUMBER.TabIndex = 25;
             this.TXT_SELECT_NUMBER.TextChanged += new System.EventHandler(this.TXT_SELECT_NUMBER_TextChanged);
             this.TXT_SELECT_NUMBER.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TXT_SELECT_NUMBER_KeyPress);
-            // 
-            // BOT_RESERVA
-            // 
-            this.BOT_RESERVA.Image = ((System.Drawing.Image)(resources.GetObject("BOT_RESERVA.Image")));
-            this.BOT_RESERVA.Location = new System.Drawing.Point(448, 509);
-            this.BOT_RESERVA.Name = "BOT_RESERVA";
-            this.BOT_RESERVA.Size = new System.Drawing.Size(100, 42);
-            this.BOT_RESERVA.TabIndex = 24;
-            this.BOT_RESERVA.Text = "Reservar";
-            this.BOT_RESERVA.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.BOT_RESERVA.UseVisualStyleBackColor = true;
-            this.BOT_RESERVA.Click += new System.EventHandler(this.BOT_RESERVA_Click);
             // 
             // CHK_SELECT_ALL
             // 
@@ -1007,8 +1172,23 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txt_wid_search;
         private System.Windows.Forms.CheckBox CHK_SELECT_ALL;
-        private System.Windows.Forms.Button BOT_RESERVA;
         private System.Windows.Forms.TextBox TXT_SELECT_NUMBER;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox TXT_SEARCH_WIDTH_MASTER;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox TXT_SEARCH_WIDTH_HOJA;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox TXT_SEARCH_WIDTH_GRAP;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox TXT_RESER_CANT_MASTER;
+        private System.Windows.Forms.CheckBox chk_select_all_master;
+        private System.Windows.Forms.CheckBox Chk_Select_All_Hojas;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox Txt_ReserCant_Hojas;
+        private System.Windows.Forms.CheckBox Chk_Select_All_Graf;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox Txt_ReserCant_Graf;
+        private System.Windows.Forms.LinkLabel link_menu1;
     }
 }

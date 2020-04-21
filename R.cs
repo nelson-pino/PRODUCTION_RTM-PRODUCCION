@@ -250,7 +250,7 @@ namespace RitramaAPP
                     "left join producto b on a.product_id=b.Product_ID left join despacho c on a.conduce = c.numero " +
                     "left join Customer d on c.customer_id= d.Customer_ID";
                     public static string SQL_SELECT_SALIDAS_MASTER = "SELECT numero,fecha,rollid_1,CASE rollid_2 WHEN '' THEN util1_real_width ELSE 0 END AS util1_real_width,CASE rollid_2 WHEN '' THEN util1_real_lenght ELSE 0 END AS util1_real_lenght,lenght_1,CASE rollid_2 WHEN '' THEN decartable1_pies ELSE 0 END AS decartable1_pies ,CASE rollid_2 WHEN '' THEN (util1_real_lenght+decartable1_pies) ELSE 0 END AS total_con,CASE rollid_2 WHEN '' THEN cant_rollos ELSE 0 END AS cant_rollos,util2_real_width,util2_real_lenght,width_2,lenght_2,descartable2_pies,(util2_real_lenght+descartable2_pies) AS total_con2 FROM orden_corte WHERE rollid_1=@p1 OR rollid_2=@p1";
-                    public static string SQL_INSERT_DATA_RESERVA = "INSERT reserva (transac,orden_t,orden_s,fecha_reserva,fecha_entrega,id_cust,commentary,id) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8)";
+                    public static string SQL_INSERT_DATA_RESERVA = "INSERT reserva (transac,orden_t,orden_s,fecha_reserva,fecha_entrega,id_cust,commentary,id,tipo_product) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9)";
                     public static string SQL_TRANSACT_DATA_RESERVA = "SELECT COUNT(DISTINCT transac)+1 FROM reserva";
                 }
                 public class DEVOLUCION 
