@@ -471,6 +471,8 @@
   <ItemGroup>
     <Content Include="DataBaseApp.ico" />
     <Content Include="images\BUSCAR.ico" />
+    <None Include="Resources\red_flag.png" />
+    <None Include="Resources\red_flag.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

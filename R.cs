@@ -74,23 +74,23 @@ namespace RitramaAPP
 
                     public static string SQL_QUERY_SELECT_INICIALES_MASTERS = "SELECT * FROM (SELECT OrderPurchase, Part_Number, Width, lenght,lenght-lenght_c AS lenght_p,lenght_c,Roll_Id, Proveedor_Id, " +
                     "Splice, Core, Ubicacion, anulado,fecha_reg, hora_reg, fecha_pro, master, resma, graphics,embarque, palet_num, palet_cant, palet_pag, num_sincro, " +
-                    "registro_movil, width_metros, lenght_metros, fecha_recep,'I' AS tipo_mov FROM MasterInic WHERE disponible = 1 UNION SELECT OrderPurchase, Part_Number, " +
+                    "registro_movil, width_metros, lenght_metros, fecha_recep,'I' AS tipo_mov,status FROM MasterInic WHERE disponible = 1 UNION SELECT OrderPurchase, Part_Number, " +
                     "Width, Lenght,lenght-lenght_c AS lenght_p,lenght_c,Roll_Id, Proveedor_Id, Splice, Core, Ubicacion, anulado,fecha_reg, hora_reg, fecha_pro, master, resma, graphics,embarque, palet_num, " +
-                    "palet_cant, palet_pag, num_sincro,registro_movil, width_metros, lenght_metros, fecha_recep,'M' AS tipo_mov FROM OrdenRecepcion WHERE disponible = 1 AND master = 1) " +
+                    "palet_cant, palet_pag, num_sincro,registro_movil, width_metros, lenght_metros, fecha_recep,'M' AS tipo_mov,status FROM OrdenRecepcion WHERE disponible = 1 AND master = 1) " +
                     "T ORDER BY CONVERT(INT , OrderPurchase)";
 
                     public static string SQL_QUERY_SELECT_INICIALES_HOJAS = "SELECT * FROM(SELECT OrderPurchase, Part_Number, Width, Lenght, Roll_Id, Proveedor_Id, Splice,Core, Ubicacion, anulado, fecha_reg," +
                     "hora_reg, fecha_pro, master, resma, graphics, embarque,palet_num, palet_cant, palet_pag as hojas, paletpag_c as hojas_parc, palet_pag - paletpag_c as hojas_saldo,num_sincro, registro_movil," +
-                    "width_metros,lenght_metros, fecha_recep, 'M' AS tipo_mov, disponible FROM OrdenRecepcion  WHERE disponible = 1 and resma = 1 UNION SELECT OrderPurchase, Part_Number, Width, Lenght, Roll_Id," +
+                    "width_metros,lenght_metros, fecha_recep, 'M' AS tipo_mov, disponible,status FROM OrdenRecepcion  WHERE disponible = 1 and resma = 1 UNION SELECT OrderPurchase, Part_Number, Width, Lenght, Roll_Id," +
                     "Proveedor_Id, Splice,Core, Ubicacion, anulado, fecha_reg, hora_reg, fecha_pro, master, resma, graphics, embarque, palet_num,palet_cant, palet_pag as hojas, paletpag_c as hojas_parc," +
-                    "palet_pag - paletpag_c as hojas_saldo, num_sincro, registro_movil, width_metros,lenght_metros, fecha_recep, 'I' AS tipo_mov, disponible FROM HojasInic) T WHERE T.disponible=1 " +
+                    "palet_pag - paletpag_c as hojas_saldo, num_sincro, registro_movil, width_metros,lenght_metros, fecha_recep, 'I' AS tipo_mov, disponible,status FROM HojasInic) T WHERE T.disponible=1 " +
                     "ORDER BY CONVERT(INT , Roll_Id)";
 
                     public static string SQL_QUERY_SELECT_INICIALES_GRAPHICS = "SELECT * FROM (SELECT OrderPurchase, Part_Number, Width, Lenght,Roll_Id, Proveedor_Id, Splice, Core, " +
                     "Ubicacion, anulado, fecha_reg, hora_reg, fecha_pro, master, resma, graphics, embarque, palet_num, palet_cant, palet_pag, num_sincro, " +
-                    "registro_movil, width_metros, lenght_metros, fecha_recep,'M' AS tipo_mov FROM OrdenRecepcion WHERE disponible = 1 AND graphics = 1 UNION SELECT OrderPurchase, " +
+                    "registro_movil, width_metros, lenght_metros, fecha_recep,'M' AS tipo_mov,status FROM OrdenRecepcion WHERE disponible = 1 AND graphics = 1 UNION SELECT OrderPurchase, " +
                     "Part_Number, Width, Lenght,Roll_Id, Proveedor_Id, Splice, Core, Ubicacion, anulado,fecha_reg, hora_reg, fecha_pro, master, resma, graphics,embarque, palet_num, " +
-                    "palet_cant, palet_pag, num_sincro,registro_movil, width_metros, lenght_metros, fecha_recep,'I' AS tipo_mov FROM GraphicsInic WHERE disponible = 1) T " +
+                    "palet_cant, palet_pag, num_sincro,registro_movil, width_metros, lenght_metros, fecha_recep,'I' AS tipo_mov,status FROM GraphicsInic WHERE disponible = 1) T " +
                     "ORDER BY roll_id DESC";
 
 
@@ -252,6 +252,12 @@ namespace RitramaAPP
                     public static string SQL_SELECT_SALIDAS_MASTER = "SELECT numero,fecha,rollid_1,CASE rollid_2 WHEN '' THEN util1_real_width ELSE 0 END AS util1_real_width,CASE rollid_2 WHEN '' THEN util1_real_lenght ELSE 0 END AS util1_real_lenght,lenght_1,CASE rollid_2 WHEN '' THEN decartable1_pies ELSE 0 END AS decartable1_pies ,CASE rollid_2 WHEN '' THEN (util1_real_lenght+decartable1_pies) ELSE 0 END AS total_con,CASE rollid_2 WHEN '' THEN cant_rollos ELSE 0 END AS cant_rollos,util2_real_width,util2_real_lenght,width_2,lenght_2,descartable2_pies,(util2_real_lenght+descartable2_pies) AS total_con2 FROM orden_corte WHERE rollid_1=@p1 OR rollid_2=@p1";
                     public static string SQL_INSERT_DATA_RESERVA = "INSERT reserva (transac,orden_t,orden_s,fecha_reserva,fecha_entrega,id_cust,commentary,id,tipo_product) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9)";
                     public static string SQL_TRANSACT_DATA_RESERVA = "SELECT COUNT(DISTINCT transac)+1 FROM reserva";
+                    
+                    public static string SQL_MARK_RESERVA_MASTER = "UPDATE MasterInic SET status='Reservado' WHERE roll_id=@p1";
+                    public static string SQL_MARK_RESERVA_HOJAS = "UPDATE HojasInic SET status='Reservado' WHERE roll_id=@p1";
+                    public static string SQL_MARK_RESERVA_GRAF = "UPDATE GraphicsInic SET status='Reservado' WHERE roll_id=@p1";
+                    public static string SQL_MARK_RESERVA_ROLLS = "UPDATE RollsInic SET status='Reservado' WHERE unique_code=@p1";
+
                 }
                 public class DEVOLUCION 
                 {

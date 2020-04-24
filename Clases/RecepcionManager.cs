@@ -137,12 +137,12 @@ namespace RitramaAPP.Clases
             }
             else if (StatusTableName == 3)
             {
-                // select iniciales de masters
+                // select iniciales de hojas
                 TableName = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_SELECT_INICIALES_HOJAS;
             }
             else if (StatusTableName == 4)
             {
-                // select iniciales de masters
+                // select iniciales de graphica
                 TableName = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_SELECT_INICIALES_GRAPHICS;
             }
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, TableName,

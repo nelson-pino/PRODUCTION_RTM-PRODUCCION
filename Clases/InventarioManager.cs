@@ -299,5 +299,43 @@
                 comando.Dispose();
                 return cant_value;
             }
+        public void MarkRowReserva(List<String> listid,int type_product) 
+        {
+            try
+            {
+                switch (type_product) 
+                {
+                    case 0:
+                        // marcar master
+                        SQL_COMMAND_MARK_RESERVA(listid, R.SQL.QUERY_SQL.INVENTARIO.SQL_MARK_RESERVA_MASTER);
+                        break;
+                    case 1:
+                        // marcar hojas
+                        SQL_COMMAND_MARK_RESERVA(listid, R.SQL.QUERY_SQL.INVENTARIO.SQL_MARK_RESERVA_HOJAS);
+                        break;
+                    case 2:
+                        // marcar graphics
+                        SQL_COMMAND_MARK_RESERVA(listid, R.SQL.QUERY_SQL.INVENTARIO.SQL_MARK_RESERVA_GRAF);
+                        break;
+                    case 3:
+                        // marcar graphics
+                        SQL_COMMAND_MARK_RESERVA(listid, R.SQL.QUERY_SQL.INVENTARIO.SQL_MARK_RESERVA_ROLLS);
+                        break;
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("error al marcar las reserva de productos" + ex);
+                
+            }
+        }
+        public void SQL_COMMAND_MARK_RESERVA(List<String> listaid,string comando) 
+        {
+            foreach (string item in listaid)
+            {
+                CommandSqlGenericDtOnePar(R.DATABASES.RITRAMA, comando, "", item);
+            }
+            
         }
     }
+}

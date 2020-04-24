@@ -3,6 +3,7 @@ using RitramaAPP.form;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq.Expressions;
 using System.Windows.Forms;
 
@@ -47,6 +48,7 @@ namespace RitramaAPP
         }
         private void AplicarEstilosMaster()
         {
+            CREATE_COLUMN_IMAGE(GridItemsMaster);
             AGREGAR_COLUMN_GRID("doc", 63, "Numero Documento", "OrderPurchase", GridItemsMaster);
             AGREGAR_COLUMN_GRID("product_id", 60, "Codigo Producto", "Part_Number", GridItemsMaster);
             AGREGAR_COLUMN_GRID("product_name", 220, "Descripcion del Producto", "product_name", GridItemsMaster);
@@ -58,10 +60,12 @@ namespace RitramaAPP
             AGREGAR_COLUMN_GRID("width_metros", 70, "Width [Mts.]", "width_metros", GridItemsMaster);
             AGREGAR_COLUMN_GRID("lenght_metros", 70, "Lenght [Mts.]", "lenght_metros", GridItemsMaster);
             AGREGAR_COLUMN_GRID("splice", 70, "# Empalmes", "splice", GridItemsMaster);
+            AGREGAR_COLUMN_GRID("status", 30, "St", "status", GridItemsMaster);
         }
-        
+
         private void AplicarEstilosHojas()
         {
+            CREATE_COLUMN_IMAGE(GridItemHojas);
             AGREGAR_COLUMN_GRID("doc", 65, "Numero Documento", "OrderPurchase", GridItemHojas);
             AGREGAR_COLUMN_GRID("product_id", 60, "Codigo Producto", "part_number", GridItemHojas);
             AGREGAR_COLUMN_GRID("product_name", 215, "Descripcion del Producto", "product_name", GridItemHojas);
@@ -71,12 +75,13 @@ namespace RitramaAPP
             AGREGAR_COLUMN_GRID("canhojas", 60, "Hojas", "hojas", GridItemHojas);
             AGREGAR_COLUMN_GRID("hojas_parc", 60, "Entregas Parciales", "hojas_parc", GridItemHojas);
             AGREGAR_COLUMN_GRID("hojas_saldo", 60, "Hojas Saldo.", "hojas_saldo", GridItemHojas);
-
             AGREGAR_COLUMN_GRID("width", 70, "Width MM", "width", GridItemHojas);
             AGREGAR_COLUMN_GRID("lenght", 70, "Lenght MM", "lenght", GridItemHojas);
+            AGREGAR_COLUMN_GRID("status", 30, "Status", "status", GridItemHojas);
         }
         private void AplicarEstilosGraphics()
         {
+            CREATE_COLUMN_IMAGE(GridItemGraphics);
             AGREGAR_COLUMN_GRID("doc", 65, "Numero Documento", "OrderPurchase", GridItemGraphics);
             AGREGAR_COLUMN_GRID("product_id", 60, "Codigo Producto", "part_number", GridItemGraphics);
             AGREGAR_COLUMN_GRID("product_name", 230, "Descripcion del Producto", "product_name", GridItemGraphics);
@@ -85,9 +90,25 @@ namespace RitramaAPP
             AGREGAR_COLUMN_GRID("anchomm", 75, "Ancho MM", "width", GridItemGraphics);
             AGREGAR_COLUMN_GRID("m2", 75, "M2", "lenght", GridItemGraphics);
             AGREGAR_COLUMN_GRID("Numero", 100, "Numero Recepcion", "embarque", GridItemGraphics);
+            AGREGAR_COLUMN_GRID("status", 35, "status", "status", GridItemGraphics);
+
+        }
+        private DataGridViewImageColumn CREATE_COLUMN_IMAGE(DataGridView dg) 
+        {
+            DataGridViewImageColumn iconColumn = new DataGridViewImageColumn
+            {
+                //iconColumn.Image = treeIcon.ToBitmap();
+                Name = "ColumnImage",
+                HeaderText = "St",
+                Width = 20
+            };
+            dg.Columns.Insert(0, iconColumn);
+            dg.Columns["ColumnImage"].DefaultCellStyle.NullValue = null;
+            return iconColumn;
         }
         private void AplicarEstilosCortados()
         {
+            CREATE_COLUMN_IMAGE(GridItemsCortados);
             AGREGAR_COLUMN_GRID("numero", 65, "Numero Documento", "numero", GridItemsCortados);
             AGREGAR_COLUMN_GRID("product_id", 56, "Codigo producto", "product_id", GridItemsCortados);
             AGREGAR_COLUMN_GRID("product_name", 210, "Descripcion del Producto", "product_name", GridItemsCortados);
@@ -112,17 +133,16 @@ namespace RitramaAPP
             };
             grid.Columns.Add(col);
         }
-
-
         private void BOT_UPDATE_INVENTARIO_Click(object sender, EventArgs e)
         {
             dtinventario = inimanager.CargarInventario();
             dvinventario = dtinventario.DefaultView;
         }
-
-      
-        
         private void Bot_cargar_Click(object sender, EventArgs e)
+        {
+            LOAD_DATA_MASTER();
+        }
+        private void LOAD_DATA_MASTER() 
         {
             GridItemsMaster.Columns.Clear();
             recemanager.ds.Tables["dtrecepcion"].Clear();
@@ -134,8 +154,8 @@ namespace RitramaAPP
             AplicarEstilosMaster();
             GridItemsMaster.DataSource = DvGeneral;
             TXT_RECORDS.Text = DvGeneral.Count.ToString();
+            SET_MAGEN_COLUM_STATUS(GridItemsMaster);
         }
-
         private void Bot_buscar_Click(object sender, EventArgs e)
         {
             if (RA_PRODUCTID.Checked)
@@ -159,6 +179,7 @@ namespace RitramaAPP
                 DvGeneral.RowFilter = "roll_id LIKE '%" + this.txt_buscar.Text + "%'";
             }
             FOUND_COUNTER.Text = DvGeneral.Count.ToString() + " ENCONTRADOS.";
+            SET_MAGEN_COLUM_STATUS(GridItemsMaster);
         }
 
         private void Txt_buscar_TextChanged_1(object sender, EventArgs e)
@@ -171,6 +192,10 @@ namespace RitramaAPP
         }
         private void Botcarga_hoj_Click(object sender, EventArgs e)
         {
+            LOAD_DATA_HOJAS();
+        }
+        private void LOAD_DATA_HOJAS() 
+        {
             GridItemHojas.Columns.Clear();
             recemanager.ds.Tables["dtrecepcion"].Clear();
             recemanager.ds.Tables["dtrecepcion"].AcceptChanges();
@@ -181,6 +206,7 @@ namespace RitramaAPP
             AplicarEstilosHojas();
             GridItemHojas.DataSource = DvHojas;
             TXT_RECORDNUMBER_HOJ.Text = DvHojas.Count.ToString();
+            SET_MAGEN_COLUM_STATUS(GridItemHojas);
         }
 
         private void Botbuscar_hoj_Click(object sender, EventArgs e)
@@ -209,9 +235,14 @@ namespace RitramaAPP
                 DvHojas.RowFilter = "roll_id LIKE '%" + this.txtbuscar_hoj.Text + "%'";
             }
             FOUND_HOJAS.Text = DvHojas.Count.ToString() + " ENCONTRADOS.";
+            SET_MAGEN_COLUM_STATUS(GridItemHojas);
         }
 
         private void Botcargar_gra_Click(object sender, EventArgs e)
+        {
+            LOAD_DATA_GRAPHICS();
+        }
+        private void LOAD_DATA_GRAPHICS() 
         {
             GridItemGraphics.Columns.Clear();
             recemanager.ds.Tables["dtrecepcion"].Clear();
@@ -223,6 +254,7 @@ namespace RitramaAPP
             AplicarEstilosGraphics();
             GridItemGraphics.DataSource = DvGraphics;
             TXTRECORD_GRA.Text = DvGraphics.Count.ToString();
+            SET_MAGEN_COLUM_STATUS(GridItemGraphics);
         }
 
         private void Botbuscar_gra_Click(object sender, EventArgs e)
@@ -248,9 +280,15 @@ namespace RitramaAPP
                 DvGraphics.RowFilter = "roll_id LIKE '%" + this.txtbuscar_gra.Text + "%'";
             }
             RECORD_FOUND_GRA.Text = DvGraphics.Count.ToString() + " ENCONTRADOS.";
+            SET_MAGEN_COLUM_STATUS(GridItemGraphics);
+
         }
 
         private void Bot_cargar_cor_Click(object sender, EventArgs e)
+        {
+            LOAD_DATA_ROLLS();
+        }
+        private void LOAD_DATA_ROLLS() 
         {
             GridItemsCortados.Columns.Clear();
             DataTable dtrolls = promanager.LoadRolls();
@@ -259,6 +297,23 @@ namespace RitramaAPP
             AplicarEstilosCortados();
             GridItemsCortados.DataSource = DvRolls;
             TXTRECORDNUMBER_COR.Text = DvRolls.Count.ToString();
+            SET_MAGEN_COLUM_STATUS(GridItemsCortados);
+        }
+
+        private void SET_MAGEN_COLUM_STATUS(DataGridView dg) 
+        {
+            foreach (DataGridViewRow row in dg.Rows)
+            {
+                DataGridViewCell cell = row.Cells["status"];
+                if (cell.Value.ToString() == "Reservado")
+                {
+                    row.Cells["ColumnImage"].Value = (System.Drawing.Image)Properties.Resources.red_flag;
+                }
+                else
+                {
+                    row.Cells["ColumnImage"].Value = null;
+                }
+            }
         }
 
         private void Bot_buscar_cor_Click(object sender, EventArgs e)
@@ -291,6 +346,7 @@ namespace RitramaAPP
             RECORDFOUND_COR.Text = DvRolls.Count.ToString() + " ENCONTRADOS.";
             DataGridViewRow item = GridItemsCortados.Rows[0];
             item.Selected = false;
+            SET_MAGEN_COLUM_STATUS(GridItemsCortados);
         }
 
         private void Txtbuscar_hoj_TextChanged(object sender, EventArgs e)
@@ -420,6 +476,7 @@ namespace RitramaAPP
             switch (page_active) 
             {
                 case 0:
+                    //procedimiento para los master
                     dg = GridItemsMaster;
                     nameid = "roll_id";
                     indexProd = 0;
@@ -429,8 +486,10 @@ namespace RitramaAPP
                         return;
                     }
                     PROC_RESERVA_PRODUCTS(dg, nameid, indexProd);
+                    LOAD_DATA_MASTER();
                     break;
                 case 1:
+                    //procedimiento para los hojas
                     dg = GridItemHojas;
                     nameid = "roll_id";
                     indexProd = 1;
@@ -440,8 +499,10 @@ namespace RitramaAPP
                         return;
                     }
                     PROC_RESERVA_PRODUCTS(dg, nameid, indexProd);
+                    LOAD_DATA_HOJAS();
                     break;
                 case 2:
+                    //procedimiento para los graphics
                     dg = GridItemGraphics;
                     nameid = "roll_id";
                     indexProd = 2;
@@ -451,6 +512,7 @@ namespace RitramaAPP
                         return;
                     }
                     PROC_RESERVA_PRODUCTS(dg, nameid, indexProd);
+                    LOAD_DATA_GRAPHICS();
                     break;
                 case 3:
                     //procedimiento para los rollos cortados
@@ -463,6 +525,7 @@ namespace RitramaAPP
                         return;
                     }
                     PROC_RESERVA_PRODUCTS(dg,nameid,indexProd);
+                    LOAD_DATA_ROLLS();
                     break;
             }   
         }
@@ -485,15 +548,39 @@ namespace RitramaAPP
             };
             reserva.ShowDialog();
             reserva.DocumReserva.IndexProduct = idx_produt;
+            //procedimiento donde se guarda el documento de reserva
             inimanager.AddReserva(reserva.DocumReserva);
+            //marcar los productos como reservados
+            inimanager.MarkRowReserva(ids, idx_produt);
         }
-
-        private void GridItemHojas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void GridItemsCortados_SelectionChanged(object sender, EventArgs e)
         {
-
+            PROTECT_SELECT_RESERVA(GridItemsCortados); 
+        }        
+        private void GridItemGraphics_SelectionChanged(object sender, EventArgs e)
+        {
+            PROTECT_SELECT_RESERVA(GridItemGraphics);
         }
 
-        private void TABINVENTARIO_SelectedIndexChanged(object sender, EventArgs e)
+        private void GridItemHojas_SelectionChanged(object sender, EventArgs e)
+        {
+            PROTECT_SELECT_RESERVA(GridItemHojas);
+        }
+
+      
+        private void PROTECT_SELECT_RESERVA(DataGridView dg)
+        {    
+            if (dg.Columns.Contains("status") == true) 
+            {
+                int RowSelect = dg.CurrentRow.Index;
+                if (dg.Rows[RowSelect].Cells["status"].Value.ToString() == "Reservado")
+                {
+                    dg.Rows[RowSelect].Selected = false;
+                }
+            }
+        }
+
+        private void GridItemsMaster_SelectionChanged(object sender, EventArgs e)
         {
 
         }

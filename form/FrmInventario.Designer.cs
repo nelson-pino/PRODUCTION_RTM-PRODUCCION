@@ -178,7 +178,6 @@
             this.TABINVENTARIO.SelectedIndex = 0;
             this.TABINVENTARIO.Size = new System.Drawing.Size(846, 795);
             this.TABINVENTARIO.TabIndex = 37;
-            this.TABINVENTARIO.SelectedIndexChanged += new System.EventHandler(this.TABINVENTARIO_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -384,6 +383,7 @@
             this.GridItemsMaster.ReadOnly = true;
             this.GridItemsMaster.Size = new System.Drawing.Size(826, 376);
             this.GridItemsMaster.TabIndex = 0;
+            this.GridItemsMaster.SelectionChanged += new System.EventHandler(this.GridItemsMaster_SelectionChanged);
             // 
             // tabPage3
             // 
@@ -536,7 +536,7 @@
             this.GridItemHojas.ReadOnly = true;
             this.GridItemHojas.Size = new System.Drawing.Size(826, 376);
             this.GridItemHojas.TabIndex = 14;
-            this.GridItemHojas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridItemHojas_CellContentClick);
+            this.GridItemHojas.SelectionChanged += new System.EventHandler(this.GridItemHojas_SelectionChanged);
             // 
             // label7
             // 
@@ -742,6 +742,7 @@
             this.GridItemGraphics.ReadOnly = true;
             this.GridItemGraphics.Size = new System.Drawing.Size(826, 376);
             this.GridItemGraphics.TabIndex = 14;
+            this.GridItemGraphics.SelectionChanged += new System.EventHandler(this.GridItemGraphics_SelectionChanged);
             // 
             // label11
             // 
@@ -998,6 +999,7 @@
             this.GridItemsCortados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GridItemsCortados.Size = new System.Drawing.Size(826, 376);
             this.GridItemsCortados.TabIndex = 14;
+            this.GridItemsCortados.SelectionChanged += new System.EventHandler(this.GridItemsCortados_SelectionChanged);
             // 
             // label14
             // 
