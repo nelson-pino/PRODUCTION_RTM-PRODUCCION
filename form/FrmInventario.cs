@@ -344,7 +344,15 @@ namespace RitramaAPP
                 DvRolls.RowFilter = "unique_code LIKE '%" + this.txtbuscar_cor.Text + "%'";
             }
             RECORDFOUND_COR.Text = DvRolls.Count.ToString() + " ENCONTRADOS.";
+            if (GridItemsCortados.Rows.Count == 0)
+            {
+                return;
+            }
             DataGridViewRow item = GridItemsCortados.Rows[0];
+            if(item == null) 
+            {
+                return;
+            }
             item.Selected = false;
             SET_MAGEN_COLUM_STATUS(GridItemsCortados);
         }
@@ -426,7 +434,10 @@ namespace RitramaAPP
             }
             for (int i = 1; i <= SelectNumber; i++)
             {
-                grid.Rows[i - 1].Selected = true;
+                if (grid.Rows[i-1].Cells["status"].Value.ToString() != "Reservado") 
+                {
+                    grid.Rows[i - 1].Selected = true;
+                }
             }
         }
         private void SELECT_ALL_ROWS_RESERVA(CheckBox cb, DataGridView grid)
@@ -435,7 +446,10 @@ namespace RitramaAPP
             {
                 for (int i = 1; i <= grid.Rows.Count; i++)
                 {
-                    grid.Rows[i - 1].Selected = true;
+                    if (grid.Rows[i - 1].Cells["status"].Value.ToString() != "Reservado")
+                    {
+                        grid.Rows[i - 1].Selected = true;
+                    }
                 }
             }
             else
@@ -572,6 +586,10 @@ namespace RitramaAPP
         {    
             if (dg.Columns.Contains("status") == true) 
             {
+                if (dg.CurrentRow == null) 
+                {
+                    return;
+                }
                 int RowSelect = dg.CurrentRow.Index;
                 if (dg.Rows[RowSelect].Cells["status"].Value.ToString() == "Reservado")
                 {
@@ -582,7 +600,75 @@ namespace RitramaAPP
 
         private void GridItemsMaster_SelectionChanged(object sender, EventArgs e)
         {
+            PROTECT_SELECT_RESERVA(GridItemsMaster);
+        }
 
+        private void Link_info_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            int page_active = TABINVENTARIO.SelectedIndex;
+            switch (page_active) 
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    int RowSelect = GridItemsCortados.CurrentRow.Index;
+                    string st = GridItemsCortados.Rows[RowSelect].Cells["status"].Value.ToString();
+                    if (st == R.CONSTANTES.RESERVA_FLAG_TRUE) 
+                    {
+                        string code_id = GridItemsCortados.Rows[RowSelect].Cells[9].Value.ToString();
+                        Reserva data = inimanager.GetInfoDocumReserva(code_id);
+                        frmInfoReserva infodialog = new frmInfoReserva
+                        {
+                            DataInfo = data,
+                            Code_id = code_id
+                        };
+                        infodialog.ShowDialog();
+                        if (infodialog.DilogDeleteYes == true) 
+                        {
+                            // se borra registro de reserva.
+                            inimanager.DeleteRenglonReserva(code_id);
+                            // se desmarca del inicial.
+                            bool result = inimanager.UnmarkItemReserva(code_id,page_active);
+                            if (result) 
+                            {
+                                MessageBox.Show("Procesos realizado Exito.");
+                                LOAD_DATA_ROLLS();
+                            }
+                            else 
+                            {
+                                MessageBox.Show("Sucedio algo inesperado, llame a sistemas");
+                            }
+                        }
+                    }
+                    else 
+                    {
+                        MessageBox.Show("Tiene que seleccionar un articulo reservado.");
+                        return;
+                    }
+                    
+                    break;
+
+            }
+
+
+
+
+            
+        }
+
+        private void Link_detele_reserva_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmGetOneValue formData = new FrmGetOneValue
+            {
+                Title_form = "Eliminar Documento Reserva:",
+                Title_Textbox ="Introduzca Documento :"
+                
+            };
+            formData.ShowDialog();
         }
     }
 }

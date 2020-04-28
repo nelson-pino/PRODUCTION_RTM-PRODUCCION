@@ -7,15 +7,15 @@ namespace RitramaAPP.Clases
 {
     public class CustomerManager
     {
-        Conexion micomm = new Conexion();
+        readonly Conexion micomm = new Conexion();
         public DataSet ds = new DataSet();
-        DataTable dtcustomer = new DataTable();
-        SqlDataAdapter dacustomer = new SqlDataAdapter();
-        string db = "RITRAMA";
-        string sql1 = "SELECT Customer_ID,Customer_Name,Customer_Category,Customer_Dir,Customer_Email,Anulado,phone  FROM customer";
-        string sql2 = "INSERT INTO customer (Customer_ID,Customer_Name,Customer_Category,Customer_Dir,Customer_Email,Anulado,phone) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7)";
-        string sql3 = "UPDATE customer SET Customer_Name=@p2,Customer_Category=@p3,Customer_Dir=@p4,Customer_Email=@p5,Anulado=@p6,phone=@p7 WHERE Customer_ID=@p1";
-        string sql4 = "SELECT count(*) FROM customer WHERE customer_id=@p1";
+        readonly DataTable dtcustomer = new DataTable();
+        readonly SqlDataAdapter dacustomer = new SqlDataAdapter();
+        readonly string db = "RITRAMA";
+        readonly string sql1 = "SELECT Customer_ID,Customer_Name,Customer_Category,Customer_Dir,Customer_Email,Anulado,phone  FROM customer";
+        readonly string sql2 = "INSERT INTO customer (Customer_ID,Customer_Name,Customer_Category,Customer_Dir,Customer_Email,Anulado,phone) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7)";
+        readonly string sql3 = "UPDATE customer SET Customer_Name=@p2,Customer_Category=@p3,Customer_Dir=@p4,Customer_Email=@p5,Anulado=@p6,phone=@p7 WHERE Customer_ID=@p1";
+        readonly string sql4 = "SELECT count(*) FROM customer WHERE customer_id=@p1";
         public Boolean ToList()
         {
             try
@@ -166,6 +166,34 @@ namespace RitramaAPP.Clases
             else
             {
                 return false;
+            }
+        }
+        public DataTable GetCustomers()
+        {
+            DataTable dt = new DataTable();
+            using (SqlDataAdapter da = new SqlDataAdapter())
+            {
+                try
+                {
+                    micomm.Conectar(R.SQL.DATABASE.NAME);
+                    SqlCommand comando = new SqlCommand
+                    {
+                        Connection = micomm.cnn,
+                        CommandType = CommandType.Text,
+                        CommandText = R.SQL.QUERY_SQL.CUSTOMERS.SQL_SELECT_CUSTOMERS
+                    };
+                    comando.ExecuteNonQuery();
+                    da.SelectCommand = comando;
+                    da.Fill(dt);
+                    comando.Dispose();
+                    micomm.Desconectar();
+                    return dt;
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(R.ERROR_MESSAGES.CUSTOMERS.MESSAGE_ERROR_GETLISTCUSTOMERS + ex);
+                    return dt;
+                }
             }
         }
     }

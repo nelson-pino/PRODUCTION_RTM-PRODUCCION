@@ -38,11 +38,9 @@
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Customers");
             System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Proveedores");
             System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Parametros");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Listado de rollos cortados por Ubicacion");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Imprimir Conduce de Despacho");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Reporte", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Resporte de Reserva de Productos");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Reporte", new System.Windows.Forms.TreeNode[] {
+            treeNode10});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -78,12 +76,10 @@
             treeNode8.Text = "Proveedores";
             treeNode9.Name = "Nodo1";
             treeNode9.Text = "Parametros";
-            treeNode10.Name = "Nodo0";
-            treeNode10.Text = "Listado de rollos cortados por Ubicacion";
-            treeNode11.Name = "Nodo1";
-            treeNode11.Text = "Imprimir Conduce de Despacho";
-            treeNode12.Name = "Nodo2";
-            treeNode12.Text = "Reporte";
+            treeNode10.Name = "Nodo_Reporte1";
+            treeNode10.Text = "Resporte de Reserva de Productos";
+            treeNode11.Name = "Nodo_Reportes";
+            treeNode11.Text = "Reporte";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
@@ -94,11 +90,12 @@
             treeNode7,
             treeNode8,
             treeNode9,
-            treeNode12});
+            treeNode11});
             this.treeView1.SelectedImageIndex = 0;
             this.treeView1.Size = new System.Drawing.Size(157, 640);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView1_AfterSelect);
+            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TreeView1_NodeMouseDoubleClick);
             // 
             // imageList1
             // 
@@ -114,6 +111,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(853, 707);
             this.panel1.TabIndex = 3;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel1_Paint);
             // 
             // pictureBox1
             // 

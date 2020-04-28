@@ -14,6 +14,7 @@ namespace RitramaAPP.Clases
         public DateTime FechaReserva { get; set; }
         public DateTime FechaPlan { get; set; }
         public string IdCust { get; set; }
+        public string Customer_Name { get; set; }
         public string Commentary { get; set; }
         public int IndexProduct { get; set; }
 

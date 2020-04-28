@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInventario));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.link_detele_reserva = new System.Windows.Forms.LinkLabel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.link_info = new System.Windows.Forms.LinkLabel();
             this.link_menu1 = new System.Windows.Forms.LinkLabel();
             this.label15 = new System.Windows.Forms.Label();
             this.TABINVENTARIO = new System.Windows.Forms.TabControl();
@@ -136,6 +140,10 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.link_detele_reserva);
+            this.panel1.Controls.Add(this.label26);
+            this.panel1.Controls.Add(this.label24);
+            this.panel1.Controls.Add(this.link_info);
             this.panel1.Controls.Add(this.link_menu1);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Location = new System.Drawing.Point(9, 10);
@@ -144,9 +152,52 @@
             this.panel1.Size = new System.Drawing.Size(846, 98);
             this.panel1.TabIndex = 36;
             // 
+            // link_detele_reserva
+            // 
+            this.link_detele_reserva.AutoSize = true;
+            this.link_detele_reserva.LinkColor = System.Drawing.Color.Black;
+            this.link_detele_reserva.Location = new System.Drawing.Point(239, 73);
+            this.link_detele_reserva.Name = "link_detele_reserva";
+            this.link_detele_reserva.Size = new System.Drawing.Size(86, 13);
+            this.link_detele_reserva.TabIndex = 6;
+            this.link_detele_reserva.TabStop = true;
+            this.link_detele_reserva.Text = "Eliminar Reserva";
+            this.link_detele_reserva.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_detele_reserva_LinkClicked);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(228, 73);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(15, 13);
+            this.label26.TabIndex = 5;
+            this.label26.Text = "│";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(117, 74);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(15, 13);
+            this.label24.TabIndex = 3;
+            this.label24.Text = "│";
+            // 
+            // link_info
+            // 
+            this.link_info.AutoSize = true;
+            this.link_info.LinkColor = System.Drawing.Color.Black;
+            this.link_info.Location = new System.Drawing.Point(128, 73);
+            this.link_info.Name = "link_info";
+            this.link_info.Size = new System.Drawing.Size(105, 13);
+            this.link_info.TabIndex = 2;
+            this.link_info.TabStop = true;
+            this.link_info.Text = "Información Reserva";
+            this.link_info.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_info_LinkClicked);
+            // 
             // link_menu1
             // 
             this.link_menu1.AutoSize = true;
+            this.link_menu1.LinkColor = System.Drawing.Color.Black;
             this.link_menu1.Location = new System.Drawing.Point(9, 73);
             this.link_menu1.Name = "link_menu1";
             this.link_menu1.Size = new System.Drawing.Size(113, 13);
@@ -377,6 +428,7 @@
             // GridItemsMaster
             // 
             this.GridItemsMaster.AllowUserToAddRows = false;
+            this.GridItemsMaster.AllowUserToResizeRows = false;
             this.GridItemsMaster.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridItemsMaster.Location = new System.Drawing.Point(6, 50);
             this.GridItemsMaster.Name = "GridItemsMaster";
@@ -530,6 +582,7 @@
             // GridItemHojas
             // 
             this.GridItemHojas.AllowUserToAddRows = false;
+            this.GridItemHojas.AllowUserToResizeRows = false;
             this.GridItemHojas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridItemHojas.Location = new System.Drawing.Point(3, 52);
             this.GridItemHojas.Name = "GridItemHojas";
@@ -736,6 +789,7 @@
             // GridItemGraphics
             // 
             this.GridItemGraphics.AllowUserToAddRows = false;
+            this.GridItemGraphics.AllowUserToResizeRows = false;
             this.GridItemGraphics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridItemGraphics.Location = new System.Drawing.Point(9, 54);
             this.GridItemGraphics.Name = "GridItemGraphics";
@@ -992,6 +1046,7 @@
             // GridItemsCortados
             // 
             this.GridItemsCortados.AllowUserToAddRows = false;
+            this.GridItemsCortados.AllowUserToResizeRows = false;
             this.GridItemsCortados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridItemsCortados.Location = new System.Drawing.Point(9, 54);
             this.GridItemsCortados.Name = "GridItemsCortados";
@@ -1069,7 +1124,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(866, 920);
+            this.ClientSize = new System.Drawing.Size(866, 788);
             this.Controls.Add(this.TABINVENTARIO);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1192,5 +1247,9 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox Txt_ReserCant_Graf;
         private System.Windows.Forms.LinkLabel link_menu1;
+        private System.Windows.Forms.LinkLabel link_info;
+        private System.Windows.Forms.LinkLabel link_detele_reserva;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label24;
     }
 }

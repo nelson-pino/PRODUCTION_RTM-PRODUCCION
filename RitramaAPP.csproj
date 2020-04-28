@@ -158,17 +158,35 @@
     <Compile Include="form\FrmDevol.Designer.cs">
       <DependentUpon>FrmDevol.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmGetOneValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmGetOneValue.Designer.cs">
+      <DependentUpon>frmGetOneValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\FrmImportExcelMP.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="form\FrmImportExcelMP.Designer.cs">
       <DependentUpon>FrmImportExcelMP.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmInfoReserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmInfoReserva.Designer.cs">
+      <DependentUpon>frmInfoReserva.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\FrmMovimInventario.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="form\FrmMovimInventario.Designer.cs">
       <DependentUpon>FrmMovimInventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmPrintSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmPrintSelect.Designer.cs">
+      <DependentUpon>FrmPrintSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="form\FrmReportViewCrystal.cs">
       <SubType>Form</SubType>
@@ -330,11 +348,20 @@
     <EmbeddedResource Include="form\FrmDevol.resx">
       <DependentUpon>FrmDevol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmGetOneValue.resx">
+      <DependentUpon>frmGetOneValue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\FrmImportExcelMP.resx">
       <DependentUpon>FrmImportExcelMP.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmInfoReserva.resx">
+      <DependentUpon>frmInfoReserva.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\FrmMovimInventario.resx">
       <DependentUpon>FrmMovimInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmPrintSelect.resx">
+      <DependentUpon>FrmPrintSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\FrmReportViewCrystal.resx">
       <DependentUpon>FrmReportViewCrystal.cs</DependentUpon>

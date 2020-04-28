@@ -1,4 +1,5 @@
 ﻿using RitramaAPP.form;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -10,7 +11,7 @@ namespace RitramaAPP
         {
             InitializeComponent();
         }
-
+        
         private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             switch (e.Node.Text)
@@ -115,6 +116,7 @@ namespace RitramaAPP
                     devol.Dock = DockStyle.Fill;
                     devol.Show();
                     break;
+                
             }
         }
 
@@ -122,6 +124,28 @@ namespace RitramaAPP
         {
             string ver = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             LABEL_VERSION.Text = "Versión App: " + ver;
+        }
+
+    
+        private void TreeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            switch (e.Node.Text) 
+            {
+                case R.CONSTANTES.OPTION_MENU_REPORTE1:
+                    //Reporte de reserva de productos 
+                    FrmPrintSelect DialogPrint = new FrmPrintSelect
+                    {
+                        Index_Report = 1,
+                        Report_Name = "Reporte Reserva de Productos"
+                    };
+                    DialogPrint.ShowDialog();
+                    break;
+            }
+        }
+
+        private void Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

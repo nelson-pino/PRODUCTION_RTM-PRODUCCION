@@ -252,11 +252,13 @@ namespace RitramaAPP
                     public static string SQL_SELECT_SALIDAS_MASTER = "SELECT numero,fecha,rollid_1,CASE rollid_2 WHEN '' THEN util1_real_width ELSE 0 END AS util1_real_width,CASE rollid_2 WHEN '' THEN util1_real_lenght ELSE 0 END AS util1_real_lenght,lenght_1,CASE rollid_2 WHEN '' THEN decartable1_pies ELSE 0 END AS decartable1_pies ,CASE rollid_2 WHEN '' THEN (util1_real_lenght+decartable1_pies) ELSE 0 END AS total_con,CASE rollid_2 WHEN '' THEN cant_rollos ELSE 0 END AS cant_rollos,util2_real_width,util2_real_lenght,width_2,lenght_2,descartable2_pies,(util2_real_lenght+descartable2_pies) AS total_con2 FROM orden_corte WHERE rollid_1=@p1 OR rollid_2=@p1";
                     public static string SQL_INSERT_DATA_RESERVA = "INSERT reserva (transac,orden_t,orden_s,fecha_reserva,fecha_entrega,id_cust,commentary,id,tipo_product) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9)";
                     public static string SQL_TRANSACT_DATA_RESERVA = "SELECT COUNT(DISTINCT transac)+1 FROM reserva";
-                    
                     public static string SQL_MARK_RESERVA_MASTER = "UPDATE MasterInic SET status='Reservado' WHERE roll_id=@p1";
                     public static string SQL_MARK_RESERVA_HOJAS = "UPDATE HojasInic SET status='Reservado' WHERE roll_id=@p1";
                     public static string SQL_MARK_RESERVA_GRAF = "UPDATE GraphicsInic SET status='Reservado' WHERE roll_id=@p1";
                     public static string SQL_MARK_RESERVA_ROLLS = "UPDATE RollsInic SET status='Reservado' WHERE unique_code=@p1";
+                    public static string SQL_SELECT_INFO_RESERVA = "SELECT transac,orden_s,orden_t,fecha_entrega,fecha_reserva,id_cust,b.Customer_Name,a.commentary FROM Reserva a LEFT JOIN Customer b on a.id_cust = b.Customer_ID WHERE id=@p1";
+                    public static string SQL_DELETE_ITEM_RESERVA = "DELETE Reserva WHERE id=@p1";
+                    public static string SQL_UPDATE_ITEM_UNMARK_RESERVA3 = "UPDATE RollsInic SET status='Ok.' WHERE unique_code=@p1";
 
                 }
                 public class DEVOLUCION 
@@ -306,6 +308,8 @@ namespace RitramaAPP
                 public static string MESSAGE_CARGAR_SALIDAS_ROLLO_CORTADO = "Error al cargar las salidas de inventarios tipo ROLLO CORTADO...";
                 public static string MESSAGE_ERROR_SALIDAS_MASTER = "Error al tratar de cargar la informacion de las salidas de los master en el inventario...";
                 public static string MESSAGE_ERROR_TRANSAC_RESERVAS = "Error al obtener el numero de transaccion en las reservas de productos.";
+                public static string MESSAGE_ERROR_INFO_RESERVAS = "Error al cargar la informacion de reserva de productos.";
+                public static string MESSAGE_ERROR_DELETE_ITEM_RESERVAS = "Error al tratar de borra item de reserva de productos.";
 
             }
             public class MODULO_PRODUCTOS
@@ -388,6 +392,7 @@ namespace RitramaAPP
             public static string PATH_REPORTS_DETALLE_RC = @"\Reports\detalle_RC.rpt";
             public static string PATH_REPORTS_FORMAT_CONDUCE_SP = @"\Reports\Format_Despacho_sinprecio.rpt";
             public static string PATH_REPORTS_DETALLE_PALETA = @"\Reports\detalle_Paleta.rpt";
+            public static string PATH_REPORTS_RESERVA_PRODUCTOS = @"\Reports\Report_reserva.rpt";
         }
         public class CONSTANTES
         {
@@ -401,9 +406,8 @@ namespace RitramaAPP
             public const string TIPO_ROLL = "Rollo Cortado";
             public const string TIPO_GRAP = "Graphics";
             public const string TIPO_HOJA = "Hojas";
-
-
-
+            public const string OPTION_MENU_REPORTE1 = "Resporte de Reserva de Productos";
+            public const string RESERVA_FLAG_TRUE = "Reservado";
         }
 
     }

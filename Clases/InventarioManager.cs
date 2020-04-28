@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Drawing;
     using System.IO;
+    using System.Linq.Expressions;
     using System.Windows.Forms;
     public class InventarioManager
     {
@@ -242,15 +244,15 @@
                 }
             }
         }
-        public bool AddReserva(Reserva doc) 
+        public bool AddReserva(Reserva doc)
         {
             try
             {
-                foreach (string id in doc.items) 
+                foreach (string id in doc.items)
                 {
                     CommandSqlGeneric(R.DATABASES.RITRAMA,
                     R.SQL.QUERY_SQL.INVENTARIO.SQL_INSERT_DATA_RESERVA,
-                    ParamReserva(doc,id), false, "");
+                    ParamReserva(doc, id), false, "");
                 }
                 return true;
             }
@@ -260,7 +262,7 @@
                 return false;
             }
         }
-        public List<SqlParameter> ParamReserva(Reserva item,string id)
+        public List<SqlParameter> ParamReserva(Reserva item, string id)
         {
             List<SqlParameter> sp = new List<SqlParameter>()
             {
@@ -276,7 +278,7 @@
             };
             return sp;
         }
-        public int GetTransacReserva() 
+        public int GetTransacReserva()
         {
             int cant_value;
             Micomm.Conectar(R.DATABASES.RITRAMA);
@@ -288,22 +290,22 @@
             };
             try
             {
-                cant_value = (int) comando.ExecuteScalar();
+                cant_value = (int)comando.ExecuteScalar();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_TRANSAC_RESERVAS + ex);
                 cant_value = 0;
             }
-                Micomm.Desconectar();
-                comando.Dispose();
-                return cant_value;
-            }
-        public void MarkRowReserva(List<String> listid,int type_product) 
+            Micomm.Desconectar();
+            comando.Dispose();
+            return cant_value;
+        }
+        public void MarkRowReserva(List<String> listid, int type_product)
         {
             try
             {
-                switch (type_product) 
+                switch (type_product)
                 {
                     case 0:
                         // marcar master
@@ -326,16 +328,85 @@
             catch (SqlException ex)
             {
                 MessageBox.Show("error al marcar las reserva de productos" + ex);
-                
+
             }
         }
-        public void SQL_COMMAND_MARK_RESERVA(List<String> listaid,string comando) 
+        public void SQL_COMMAND_MARK_RESERVA(List<String> listaid, string comando)
         {
             foreach (string item in listaid)
             {
                 CommandSqlGenericDtOnePar(R.DATABASES.RITRAMA, comando, "", item);
             }
-            
+
+        }
+
+        public bool UnmarkItemReserva(string id,int type_product) 
+        {
+            try
+            {
+                switch (type_product) 
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        CommandSqlGenericDtOnePar(R.DATABASES.RITRAMA,
+                        R.SQL.QUERY_SQL.INVENTARIO.SQL_UPDATE_ITEM_UNMARK_RESERVA3, "", id);
+                        break;
+                }
+                
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }        
+        }
+
+        public Reserva GetInfoDocumReserva(string id)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = CommandSqlGenericDtOnePar(R.DATABASES.RITRAMA,
+                R.SQL.QUERY_SQL.INVENTARIO.SQL_SELECT_INFO_RESERVA,
+                R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_INFO_RESERVAS, id);
+                Reserva documreserva = new Reserva
+                {
+                    Transac = Convert.ToInt16(dt.Rows[0]["transac"]),
+                    OrdenServicio = Convert.ToString(dt.Rows[0]["orden_s"]),
+                    OrdenTrabajo = Convert.ToString(dt.Rows[0]["orden_t"]),
+                    FechaReserva = Convert.ToDateTime(dt.Rows[0]["fecha_reserva"]),
+                    FechaPlan = Convert.ToDateTime(dt.Rows[0]["fecha_entrega"]),
+                    IdCust = Convert.ToString(dt.Rows[0]["id_cust"]),
+                    Customer_Name = Convert.ToString(dt.Rows[0]["customer_name"]),
+                    Commentary = Convert.ToString(dt.Rows[0]["commentary"])
+                };
+                return documreserva;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("error al traer los datos de la reserva de productos");
+                return null;
+            }
+        }
+        public Boolean DeleteRenglonReserva(string id)
+        {
+            try
+            {
+                CommandSqlGenericDtOnePar(R.DATABASES.RITRAMA,
+                    R.SQL.QUERY_SQL.INVENTARIO.SQL_DELETE_ITEM_RESERVA,
+                    R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_DELETE_ITEM_RESERVAS, id);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
         }
     }
 }
