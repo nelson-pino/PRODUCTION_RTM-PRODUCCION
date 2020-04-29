@@ -14,6 +14,8 @@ namespace RitramaAPP.form
     {
         public string Title_form { get; set; }
         public string Title_Textbox { get; set; }
+        public string  DataValue { get; set; }
+
         public FrmGetOneValue()
         {
             InitializeComponent();
@@ -23,6 +25,12 @@ namespace RitramaAPP.form
         {
             this.Text = Title_form;
             label1.Text = Title_Textbox;
+        }
+
+        private void Bot_process_Click(object sender, EventArgs e)
+        {
+            this.DataValue = txt_value.Text.Trim();
+            this.Close();
         }
     }
 }

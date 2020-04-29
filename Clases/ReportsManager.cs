@@ -7,7 +7,7 @@
     using System.Windows.Forms;
     public class ReportsManager
     {
-        public void Reporte_ReservaProducts(string tdesde_cli,string thasta_cli,DateTime tdesde_fecha,DateTime thasta_fecha,string tdesde_pro,string thasta_pro) 
+        public void Reporte_ReservaProducts(string tdesde_cli,string thasta_cli,DateTime tdesde_fecha,DateTime thasta_fecha) 
         {
             using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
             {
@@ -20,8 +20,8 @@
                 reporte.SetParameterValue("THASTA_CLI", thasta_cli);
                 reporte.SetParameterValue("TDESDE_FECHA", tdesde_fecha);
                 reporte.SetParameterValue("THASTA_FECHA", thasta_fecha);
-                reporte.SetParameterValue("TDESDE_PRO", tdesde_pro);
-                reporte.SetParameterValue("THASTA_PRO", thasta_pro);
+                //reporte.SetParameterValue("TDESDE_PRO", tdesde_pro);
+                //reporte.SetParameterValue("THASTA_PRO", thasta_pro);
 
                 Tables CrTables;
                 CrTables = reporte.Database.Tables;
@@ -41,7 +41,7 @@
 
                 frmReportView.crystalReportViewer1.ReportSource = reporte;
                 frmReportView.Refresh();
-                frmReportView.crystalReportViewer1.Zoom(80);
+                frmReportView.crystalReportViewer1.Zoom(100);
                 frmReportView.Text = "Reporte de Reserva de Productos";
                 frmReportView.Width = 900;
                 frmReportView.Height = 700;

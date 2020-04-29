@@ -259,7 +259,8 @@ namespace RitramaAPP
                     public static string SQL_SELECT_INFO_RESERVA = "SELECT transac,orden_s,orden_t,fecha_entrega,fecha_reserva,id_cust,b.Customer_Name,a.commentary FROM Reserva a LEFT JOIN Customer b on a.id_cust = b.Customer_ID WHERE id=@p1";
                     public static string SQL_DELETE_ITEM_RESERVA = "DELETE Reserva WHERE id=@p1";
                     public static string SQL_UPDATE_ITEM_UNMARK_RESERVA3 = "UPDATE RollsInic SET status='Ok.' WHERE unique_code=@p1";
-
+                    public static string SQL_LIST_ID_ITEM_RESERVA = "SELECT id FROM reserva WHERE transac=@p1";
+                    public static string SQL_DELETE_DOCUMENT_RESERVA = "DELETE Reserva WHERE transac=@p1";
                 }
                 public class DEVOLUCION 
                 {
@@ -310,6 +311,7 @@ namespace RitramaAPP
                 public static string MESSAGE_ERROR_TRANSAC_RESERVAS = "Error al obtener el numero de transaccion en las reservas de productos.";
                 public static string MESSAGE_ERROR_INFO_RESERVAS = "Error al cargar la informacion de reserva de productos.";
                 public static string MESSAGE_ERROR_DELETE_ITEM_RESERVAS = "Error al tratar de borra item de reserva de productos.";
+                public static string MESSAGE_ERROR_DELETE_DOCUMENT_RESERVAS = "Error al tratar de borra documentos reserva de productos.";
 
             }
             public class MODULO_PRODUCTOS

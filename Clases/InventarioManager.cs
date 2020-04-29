@@ -6,6 +6,7 @@
     using System.Data.SqlClient;
     using System.Drawing;
     using System.IO;
+    using System.Linq;
     using System.Linq.Expressions;
     using System.Windows.Forms;
     public class InventarioManager
@@ -339,7 +340,6 @@
             }
 
         }
-
         public bool UnmarkItemReserva(string id,int type_product) 
         {
             try
@@ -365,7 +365,6 @@
                 return false;
             }        
         }
-
         public Reserva GetInfoDocumReserva(string id)
         {
             try
@@ -408,5 +407,41 @@
 
             }
         }
+        public Boolean DeleteDocumentReserva(string doc) 
+        {
+            try
+            {
+                //crear los objetos a utilizar
+                List<string> ids = new List<string>();
+                DataTable dt = new DataTable();
+                //traer los codigos id desde la tabla de reserva
+                dt = CommandSqlGenericDtOnePar(R.DATABASES.RITRAMA,
+                R.SQL.QUERY_SQL.INVENTARIO.SQL_LIST_ID_ITEM_RESERVA,
+                R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_DELETE_DOCUMENT_RESERVAS,doc);
+                //convertirlos a lista
+                ids = dt.AsEnumerable()
+                      .Select(r => r.Field<string>("id"))
+                      .ToList();
+                //recorrer la lista y ejecutar comando sql para desmarcalos
+                foreach (string item in ids) 
+                {
+                    CommandSqlGenericDtOnePar(R.DATABASES.RITRAMA,
+                    R.SQL.QUERY_SQL.INVENTARIO.SQL_UPDATE_ITEM_UNMARK_RESERVA3,
+                    R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_DELETE_DOCUMENT_RESERVAS,item);
+                }
+                //borra el documento de la tabla de reserva.
+                CommandSqlGenericDtOnePar(R.DATABASES.RITRAMA,
+                R.SQL.QUERY_SQL.INVENTARIO.SQL_DELETE_DOCUMENT_RESERVA,
+                R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_DELETE_DOCUMENT_RESERVAS, doc);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
+
     }
 }

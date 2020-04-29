@@ -17,6 +17,7 @@ namespace RitramaAPP.form
         public Reserva DocumReserva { get; set; }
         public int NumTransac { get; set; }
         public List<string> Ids { get; set; }
+        ConfigManager manager = new ConfigManager();
         private void FrmReservas_Load(object sender, EventArgs e)
         {
             ProductsReserva = new Reserva
@@ -59,16 +60,15 @@ namespace RitramaAPP.form
                 MessageBox.Show("Seleccione un cliente.");
                 return;
             }
-
-
-
-
             ProductsReserva.OrdenTrabajo = TXT_ORDEN_TRA.Text;
             ProductsReserva.OrdenServicio = TXT_ORDEN_SER.Text;
             ProductsReserva.FechaPlan = Convert.ToDateTime(TXT_FECHA_ENTREGA.Text);
             ProductsReserva.IdCust = TXT_IDCUST.Text;
             ProductsReserva.Commentary = TXT_COMMENTARY.Text;
             this.DocumReserva = ProductsReserva;
+            // actualizar el numero consecutivo de los documento de reserva
+            int consec = Convert.ToInt16(TXT_TRANSACC.Text) + 1;
+            manager.SetParametersControl(consec.ToString(), "CONS_RESER");
             this.Close();
         }
     }

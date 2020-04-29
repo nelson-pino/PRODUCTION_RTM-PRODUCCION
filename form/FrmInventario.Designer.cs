@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInventario));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label25 = new System.Windows.Forms.Label();
             this.link_detele_reserva = new System.Windows.Forms.LinkLabel();
             this.label26 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -140,6 +142,8 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.linkLabel1);
+            this.panel1.Controls.Add(this.label25);
             this.panel1.Controls.Add(this.link_detele_reserva);
             this.panel1.Controls.Add(this.label26);
             this.panel1.Controls.Add(this.label24);
@@ -151,6 +155,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(846, 98);
             this.panel1.TabIndex = 36;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkColor = System.Drawing.Color.Black;
+            this.linkLabel1.Location = new System.Drawing.Point(331, 73);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(88, 13);
+            this.linkLabel1.TabIndex = 8;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Reporte Reserva";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(320, 73);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(15, 13);
+            this.label25.TabIndex = 7;
+            this.label25.Text = "│";
             // 
             // link_detele_reserva
             // 
@@ -1251,5 +1276,7 @@
         private System.Windows.Forms.LinkLabel link_detele_reserva;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label25;
     }
 }

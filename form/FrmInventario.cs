@@ -20,6 +20,8 @@ namespace RitramaAPP
         readonly InventarioManager inimanager = new InventarioManager();
         readonly RecepcionManager recemanager = new RecepcionManager();
         readonly ProduccionManager promanager = new ProduccionManager();
+        readonly ConfigManager configManager = new ConfigManager();
+
         List<Item> items;
         public IEnumerable<Item> ItemFilter { get; set; }
         DataView DvGeneral = new DataView();
@@ -298,6 +300,10 @@ namespace RitramaAPP
             GridItemsCortados.DataSource = DvRolls;
             TXTRECORDNUMBER_COR.Text = DvRolls.Count.ToString();
             SET_MAGEN_COLUM_STATUS(GridItemsCortados);
+            TXT_SELECT_NUMBER.Text = string.Empty;
+            CHK_SELECT_ALL.Checked = false;
+            txtbuscar_cor.Text = string.Empty;
+            txt_wid_search.Text = string.Empty;
         }
 
         private void SET_MAGEN_COLUM_STATUS(DataGridView dg) 
@@ -541,7 +547,8 @@ namespace RitramaAPP
                     PROC_RESERVA_PRODUCTS(dg,nameid,indexProd);
                     LOAD_DATA_ROLLS();
                     break;
-            }   
+            }  
+            
         }
         private void PROC_RESERVA_PRODUCTS(DataGridView dg,string name_id,int idx_produt) 
         {
@@ -557,7 +564,7 @@ namespace RitramaAPP
             FrmReservas reserva = new FrmReservas
             {
                 Dtcustomers = inimanager.GetCustomers(),
-                NumTransac = inimanager.GetTransacReserva(),
+                NumTransac = Convert.ToInt16(configManager.GetParameterControl("CONS_RESER")),
                 Ids = ids
             };
             reserva.ShowDialog();
@@ -648,18 +655,10 @@ namespace RitramaAPP
                     {
                         MessageBox.Show("Tiene que seleccionar un articulo reservado.");
                         return;
-                    }
-                    
+                    }           
                     break;
-
             }
-
-
-
-
-            
         }
-
         private void Link_detele_reserva_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FrmGetOneValue formData = new FrmGetOneValue
@@ -669,6 +668,30 @@ namespace RitramaAPP
                 
             };
             formData.ShowDialog();
+            if (string.IsNullOrEmpty(formData.DataValue)) 
+            {
+                return;
+            }
+            bool result = inimanager.DeleteDocumentReserva(formData.DataValue);
+            if (result) 
+            {
+                MessageBox.Show("Operacion con Exito.");
+            }
+            else 
+            {
+                MessageBox.Show("Ocurrio un error.");
+            }
+            LOAD_DATA_ROLLS();
+        }
+        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //Reporte de reserva de productos 
+            FrmPrintSelect DialogPrint = new FrmPrintSelect
+            {
+                Index_Report = 1,
+                Report_Name = "Reporte Reserva de Productos"
+            };
+            DialogPrint.ShowDialog();
         }
     }
 }
