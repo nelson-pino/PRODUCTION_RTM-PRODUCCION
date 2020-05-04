@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmOrdenCorte));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txt_numero_oc = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,14 +44,17 @@
             this.bot_anterior = new System.Windows.Forms.ToolStripButton();
             this.bot_siguiente = new System.Windows.Forms.ToolStripButton();
             this.bot_ultimo = new System.Windows.Forms.ToolStripButton();
-            this.BOT_NUEVO = new System.Windows.Forms.ToolStripButton();
-            this.BOT_CANCELAR = new System.Windows.Forms.ToolStripButton();
+            this.Menu_Actions = new System.Windows.Forms.ToolStripSplitButton();
+            this.Action_NewDocument = new System.Windows.Forms.ToolStripMenuItem();
+            this.Action_UpdateDocument = new System.Windows.Forms.ToolStripMenuItem();
+            this.Action_LabelProducts = new System.Windows.Forms.ToolStripMenuItem();
+            this.Action_AutorizeDocument = new System.Windows.Forms.ToolStripMenuItem();
+            this.Action_CloseDocument = new System.Windows.Forms.ToolStripMenuItem();
+            this.Accion_AnularDocument = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.BOT_SAVE = new System.Windows.Forms.ToolStripButton();
-            this.bot_modificar = new System.Windows.Forms.ToolStripButton();
+            this.BOT_CANCELAR = new System.Windows.Forms.ToolStripButton();
             this.BOT_BUSCAR = new System.Windows.Forms.ToolStripButton();
-            this.Bot_procesar = new System.Windows.Forms.ToolStripButton();
-            this.Bot_Anular = new System.Windows.Forms.ToolStripButton();
-            this.BOT_EXCEL_EXPORT = new System.Windows.Forms.ToolStripButton();
             this.BOT_IMPRIMIR = new System.Windows.Forms.ToolStripButton();
             this.txt_fecha_orden = new System.Windows.Forms.DateTimePicker();
             this.grid_rollos = new System.Windows.Forms.DataGridView();
@@ -72,7 +79,6 @@
             this.bot_generar_rollos_cortados = new System.Windows.Forms.Button();
             this.chk_anulado = new System.Windows.Forms.CheckBox();
             this.chk_process = new System.Windows.Forms.CheckBox();
-            this.btn_eliminar_renglon = new System.Windows.Forms.Button();
             this.txt_pies_malos = new System.Windows.Forms.TextBox();
             this.txt_pies_malos2 = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -110,20 +116,25 @@
             this.txt_cort_largo2 = new System.Windows.Forms.TextBox();
             this.txt_cort_rollos_cortar2 = new System.Windows.Forms.TextBox();
             this.chk_rebobinado = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.PictureStep1 = new System.Windows.Forms.PictureBox();
+            this.PictureStep2 = new System.Windows.Forms.PictureBox();
+            this.PictureStep3 = new System.Windows.Forms.PictureBox();
+            this.PictureStep4 = new System.Windows.Forms.PictureBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.LABEL_STATE = new System.Windows.Forms.Label();
+            this.PictureStep5 = new System.Windows.Forms.PictureBox();
+            this.TXT_STEP_DOCUMENT = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_cortes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep5)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_numero_oc
@@ -177,7 +188,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(921, 65);
+            this.panel1.Size = new System.Drawing.Size(918, 65);
             this.panel1.TabIndex = 35;
             // 
             // contador
@@ -199,18 +210,15 @@
             this.bot_anterior,
             this.bot_siguiente,
             this.bot_ultimo,
-            this.BOT_NUEVO,
-            this.BOT_CANCELAR,
+            this.Menu_Actions,
+            this.toolStripSeparator1,
             this.BOT_SAVE,
-            this.bot_modificar,
+            this.BOT_CANCELAR,
             this.BOT_BUSCAR,
-            this.Bot_procesar,
-            this.Bot_Anular,
-            this.BOT_EXCEL_EXPORT,
             this.BOT_IMPRIMIR});
             this.toolStrip1.Location = new System.Drawing.Point(0, 65);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(921, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(918, 27);
             this.toolStrip1.TabIndex = 45;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -252,26 +260,68 @@
             this.bot_ultimo.Name = "bot_ultimo";
             this.bot_ultimo.Size = new System.Drawing.Size(67, 24);
             this.bot_ultimo.Text = "Ultimo";
-            this.bot_ultimo.Click += new System.EventHandler(this.Bot_ultimo_Click);
             // 
-            // BOT_NUEVO
+            // Menu_Actions
             // 
-            this.BOT_NUEVO.Image = ((System.Drawing.Image)(resources.GetObject("BOT_NUEVO.Image")));
-            this.BOT_NUEVO.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_NUEVO.Name = "BOT_NUEVO";
-            this.BOT_NUEVO.Size = new System.Drawing.Size(66, 24);
-            this.BOT_NUEVO.Text = "Nuevo";
-            this.BOT_NUEVO.Click += new System.EventHandler(this.BOT_NUEVO_Click);
+            this.Menu_Actions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Action_NewDocument,
+            this.Action_UpdateDocument,
+            this.Action_LabelProducts,
+            this.Action_AutorizeDocument,
+            this.Action_CloseDocument,
+            this.Accion_AnularDocument});
+            this.Menu_Actions.Image = ((System.Drawing.Image)(resources.GetObject("Menu_Actions.Image")));
+            this.Menu_Actions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Menu_Actions.Name = "Menu_Actions";
+            this.Menu_Actions.Size = new System.Drawing.Size(91, 24);
+            this.Menu_Actions.Text = "Acciones";
             // 
-            // BOT_CANCELAR
+            // Action_NewDocument
             // 
-            this.BOT_CANCELAR.Enabled = false;
-            this.BOT_CANCELAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_CANCELAR.Image")));
-            this.BOT_CANCELAR.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_CANCELAR.Name = "BOT_CANCELAR";
-            this.BOT_CANCELAR.Size = new System.Drawing.Size(67, 24);
-            this.BOT_CANCELAR.Text = "Cancel";
-            this.BOT_CANCELAR.Click += new System.EventHandler(this.BOT_CANCELAR_Click);
+            this.Action_NewDocument.Name = "Action_NewDocument";
+            this.Action_NewDocument.Size = new System.Drawing.Size(206, 22);
+            this.Action_NewDocument.Text = "Crear Nuevo Documento";
+            this.Action_NewDocument.Click += new System.EventHandler(this.Action_NewDocument_Click);
+            // 
+            // Action_UpdateDocument
+            // 
+            this.Action_UpdateDocument.Name = "Action_UpdateDocument";
+            this.Action_UpdateDocument.Size = new System.Drawing.Size(206, 22);
+            this.Action_UpdateDocument.Text = "Modificar";
+            this.Action_UpdateDocument.Click += new System.EventHandler(this.Action_UpdateDocument_Click);
+            // 
+            // Action_LabelProducts
+            // 
+            this.Action_LabelProducts.Name = "Action_LabelProducts";
+            this.Action_LabelProducts.Size = new System.Drawing.Size(206, 22);
+            this.Action_LabelProducts.Text = "Etiquetar Orden";
+            this.Action_LabelProducts.Click += new System.EventHandler(this.Action_LabelProducts_Click);
+            // 
+            // Action_AutorizeDocument
+            // 
+            this.Action_AutorizeDocument.Name = "Action_AutorizeDocument";
+            this.Action_AutorizeDocument.Size = new System.Drawing.Size(206, 22);
+            this.Action_AutorizeDocument.Text = "Autorizar Documento";
+            this.Action_AutorizeDocument.Click += new System.EventHandler(this.Action_AutorizeDocument_Click);
+            // 
+            // Action_CloseDocument
+            // 
+            this.Action_CloseDocument.Name = "Action_CloseDocument";
+            this.Action_CloseDocument.Size = new System.Drawing.Size(206, 22);
+            this.Action_CloseDocument.Text = "Cerrar Orden";
+            this.Action_CloseDocument.Click += new System.EventHandler(this.Action_CloseDocument_Click);
+            // 
+            // Accion_AnularDocument
+            // 
+            this.Accion_AnularDocument.Name = "Accion_AnularDocument";
+            this.Accion_AnularDocument.Size = new System.Drawing.Size(206, 22);
+            this.Accion_AnularDocument.Text = "Anular Documento";
+            this.Accion_AnularDocument.Click += new System.EventHandler(this.Accion_AnularDocument_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // BOT_SAVE
             // 
@@ -283,15 +333,15 @@
             this.BOT_SAVE.Text = "Save";
             this.BOT_SAVE.Click += new System.EventHandler(this.BOT_SAVE_Click);
             // 
-            // bot_modificar
+            // BOT_CANCELAR
             // 
-            this.bot_modificar.AutoSize = false;
-            this.bot_modificar.Image = ((System.Drawing.Image)(resources.GetObject("bot_modificar.Image")));
-            this.bot_modificar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bot_modificar.Name = "bot_modificar";
-            this.bot_modificar.Size = new System.Drawing.Size(70, 24);
-            this.bot_modificar.Text = "Modif";
-            this.bot_modificar.Click += new System.EventHandler(this.Bot_modificar_Click);
+            this.BOT_CANCELAR.Enabled = false;
+            this.BOT_CANCELAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_CANCELAR.Image")));
+            this.BOT_CANCELAR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_CANCELAR.Name = "BOT_CANCELAR";
+            this.BOT_CANCELAR.Size = new System.Drawing.Size(67, 24);
+            this.BOT_CANCELAR.Text = "Cancel";
+            this.BOT_CANCELAR.Click += new System.EventHandler(this.BOT_CANCELAR_Click);
             // 
             // BOT_BUSCAR
             // 
@@ -301,33 +351,6 @@
             this.BOT_BUSCAR.Size = new System.Drawing.Size(66, 24);
             this.BOT_BUSCAR.Text = "Buscar";
             this.BOT_BUSCAR.Click += new System.EventHandler(this.BOT_BUSCAR_Click);
-            // 
-            // Bot_procesar
-            // 
-            this.Bot_procesar.Image = ((System.Drawing.Image)(resources.GetObject("Bot_procesar.Image")));
-            this.Bot_procesar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Bot_procesar.Name = "Bot_procesar";
-            this.Bot_procesar.Size = new System.Drawing.Size(76, 24);
-            this.Bot_procesar.Text = "Procesar";
-            this.Bot_procesar.Click += new System.EventHandler(this.Bot_procesar_Click);
-            // 
-            // Bot_Anular
-            // 
-            this.Bot_Anular.Image = ((System.Drawing.Image)(resources.GetObject("Bot_Anular.Image")));
-            this.Bot_Anular.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Bot_Anular.Name = "Bot_Anular";
-            this.Bot_Anular.Size = new System.Drawing.Size(66, 24);
-            this.Bot_Anular.Text = "Anular";
-            this.Bot_Anular.Click += new System.EventHandler(this.Bot_Anular_Click);
-            // 
-            // BOT_EXCEL_EXPORT
-            // 
-            this.BOT_EXCEL_EXPORT.Image = ((System.Drawing.Image)(resources.GetObject("BOT_EXCEL_EXPORT.Image")));
-            this.BOT_EXCEL_EXPORT.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BOT_EXCEL_EXPORT.Name = "BOT_EXCEL_EXPORT";
-            this.BOT_EXCEL_EXPORT.Size = new System.Drawing.Size(78, 24);
-            this.BOT_EXCEL_EXPORT.Text = "Etiquetar";
-            this.BOT_EXCEL_EXPORT.Click += new System.EventHandler(this.BOT_EXCEL_EXPORT_Click);
             // 
             // BOT_IMPRIMIR
             // 
@@ -353,7 +376,23 @@
             this.grid_rollos.AllowUserToDeleteRows = false;
             this.grid_rollos.AllowUserToResizeRows = false;
             this.grid_rollos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_rollos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grid_rollos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_rollos.DefaultCellStyle = dataGridViewCellStyle2;
             this.grid_rollos.Location = new System.Drawing.Point(2, 5);
             this.grid_rollos.Margin = new System.Windows.Forms.Padding(2);
             this.grid_rollos.MultiSelect = false;
@@ -541,7 +580,7 @@
             // bot_generar_rollos_cortados
             // 
             this.bot_generar_rollos_cortados.Enabled = false;
-            this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(544, 305);
+            this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(514, 306);
             this.bot_generar_rollos_cortados.Name = "bot_generar_rollos_cortados";
             this.bot_generar_rollos_cortados.Size = new System.Drawing.Size(191, 26);
             this.bot_generar_rollos_cortados.TabIndex = 9;
@@ -570,17 +609,6 @@
             this.chk_process.TabIndex = 88;
             this.chk_process.Text = "Procesado";
             this.chk_process.UseVisualStyleBackColor = true;
-            // 
-            // btn_eliminar_renglon
-            // 
-            this.btn_eliminar_renglon.Enabled = false;
-            this.btn_eliminar_renglon.Location = new System.Drawing.Point(828, 353);
-            this.btn_eliminar_renglon.Name = "btn_eliminar_renglon";
-            this.btn_eliminar_renglon.Size = new System.Drawing.Size(54, 23);
-            this.btn_eliminar_renglon.TabIndex = 89;
-            this.btn_eliminar_renglon.Text = "- Fila";
-            this.btn_eliminar_renglon.UseVisualStyleBackColor = true;
-            this.btn_eliminar_renglon.Click += new System.EventHandler(this.Btn_eliminar_renglon_Click);
             // 
             // txt_pies_malos
             // 
@@ -635,7 +663,7 @@
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(591, 94);
+            this.label45.Location = new System.Drawing.Point(518, 94);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(89, 13);
             this.label45.TabIndex = 107;
@@ -643,7 +671,7 @@
             // 
             // bot_add_cortes
             // 
-            this.bot_add_cortes.Location = new System.Drawing.Point(738, 116);
+            this.bot_add_cortes.Location = new System.Drawing.Point(706, 110);
             this.bot_add_cortes.Name = "bot_add_cortes";
             this.bot_add_cortes.Size = new System.Drawing.Size(75, 23);
             this.bot_add_cortes.TabIndex = 108;
@@ -653,7 +681,7 @@
             // 
             // bot_delete_cortes
             // 
-            this.bot_delete_cortes.Location = new System.Drawing.Point(738, 141);
+            this.bot_delete_cortes.Location = new System.Drawing.Point(706, 135);
             this.bot_delete_cortes.Name = "bot_delete_cortes";
             this.bot_delete_cortes.Size = new System.Drawing.Size(75, 23);
             this.bot_delete_cortes.TabIndex = 109;
@@ -665,8 +693,24 @@
             // 
             this.grid_cortes.AllowUserToAddRows = false;
             this.grid_cortes.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_cortes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.grid_cortes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grid_cortes.Location = new System.Drawing.Point(546, 108);
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_cortes.DefaultCellStyle = dataGridViewCellStyle4;
+            this.grid_cortes.Location = new System.Drawing.Point(514, 110);
             this.grid_cortes.MultiSelect = false;
             this.grid_cortes.Name = "grid_cortes";
             this.grid_cortes.RowHeadersWidth = 25;
@@ -679,7 +723,7 @@
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(741, 167);
+            this.label46.Location = new System.Drawing.Point(709, 161);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(89, 13);
             this.label46.TabIndex = 111;
@@ -687,7 +731,7 @@
             // 
             // txt_cort_total_ancho
             // 
-            this.txt_cort_total_ancho.Location = new System.Drawing.Point(741, 180);
+            this.txt_cort_total_ancho.Location = new System.Drawing.Point(709, 174);
             this.txt_cort_total_ancho.Name = "txt_cort_total_ancho";
             this.txt_cort_total_ancho.ReadOnly = true;
             this.txt_cort_total_ancho.Size = new System.Drawing.Size(70, 20);
@@ -695,7 +739,7 @@
             // 
             // txt_cort_long_cortar
             // 
-            this.txt_cort_long_cortar.Location = new System.Drawing.Point(741, 218);
+            this.txt_cort_long_cortar.Location = new System.Drawing.Point(709, 212);
             this.txt_cort_long_cortar.Name = "txt_cort_long_cortar";
             this.txt_cort_long_cortar.Size = new System.Drawing.Size(70, 20);
             this.txt_cort_long_cortar.TabIndex = 114;
@@ -705,7 +749,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(738, 204);
+            this.label47.Location = new System.Drawing.Point(706, 198);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(88, 13);
             this.label47.TabIndex = 113;
@@ -713,7 +757,7 @@
             // 
             // txt_cort_ancho
             // 
-            this.txt_cort_ancho.Location = new System.Drawing.Point(741, 254);
+            this.txt_cort_ancho.Location = new System.Drawing.Point(709, 247);
             this.txt_cort_ancho.Name = "txt_cort_ancho";
             this.txt_cort_ancho.ReadOnly = true;
             this.txt_cort_ancho.Size = new System.Drawing.Size(70, 20);
@@ -722,7 +766,7 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(738, 241);
+            this.label48.Location = new System.Drawing.Point(706, 234);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(91, 13);
             this.label48.TabIndex = 115;
@@ -730,9 +774,9 @@
             // 
             // txt_cort_largo
             // 
-            this.txt_cort_largo.Location = new System.Drawing.Point(741, 290);
+            this.txt_cort_largo.Location = new System.Drawing.Point(706, 283);
             this.txt_cort_largo.Name = "txt_cort_largo";
-            this.txt_cort_largo.Size = new System.Drawing.Size(70, 20);
+            this.txt_cort_largo.Size = new System.Drawing.Size(43, 20);
             this.txt_cort_largo.TabIndex = 118;
             this.txt_cort_largo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_cort_largo_KeyPress);
             this.txt_cort_largo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_cort_largo_KeyUp);
@@ -740,7 +784,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(738, 277);
+            this.label49.Location = new System.Drawing.Point(706, 270);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(87, 13);
             this.label49.TabIndex = 117;
@@ -748,17 +792,17 @@
             // 
             // txt_cort_rollos_cortar
             // 
-            this.txt_cort_rollos_cortar.Location = new System.Drawing.Point(742, 325);
+            this.txt_cort_rollos_cortar.Location = new System.Drawing.Point(710, 318);
             this.txt_cort_rollos_cortar.Name = "txt_cort_rollos_cortar";
             this.txt_cort_rollos_cortar.ReadOnly = true;
-            this.txt_cort_rollos_cortar.Size = new System.Drawing.Size(70, 20);
+            this.txt_cort_rollos_cortar.Size = new System.Drawing.Size(39, 20);
             this.txt_cort_rollos_cortar.TabIndex = 120;
             this.txt_cort_rollos_cortar.TextChanged += new System.EventHandler(this.Txt_cort_rollos_cortar_TextChanged);
             // 
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(740, 312);
+            this.label50.Location = new System.Drawing.Point(708, 305);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(98, 13);
             this.label50.TabIndex = 119;
@@ -915,9 +959,9 @@
             // 
             // txt_cort_largo2
             // 
-            this.txt_cort_largo2.Location = new System.Drawing.Point(814, 289);
+            this.txt_cort_largo2.Location = new System.Drawing.Point(755, 283);
             this.txt_cort_largo2.Name = "txt_cort_largo2";
-            this.txt_cort_largo2.Size = new System.Drawing.Size(70, 20);
+            this.txt_cort_largo2.Size = new System.Drawing.Size(43, 20);
             this.txt_cort_largo2.TabIndex = 138;
             this.txt_cort_largo2.TextChanged += new System.EventHandler(this.Txt_cort_largo2_TextChanged);
             this.txt_cort_largo2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_cort_largo2_KeyPress);
@@ -925,10 +969,10 @@
             // 
             // txt_cort_rollos_cortar2
             // 
-            this.txt_cort_rollos_cortar2.Location = new System.Drawing.Point(814, 325);
+            this.txt_cort_rollos_cortar2.Location = new System.Drawing.Point(756, 318);
             this.txt_cort_rollos_cortar2.Name = "txt_cort_rollos_cortar2";
             this.txt_cort_rollos_cortar2.ReadOnly = true;
-            this.txt_cort_rollos_cortar2.Size = new System.Drawing.Size(70, 20);
+            this.txt_cort_rollos_cortar2.Size = new System.Drawing.Size(43, 20);
             this.txt_cort_rollos_cortar2.TabIndex = 139;
             // 
             // chk_rebobinado
@@ -942,57 +986,102 @@
             this.chk_rebobinado.Text = "Orden Reboninado";
             this.chk_rebobinado.UseVisualStyleBackColor = true;
             // 
-            // pictureBox1
+            // PictureStep1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(564, 640);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(36, 28);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 141;
-            this.pictureBox1.TabStop = false;
+            this.PictureStep1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.PictureStep1.Image = ((System.Drawing.Image)(resources.GetObject("PictureStep1.Image")));
+            this.PictureStep1.Location = new System.Drawing.Point(230, 640);
+            this.PictureStep1.Name = "PictureStep1";
+            this.PictureStep1.Size = new System.Drawing.Size(36, 28);
+            this.PictureStep1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureStep1.TabIndex = 141;
+            this.PictureStep1.TabStop = false;
             // 
-            // pictureBox2
+            // PictureStep2
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(606, 640);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(36, 28);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 142;
-            this.pictureBox2.TabStop = false;
+            this.PictureStep2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.PictureStep2.Image = ((System.Drawing.Image)(resources.GetObject("PictureStep2.Image")));
+            this.PictureStep2.Location = new System.Drawing.Point(272, 640);
+            this.PictureStep2.Name = "PictureStep2";
+            this.PictureStep2.Size = new System.Drawing.Size(36, 28);
+            this.PictureStep2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureStep2.TabIndex = 142;
+            this.PictureStep2.TabStop = false;
             // 
-            // pictureBox3
+            // PictureStep3
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.Red;
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(648, 640);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(36, 28);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 143;
-            this.pictureBox3.TabStop = false;
+            this.PictureStep3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.PictureStep3.Image = ((System.Drawing.Image)(resources.GetObject("PictureStep3.Image")));
+            this.PictureStep3.Location = new System.Drawing.Point(314, 640);
+            this.PictureStep3.Name = "PictureStep3";
+            this.PictureStep3.Size = new System.Drawing.Size(36, 28);
+            this.PictureStep3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureStep3.TabIndex = 143;
+            this.PictureStep3.TabStop = false;
             // 
-            // pictureBox4
+            // PictureStep4
             // 
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(690, 640);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(36, 28);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 144;
-            this.pictureBox4.TabStop = false;
+            this.PictureStep4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.PictureStep4.Image = ((System.Drawing.Image)(resources.GetObject("PictureStep4.Image")));
+            this.PictureStep4.Location = new System.Drawing.Point(356, 640);
+            this.PictureStep4.Name = "PictureStep4";
+            this.PictureStep4.Size = new System.Drawing.Size(36, 28);
+            this.PictureStep4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureStep4.TabIndex = 144;
+            this.PictureStep4.TabStop = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(440, 645);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(101, 13);
+            this.label16.TabIndex = 146;
+            this.label16.Text = "Status Documento :";
+            // 
+            // LABEL_STATE
+            // 
+            this.LABEL_STATE.AutoSize = true;
+            this.LABEL_STATE.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LABEL_STATE.Location = new System.Drawing.Point(547, 644);
+            this.LABEL_STATE.Name = "LABEL_STATE";
+            this.LABEL_STATE.Size = new System.Drawing.Size(52, 13);
+            this.LABEL_STATE.TabIndex = 147;
+            this.LABEL_STATE.Text = "status 0";
+            // 
+            // PictureStep5
+            // 
+            this.PictureStep5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.PictureStep5.Image = ((System.Drawing.Image)(resources.GetObject("PictureStep5.Image")));
+            this.PictureStep5.Location = new System.Drawing.Point(398, 640);
+            this.PictureStep5.Name = "PictureStep5";
+            this.PictureStep5.Size = new System.Drawing.Size(36, 28);
+            this.PictureStep5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureStep5.TabIndex = 148;
+            this.PictureStep5.TabStop = false;
+            // 
+            // TXT_STEP_DOCUMENT
+            // 
+            this.TXT_STEP_DOCUMENT.Location = new System.Drawing.Point(722, 644);
+            this.TXT_STEP_DOCUMENT.Name = "TXT_STEP_DOCUMENT";
+            this.TXT_STEP_DOCUMENT.ReadOnly = true;
+            this.TXT_STEP_DOCUMENT.Size = new System.Drawing.Size(100, 20);
+            this.TXT_STEP_DOCUMENT.TabIndex = 149;
             // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(921, 673);
-            this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(918, 673);
+            this.Controls.Add(this.TXT_STEP_DOCUMENT);
+            this.Controls.Add(this.PictureStep5);
+            this.Controls.Add(this.LABEL_STATE);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.PictureStep4);
+            this.Controls.Add(this.PictureStep3);
+            this.Controls.Add(this.PictureStep2);
+            this.Controls.Add(this.PictureStep1);
             this.Controls.Add(this.chk_rebobinado);
             this.Controls.Add(this.txt_cort_rollos_cortar2);
             this.Controls.Add(this.txt_cort_largo2);
@@ -1029,7 +1118,6 @@
             this.Controls.Add(this.label18);
             this.Controls.Add(this.txt_pies_malos2);
             this.Controls.Add(this.txt_pies_malos);
-            this.Controls.Add(this.btn_eliminar_renglon);
             this.Controls.Add(this.chk_process);
             this.Controls.Add(this.chk_anulado);
             this.Controls.Add(this.bot_generar_rollos_cortados);
@@ -1071,10 +1159,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grid_cortes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureStep5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1091,9 +1180,6 @@
         private System.Windows.Forms.ToolStripButton bot_primero;
         private System.Windows.Forms.ToolStripButton bot_anterior;
         private System.Windows.Forms.ToolStripButton bot_siguiente;
-        private System.Windows.Forms.ToolStripButton BOT_EXCEL_EXPORT;
-        private System.Windows.Forms.ToolStripButton bot_ultimo;
-        private System.Windows.Forms.ToolStripButton BOT_NUEVO;
         private System.Windows.Forms.ToolStripButton BOT_CANCELAR;
         private System.Windows.Forms.ToolStripButton BOT_SAVE;
         private System.Windows.Forms.DateTimePicker txt_fecha_orden;
@@ -1121,10 +1207,6 @@
         private System.Windows.Forms.Button bot_generar_rollos_cortados;
         private System.Windows.Forms.CheckBox chk_anulado;
         private System.Windows.Forms.CheckBox chk_process;
-        private System.Windows.Forms.ToolStripButton bot_modificar;
-        private System.Windows.Forms.Button btn_eliminar_renglon;
-        private System.Windows.Forms.ToolStripButton Bot_procesar;
-        private System.Windows.Forms.ToolStripButton Bot_Anular;
         private System.Windows.Forms.TextBox txt_pies_malos;
         private System.Windows.Forms.TextBox txt_pies_malos2;
         private System.Windows.Forms.Label label18;
@@ -1163,9 +1245,22 @@
         private System.Windows.Forms.TextBox txt_cort_rollos_cortar2;
         private System.Windows.Forms.ToolStripButton BOT_IMPRIMIR;
         private System.Windows.Forms.CheckBox chk_rebobinado;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox PictureStep1;
+        private System.Windows.Forms.PictureBox PictureStep2;
+        private System.Windows.Forms.PictureBox PictureStep3;
+        private System.Windows.Forms.PictureBox PictureStep4;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label LABEL_STATE;
+        private System.Windows.Forms.PictureBox PictureStep5;
+        private System.Windows.Forms.TextBox TXT_STEP_DOCUMENT;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton bot_ultimo;
+        private System.Windows.Forms.ToolStripSplitButton Menu_Actions;
+        private System.Windows.Forms.ToolStripMenuItem Action_NewDocument;
+        private System.Windows.Forms.ToolStripMenuItem Action_UpdateDocument;
+        private System.Windows.Forms.ToolStripMenuItem Action_LabelProducts;
+        private System.Windows.Forms.ToolStripMenuItem Action_AutorizeDocument;
+        private System.Windows.Forms.ToolStripMenuItem Action_CloseDocument;
+        private System.Windows.Forms.ToolStripMenuItem Accion_AnularDocument;
     }
 }
