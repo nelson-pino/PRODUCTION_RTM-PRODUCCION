@@ -51,7 +51,7 @@ namespace RitramaAPP
             bsdetalle.DataMember = "FK_ORDEN_DETAILS";
             grid_rollos.DataSource = bsdetalle;
             VERIFICAR_DOCUMENTO();
-
+            Update_StepIndicator(Convert.ToInt16(TXT_STEP_DOCUMENT.Text));
         }
         private void AplicarEstilosGridCortes() 
         {
@@ -65,18 +65,8 @@ namespace RitramaAPP
             grid_cortes.Columns["msi"].ReadOnly = true;
 
         }
-        private void Update_StepIndicator() 
+        private void Update_StepIndicator(int step) 
         {
-            int step;
-            if (string.IsNullOrEmpty(TXT_STEP_DOCUMENT.Text)) 
-            {
-                step = 0;
-            }
-            else 
-            {
-                step = Convert.ToInt16(TXT_STEP_DOCUMENT.Text);
-            }
-            
             switch (step) 
             {
                 case 1:
@@ -127,7 +117,7 @@ namespace RitramaAPP
                     PictureStep2.BackColor = Color.FromArgb(51, 51, 0);
                     PictureStep3.BackColor = Color.FromArgb(51, 51, 0);
                     PictureStep4.BackColor = Color.FromArgb(51, 51, 0);
-                    PictureStep5.BackColor = Color.FromArgb(102, 255, 51);
+                    PictureStep5.BackColor = Color.FromArgb(51, 51, 51);
                     LABEL_STATE.Text = R.CONSTANTES.DOCUMENT_OC_STEP0;
                     break;
             }
@@ -224,6 +214,7 @@ namespace RitramaAPP
             OptionsMenu(1);
             OptionsForm(1);
             EditMode = 0;
+            Update_StepIndicator(1);
         }
         private void UPDATE_INVENTARIO_REBO()
         {
@@ -290,7 +281,7 @@ namespace RitramaAPP
             //ischanged_rollos = false;
             OptionsMenu(1);
             OptionsForm(1);
-            Update_StepIndicator();
+            Update_StepIndicator(2);
         }
         private void CargarRollIDNumber(int state)
         {
@@ -501,8 +492,8 @@ namespace RitramaAPP
             //buscar los datos de los cortes de la orden.
             grid_cortes.DataSource = managerorden.CargarDataCortes(txt_numero_oc.Text.Trim());
             //Actualizar los ESTADOS DEL DOCUMENTO.
-            Update_StepIndicator();
 
+            
         }
       
         private void FUNCTION_GENERATE_ROLL_DETAILS()
@@ -924,28 +915,50 @@ namespace RitramaAPP
         }
         private void Bot_siguiente_Click(object sender, EventArgs e)
         {
+            ActionPriorRecord();
+        }
+        
+        private void Bot_anterior_Click(object sender, EventArgs e)
+        {
+            ActionNextRecord();
+        }
+        private void Bot_primero_Click(object sender, EventArgs e)
+        {
+            ActionLastRecord();
+        }
+        private void Bot_ultimo_Click(object sender, EventArgs e)
+        {
+            ActionFirstRecord();
+        }
+        private void ActionNextRecord()
+        {
             bs.Position += 1;
             ContadorRegistros();
             VERIFICAR_DOCUMENTO();
+            Update_StepIndicator(Convert.ToInt16(TXT_STEP_DOCUMENT.Text));
         }
-        private void Bot_anterior_Click(object sender, EventArgs e)
+        private void ActionPriorRecord()
         {
             bs.Position -= 1;
             ContadorRegistros();
             VERIFICAR_DOCUMENTO();
+            Update_StepIndicator(Convert.ToInt16(TXT_STEP_DOCUMENT.Text));
         }
-        private void Bot_primero_Click(object sender, EventArgs e)
+        private void ActionFirstRecord()
         {
             bs.Position = 0;
             ContadorRegistros();
             VERIFICAR_DOCUMENTO();
+            Update_StepIndicator(Convert.ToInt16(TXT_STEP_DOCUMENT.Text));
         }
-        private void Bot_ultimo_Click(object sender, EventArgs e)
+        private void ActionLastRecord()
         {
             bs.Position = bs.Count - 1;
             ContadorRegistros();
             VERIFICAR_DOCUMENTO();
+            Update_StepIndicator(Convert.ToInt16(TXT_STEP_DOCUMENT.Text));
         }
+
         private void OptionsForm(int state)
         {
             switch (state)
@@ -1008,7 +1021,7 @@ namespace RitramaAPP
                     bot_primero.Enabled = false;
                     bot_siguiente.Enabled = false;
                     bot_anterior.Enabled = false;
-                    bot_ultimo.Enabled = false;
+                    bot_LastRecord.Enabled = false;
                     BOT_BUSCAR.Enabled = false;
                     BOT_CANCELAR.Enabled = true;
                     BOT_SAVE.Enabled = true;
@@ -1018,7 +1031,7 @@ namespace RitramaAPP
                     bot_primero.Enabled = true;
                     bot_siguiente.Enabled = true;
                     bot_anterior.Enabled = true;
-                    bot_ultimo.Enabled = true;
+                    bot_LastRecord.Enabled = true;
                     BOT_CANCELAR.Enabled = false;
                     BOT_BUSCAR.Enabled = true;
                     BOT_SAVE.Enabled = false;
@@ -1415,12 +1428,14 @@ namespace RitramaAPP
         {
             CREATE_NEW_DOCUMENT();
             Menu_Actions.Enabled = false;
+            Update_StepIndicator(0);
         }
 
         private void Action_UpdateDocument_Click(object sender, EventArgs e)
         {
             UPDATE_DOCUMENT();
             Menu_Actions.Enabled = false;
+            Update_StepIndicator(1);
         }
         private void Action_LabelProducts_Click(object sender, EventArgs e)
         {
@@ -1464,6 +1479,11 @@ namespace RitramaAPP
             {
                 //do something else
             }
+        }
+
+        private void Bot_LastRecord_Click(object sender, EventArgs e)
+        {
+            ActionFirstRecord();
         }
 
         private void Txt_pies_malos2_KeyPress(object sender, KeyPressEventArgs e)

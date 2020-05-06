@@ -46,6 +46,9 @@ namespace RitramaAPP
         public int Cortes_Largo2 { get; set; }
         public int Cantidad_Rollos { get; set; }
         public int Cantidad_Rollos2 { get; set; }
+        public int  STATE { get; set; }
+        public DateTime LastUpdate { get; set; }
+
         public List<Roll_Details> rollos;
         public List<Corte> Cortes;
     }

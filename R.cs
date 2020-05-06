@@ -150,7 +150,7 @@ namespace RitramaAPP
                     public static string SQL_SELECT_ORDEN_CORTE = "SELECT numero,fecha,fecha_produccion,product_id,rollid_1,width_1," +
                         "lenght_1,rollid_2,width_2,lenght_2,width_cortado,lenght_cortado,msi_cortado,anulada,Procesado,tot_inch_ancho,longitud_cortar," +
                         "cortes_ancho,cortes_largo,cant_rollos,decartable1_pies,lenght_master_real,util1_real_width,util1_real_lenght,rest1_width,rest1_lenght, " +
-                        "util2_real_width,util2_real_lenght,descartable2_pies,lenght_master_real2,rest2_width,rest2_lenght,cortes_largo2,cant_rollos2,step FROM orden_corte ORDER BY numero DESC";
+                        "util2_real_width,util2_real_lenght,descartable2_pies,lenght_master_real2,rest2_width,rest2_lenght,cortes_largo2,cant_rollos2,step FROM orden_corte ORDER BY CONVERT(INT, numero) DESC";
                     public static string SQL_SELECT_DETALLE_OC = "SELECT reng_num,numero,product_id,cantidad,unidad,width,large,msi FROM  detalle_oc";
                     public static string SQL_UPDATE_ROLLS_DETAILS = "SELECT product_id,roll_number,unique_code,splice,width,large,product_name,roll_id,msi," +
                         "code_perso FROM rolls_details WHERE numero=@p1 and product_id=@p2";

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 
 namespace RitramaAPP.Clases
@@ -73,6 +74,48 @@ namespace RitramaAPP.Clases
                 };
                 SqlParameter p1 = new SqlParameter("@p1", par);
                 comando.Parameters.Add(@p1);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                Micomm.Desconectar();
+                if (msg)
+                {
+                    MessageBox.Show("proceso realizado con exito...");
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(messagerror + ex);
+                return false;
+            }
+        }
+        public Boolean CommandSqlGenericTreeParameters(string db, string query, object par1, object par2, object par3, Boolean msg, string messagerror,int process)
+        {
+            // Ejecuta comando sql query y no devuleve ni valor ni datos.
+            try
+            {
+                Micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                switch (process) 
+                {
+                    case 1:
+                        string po1 = par1.ToString();
+                        int po2 = Convert.ToInt16(par2);
+                        DateTime po3 = Convert.ToDateTime(par3);
+                        break;
+                }
+                
+                SqlParameter p1 = new SqlParameter("@p1", par1);
+                SqlParameter p2 = new SqlParameter("@p2", par2);
+                SqlParameter p3 = new SqlParameter("@p3", par3);
+                comando.Parameters.Add(@p1);
+                comando.Parameters.Add(@p2);
+                comando.Parameters.Add(@p3);
                 comando.ExecuteNonQuery();
                 comando.Dispose();
                 Micomm.Desconectar();
@@ -535,7 +578,11 @@ namespace RitramaAPP.Clases
             {
                 new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = datos.Numero},
                 new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.DateTime, Value = datos.Fecha},
-                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.DateTime, Value = datos.Fecha_produccion}
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.DateTime, Value = datos.Fecha_produccion},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.DateTime, Value = datos.LastUpdate},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.Int, Value = datos.STATE},
+
+
             };
             return sp;
         }
@@ -612,9 +659,6 @@ namespace RitramaAPP.Clases
                 return rollo;
             }
         }
-
-
-
         public string GetCodeRC(string product_id)
         {
             Micomm.Conectar(R.SQL.DATABASE.NAME);
@@ -640,7 +684,6 @@ namespace RitramaAPP.Clases
             comando.Dispose();
             return coderc;
         }
-        
         public void UpdateUniqueCode(string UniqueCode)
         {
             CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,
@@ -760,6 +803,47 @@ namespace RitramaAPP.Clases
                 MessageBox.Show("error al tratar de cargar la data de los rendimiento de los master en produccion..." + ex);
                 return data;
             }
+        }
+        public Boolean UpdateStateDocumentOC(string numero, int state, DateTime last_update) 
+        {
+            try
+            {
+                CommandSqlGenericTreeParameters(R.DATABASES.RITRAMA,
+                R.SQL.QUERY_SQL.PRODUCCION.SQL_UPDATE_DOCUMENT_STATE,
+                numero,state,last_update,false,"",1);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public Boolean SaveAutorizeOc(AutorizeDocOc doc) 
+        {
+            try
+            {
+                CommandSqlGeneric(R.DATABASES.RITRAMA, 
+                R.SQL.QUERY_SQL.PRODUCCION.SQL_UPDATE_AUTHORIZE_OC,
+                SetParametersAutorizeOc(doc),true, 
+                R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ERROR_AUTHORIZE_OC);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        private List<SqlParameter> SetParametersAutorizeOc(AutorizeDocOc item)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = item.Oc},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.DateTime, Value = item.Fecha},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.NVarChar, Value = item.ToAutorize},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.Text, Value = item.Notes},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.Bit, Value = item.CloseDocument},
+            };
+            return sp;
         }
     }
 }
