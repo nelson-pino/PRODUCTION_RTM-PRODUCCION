@@ -150,15 +150,15 @@ namespace RitramaAPP
                     public static string SQL_SELECT_ORDEN_CORTE = "SELECT numero,fecha,fecha_produccion,product_id,rollid_1,width_1," +
                         "lenght_1,rollid_2,width_2,lenght_2,width_cortado,lenght_cortado,msi_cortado,anulada,Procesado,tot_inch_ancho,longitud_cortar," +
                         "cortes_ancho,cortes_largo,cant_rollos,decartable1_pies,lenght_master_real,util1_real_width,util1_real_lenght,rest1_width,rest1_lenght, " +
-                        "util2_real_width,util2_real_lenght,descartable2_pies,lenght_master_real2,rest2_width,rest2_lenght,cortes_largo2,cant_rollos2,step FROM orden_corte ORDER BY CONVERT(INT, numero) DESC";
+                        "util2_real_width,util2_real_lenght,descartable2_pies,lenght_master_real2,rest2_width,rest2_lenght,cortes_largo2,cant_rollos2,step,tipo_mov1,tipo_mov2 FROM orden_corte ORDER BY CONVERT(INT, numero) DESC";
                     public static string SQL_SELECT_DETALLE_OC = "SELECT reng_num,numero,product_id,cantidad,unidad,width,large,msi FROM  detalle_oc";
                     public static string SQL_UPDATE_ROLLS_DETAILS = "SELECT product_id,roll_number,unique_code,splice,width,large,product_name,roll_id,msi," +
                         "code_perso FROM rolls_details WHERE numero=@p1 and product_id=@p2";
                     public static string SQL_QUERY_INSERT_MASTER_OC = "INSERT orden_corte (numero,fecha,fecha_produccion,product_id,rollid_1,width_1,lenght_1," +
                         "rollid_2,width_2,lenght_2,anulada,Procesado,tot_inch_ancho,longitud_cortar,cortes_ancho,cortes_largo,cant_rollos,decartable1_pies,"+
                         "lenght_master_real,util1_real_width,util1_real_lenght,rest1_width,rest1_lenght,descartable2_pies,lenght_master_real2,util2_real_width,"+
-                        "util2_real_lenght,rest2_width,rest2_lenght,Cortes_Largo2,cant_rollos2,step) " +
-                        "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15,@p16,@p17,@p18,@p19,@p20,@p21,@p22,@p23,@p24,@p25,@p26,@p27,@p28,@p29,@p30,@p31,1) ";
+                        "util2_real_lenght,rest2_width,rest2_lenght,Cortes_Largo2,cant_rollos2,step,tipo_mov1,tipo_mov2) " +
+                        "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15,@p16,@p17,@p18,@p19,@p20,@p21,@p22,@p23,@p24,@p25,@p26,@p27,@p28,@p29,@p30,@p31,1,@p32,@p33) ";
                     public static string SQL_QUERY_INSERT_DETAILS_OC = "INSERT rolls_details (numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status,disponible) " +
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13)";
                     public static string SQL_QUERY_INSERT_ROLL_INIC = "INSERT RollsInic (numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status,disponible) " +
@@ -206,6 +206,7 @@ namespace RitramaAPP
                     public static string SQL_UPDATE_INVENTARIO_RC = "UPDATE rolls_details SET width_c = @p2 ,lenght_c = lenght_c + @p3 WHERE unique_code = @p1";
                     public static string SQL_UPDATE_DOCUMENT_STATE = "UPDATE orden_corte SET step=@p2,lastupdate=@p3 WHERE numero=@p1";
                     public static string SQL_UPDATE_AUTHORIZE_OC = "UPDATE orden_corte SET fecha_autorize=@p2,ToAutorize=@p3,Notes=@p4,CloseDocument=@p5,Step=4 WHERE numero=@p1";
+                    public static string SQL_UPDATE_DISPO_ROLLS_OC = "UPDATE rolls_details SET disponible=@p2 WHERE numero=@p1";
 
                 }
                 public class DESPACHOS

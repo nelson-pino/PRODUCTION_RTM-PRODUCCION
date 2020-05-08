@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace RitramaAPP.form
 {
     public partial class FrmBuscarOrdenes : Form
     {
-        public DataTable dtordenes { get; set; }
-        public string orden { get; set; }
+        public DataTable Dtordenes { get; set; }
+        public string Orden { get; set; }
         DataView dv = new DataView();
         public FrmBuscarOrdenes()
         {
@@ -15,8 +16,9 @@ namespace RitramaAPP.form
         }
         private void FrmBuscarOrdenes_Load(object sender, EventArgs e)
         {
-            dv = dtordenes.DefaultView;
+            dv = Dtordenes.DefaultView;
             dv.RowFilter = "";
+            dv.Sort = "numero DESC";
             DarEstilosGrid();
             grid_ordenes.DataSource = dv;
             CONTADOR_REGISTRO.Text = "Numero de Registros: " + Convert.ToString(dv.Count);
@@ -33,14 +35,6 @@ namespace RitramaAPP.form
             COLUMNGRID_ADD("rollid1", 60, "Roll ID", "rollid_1");
             COLUMNGRID_ADD("cortes_ancho", 60, "Cortes Ancho", "cortes_ancho");
             COLUMNGRID_ADD("cortes_largos", 60, "longitud Cortar", "longitud_cortar");
-
-
-
-
-
-
-
-
         }
         private void COLUMNGRID_ADD(string name, int size, string title, string field_bd)
         {
@@ -89,7 +83,7 @@ namespace RitramaAPP.form
 
         private void Grid_ordenes_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            orden = (grid_ordenes.Rows[e.RowIndex].Cells[0].Value.ToString());
+            Orden = (grid_ordenes.Rows[e.RowIndex].Cells[0].Value.ToString());
             this.Close();
         }
 

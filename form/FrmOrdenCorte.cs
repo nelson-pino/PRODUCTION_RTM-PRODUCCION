@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using DataTable = System.Data.DataTable;
 
@@ -31,7 +32,8 @@ namespace RitramaAPP
         private DataRowView ParentRow;
         int EditMode = 0;
         //Boolean ischanged_rollos;
-        string rollid1_tipomov, rollid2_tipomov;
+        string rollid1_tipomov = string.Empty;
+        string rollid2_tipomov = string.Empty;
         string modproduct_id;
         Orden orden;
         public static List<Corte> listacorte;
@@ -45,13 +47,27 @@ namespace RitramaAPP
             ds = managerorden.ds;
             bs.DataSource = ds;
             bs.DataMember = "dtordenes";
+            bs.Sort = "numero DESC";
             DataBinding();
             //binding del detalle
             bsdetalle.DataSource = bs;
             bsdetalle.DataMember = "FK_ORDEN_DETAILS";
             grid_rollos.DataSource = bsdetalle;
             VERIFICAR_DOCUMENTO();
-            Update_StepIndicator(Convert.ToInt16(TXT_STEP_DOCUMENT.Text));
+            RefrescarStepIndicator();
+        }
+        private void RefrescarStepIndicator() 
+        {
+            int step;
+            if (string.IsNullOrEmpty(TXT_STEP_DOCUMENT.Text))
+            {
+                step = 0;
+            }
+            else
+            {
+                step = Convert.ToInt16(TXT_STEP_DOCUMENT.Text);
+            }
+            Update_StepIndicator(step);
         }
         private void AplicarEstilosGridCortes() 
         {
@@ -109,15 +125,15 @@ namespace RitramaAPP
                     PictureStep1.BackColor = Color.FromArgb(51, 51, 0);
                     PictureStep2.BackColor = Color.FromArgb(51, 51, 0);
                     PictureStep3.BackColor = Color.FromArgb(51, 51, 0);
-                    PictureStep4.BackColor = Color.FromArgb(102, 255, 51);
-                    PictureStep5.BackColor = Color.FromArgb(224, 224, 224);
+                    PictureStep4.BackColor = Color.FromArgb(51, 51, 0);
+                    PictureStep5.BackColor = Color.FromArgb(102, 255, 51);
                     break;
                 default:
                     PictureStep1.BackColor = Color.FromArgb(51, 51, 0);
                     PictureStep2.BackColor = Color.FromArgb(51, 51, 0);
                     PictureStep3.BackColor = Color.FromArgb(51, 51, 0);
                     PictureStep4.BackColor = Color.FromArgb(51, 51, 0);
-                    PictureStep5.BackColor = Color.FromArgb(51, 51, 51);
+                    PictureStep5.BackColor = Color.FromArgb(51, 51, 0);
                     LABEL_STATE.Text = R.CONSTANTES.DOCUMENT_OC_STEP0;
                     break;
             }
@@ -166,7 +182,7 @@ namespace RitramaAPP
         #region FUNCTIONS
         private void ToSaveAdd()
         {
-            if (managerorden.OrderExiste(txt_numero_oc.Text))
+            if (managerorden.OrderExiste(Convert.ToInt16(txt_numero_oc.Text)))
             {
                 MessageBox.Show("La Orden produccion : " + txt_numero_oc.Text + " ya existe.");
                 txt_numero_oc.Text = "";
@@ -201,22 +217,34 @@ namespace RitramaAPP
             }
             //llenar el encabezado de la orden de produccion
             managerorden.Add(CrearObjectOrden(1), false);
-            if (chk_rebobinado.Checked == false)
-            {
-                UPDATE_INVENTARIO_MASTER();
-            }
-            else
-            {
-                UPDATE_INVENTARIO_REBO();
-            }
             chk_process.DataBindings.Add("Checked", bs, "procesado");
             chk_anulado.DataBindings.Add("Checked", bs, "anulada");
+            //actualizar la interfaz grafica.
+            DataRowView filaActual;
+            filaActual = (DataRowView)bs.Current;
+            filaActual["step"] = 1;
+            bs.EndEdit();
             OptionsMenu(1);
             OptionsForm(1);
             EditMode = 0;
             Update_StepIndicator(1);
         }
-        private void UPDATE_INVENTARIO_REBO()
+        private void RUN_INVENTARIO() 
+        {
+            
+            Orden orden = new Orden();
+            orden = CrearObjectOrden(0);
+
+            if (chk_rebobinado.Checked == false)
+            {
+                UPDATE_INVENTARIO_MASTER(orden);
+            }
+            else
+            {
+                UPDATE_INVENTARIO_REBO(orden);
+            }
+        }
+        private void UPDATE_INVENTARIO_REBO(Orden orden)
         {
             if (Convert.ToDouble(txt_lenght1_r.Text) > 0)
             {
@@ -230,7 +258,7 @@ namespace RitramaAPP
                 managerorden.UpdateUniqueCode(orden.Rollid_1);
             }
         }
-        private void UPDATE_INVENTARIO_MASTER()
+        private void UPDATE_INVENTARIO_MASTER(Orden orden)
         {
             Boolean MasterEmpty = false;
             //comprobar que hay master remanente master 1.
@@ -277,8 +305,12 @@ namespace RitramaAPP
         private void ToSaveUpdate()
         {
             managerorden.Update_Only(CrearObjectOrden(2), false);
+            //Actualizar la Interfaz Grafica
+            DataRowView rowcurrent;
+            rowcurrent = (DataRowView)bs.Current;
+            rowcurrent["step"] = 2;
+            bs.EndEdit();
             EditMode = 0;
-            //ischanged_rollos = false;
             OptionsMenu(1);
             OptionsForm(1);
             Update_StepIndicator(2);
@@ -585,6 +617,12 @@ namespace RitramaAPP
 
             }
         }
+        private void LoadTipoMov() 
+        {
+            DataRowView rowcurrent = (DataRowView)bs.Current;
+            rollid1_tipomov = rowcurrent["tipo_mov1"].ToString();
+            rollid2_tipomov = rowcurrent["tipo_mov2"].ToString();
+        }
         private Orden CrearObjectOrden(int state)
         {
             orden = new Orden
@@ -618,10 +656,12 @@ namespace RitramaAPP
                 Master_lenght2_Real = Convert.ToDouble(txt_pies_real2.Text),
                 Cortes_Largo2 = Convert.ToInt16(txt_cort_largo2.Text),
                 Cantidad_Rollos2 = Convert.ToInt16(txt_cort_rollos_cortar2.Text),
+                Tipo_Mov1 = rollid1_tipomov,
+                Tipo_Mov2 = rollid2_tipomov,
                 STATE = state,
                 LastUpdate = DateTime.Now,
                 Anulada = false,
-                Procesado = false
+                Procesado = false,
             };
             orden.rollos = new List<Roll_Details>();
             orden.Cortes = new List<Corte>();
@@ -641,7 +681,7 @@ namespace RitramaAPP
                     Roll_id = grid_rollos.Rows[fila].Cells[8].Value.ToString(),
                     Code_Person = grid_rollos.Rows[fila].Cells[9].Value.ToString(),
                     Status = grid_rollos.Rows[fila].Cells[10].Value.ToString(),
-                    Disponible = true
+                    Disponible = false
                 };
                 orden.rollos.Add(rollo_cortado);
                 //Agregar los cortes.
@@ -768,15 +808,16 @@ namespace RitramaAPP
         {
             using (FrmBuscarOrdenes fBuscarOrden = new FrmBuscarOrdenes
             {
-                dtordenes = ds.Tables["dtordenes"]
+                Dtordenes = ds.Tables["dtordenes"]
             })
             {
                 fBuscarOrden.ShowDialog();
-                int itemFound = bs.Find("numero", fBuscarOrden.orden);
+                int itemFound = bs.Find("numero", fBuscarOrden.Orden);
                 bs.Position = itemFound;
             }
             ContadorRegistros();
             VERIFICAR_DOCUMENTO();
+            RefrescarStepIndicator();
         }
         private void Bot_buscar_rollid1_Click(object sender, EventArgs e)
         {
@@ -846,7 +887,6 @@ namespace RitramaAPP
             txt_pies_real2.Text = "0";
             txt_width2_r.Text = "0";
             txt_lenght2_r.Text = "0";
-
         }
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -900,7 +940,7 @@ namespace RitramaAPP
         }
         private void Txt_numero_oc_Validating(object sender, CancelEventArgs e)
         {
-            if (managerorden.OrderExiste(txt_numero_oc.Text) && EditMode == 1)
+            if (managerorden.OrderExiste(Convert.ToInt16(txt_numero_oc.Text)) && EditMode == 1)
             {
                 MessageBox.Show("La Orden produccion : " + txt_numero_oc.Text + " ya existe.");
                 txt_numero_oc.Text = "";
@@ -1158,12 +1198,6 @@ namespace RitramaAPP
                 ChildRows.EndEdit();
             }
             bs.EndEdit();
-            if (EditMode == 1)
-            {
-                bs.Position = bs.Count - 1;
-                bot_generar_rollos_cortados.Enabled = false;
-            }
-            //ischanged_rollos = true;
             grid_rollos.Rows[0].Selected = true;
         }
         private void Bot_modificar_Click(object sender, EventArgs e)
@@ -1225,10 +1259,17 @@ namespace RitramaAPP
         private void CALCULAR_MATERIAL_RESTANTE()
         {
             //Calculo de material restante
-            txt_width1_r.Text = (Convert.ToDouble(txt_width1_rollid.Text)
-            - Convert.ToDouble(txt_width_u.Text)).ToString();
-            txt_lenght1_r.Text = (Convert.ToDouble(txt_pies_real.Text)
-            - Convert.ToDouble(txt_lenght_u.Text)).ToString();
+            decimal w1 = Convert.ToDecimal(txt_width1_rollid.Text);
+            decimal w2 = Convert.ToDecimal(txt_width_u.Text);
+            decimal result = Math.Round((w1 - w2), 2, MidpointRounding.AwayFromZero);
+            txt_width1_r.Text = result.ToString();
+
+            
+            txt_lenght1_r.Text = Math.Round(Convert.ToDouble(txt_pies_real.Text)
+            - Convert.ToDouble(txt_lenght_u.Text),2,MidpointRounding.AwayFromZero).ToString();
+
+
+
             if (Convert.ToDouble(txt_width1_r.Text) == 0)
             {
                 txt_width1_r.Text = txt_width1_rollid.Text;
@@ -1337,10 +1378,9 @@ namespace RitramaAPP
             {
                 grid_cortes.Rows[i].Cells["lenght"].Value = txt_cort_long_cortar.Text;
                 grid_cortes.Rows[i].Cells["msi"].Value =
-               Convert.ToDouble(grid_cortes.Rows[i].Cells["width"].Value) *
-               Convert.ToDouble(grid_cortes.Rows[i].Cells["lenght"].Value)
-               * R.CONSTANTES.FACTOR_CALCULO_MSI;
-                //CALCULAR_CORTES_ANCHOS();
+                Convert.ToDouble(grid_cortes.Rows[i].Cells["width"].Value) *
+                Convert.ToDouble(grid_cortes.Rows[i].Cells["lenght"].Value)
+                * R.CONSTANTES.FACTOR_CALCULO_MSI;
             }
         }
         private void Txt_pies_malos2_KeyUp(object sender, KeyEventArgs e)
@@ -1366,27 +1406,6 @@ namespace RitramaAPP
             CALCULAR_MATERIAL_RESTANTE2();
             txt_width_u2.Text = txt_cort_total_ancho.Text;
         }
-
-        private void Txt_cort_rollos_cortar_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Txt_width2_r_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Txt_cort_largo2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Grid_cortes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void Txt_cort_largo_KeyPress(object sender, KeyPressEventArgs e)
         {
             string CaracValid = "0123456789";
@@ -1440,6 +1459,16 @@ namespace RitramaAPP
         private void Action_LabelProducts_Click(object sender, EventArgs e)
         {
             LABELS_PRODUCTS();
+            RefreshInterfazBS(3);
+        }
+        private void RefreshInterfazBS(int step) 
+        {
+            //Refrescar la Interfaz Grafica.
+            DataRowView rowcurrent;
+            rowcurrent = (DataRowView)bs.Current;
+            rowcurrent["step"] = step;
+            bs.EndEdit();
+            RefrescarStepIndicator();
         }
 
         private void Action_AutorizeDocument_Click(object sender, EventArgs e)
@@ -1449,6 +1478,7 @@ namespace RitramaAPP
                 NumeroOC = txt_numero_oc.Text
             };
             Aprodoc.ShowDialog();
+            RefreshInterfazBS(4);
         }
 
         private void Action_CloseDocument_Click(object sender, EventArgs e)
@@ -1461,10 +1491,14 @@ namespace RitramaAPP
                 int state = 5;
                 DateTime LastUpdate = DateTime.Now;
                 managerorden.UpdateStateDocumentOC(numoc,state,LastUpdate);
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do something else
+                RefreshInterfazBS(5);
+                RefrescarStepIndicator();
+                // ESTABLECER LA DISPONIBILIDAD DE LOS ROLLOS
+                managerorden.UpdateDispoRollsDocumentOC(numoc, true);
+                // CARGA EL ORGIEN DEL ARCHIVO DE INICIALES / ARCHIVO DE RECEPCIONES
+                LoadTipoMov();
+                //MOMENTO EN EL QUE SE AFECTA INVENTARÍO.
+                RUN_INVENTARIO();
             }
         }
 
@@ -1494,6 +1528,11 @@ namespace RitramaAPP
                 // si no es bakcspace y no es un numero se omite.   
                 e.Handled = true;
             }
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
 
         private void BOT_IMPRIMIR_Click(object sender, EventArgs e)

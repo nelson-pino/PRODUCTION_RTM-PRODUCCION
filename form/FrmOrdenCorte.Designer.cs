@@ -139,6 +139,7 @@
             // 
             // txt_numero_oc
             // 
+            this.txt_numero_oc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_numero_oc.Location = new System.Drawing.Point(9, 114);
             this.txt_numero_oc.Margin = new System.Windows.Forms.Padding(2);
             this.txt_numero_oc.Name = "txt_numero_oc";
@@ -221,6 +222,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(918, 27);
             this.toolStrip1.TabIndex = 45;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // bot_primero
             // 
@@ -302,7 +304,7 @@
             // 
             this.Action_AutorizeDocument.Name = "Action_AutorizeDocument";
             this.Action_AutorizeDocument.Size = new System.Drawing.Size(206, 22);
-            this.Action_AutorizeDocument.Text = "Autorizar Documento";
+            this.Action_AutorizeDocument.Text = "Aprobar Documento";
             this.Action_AutorizeDocument.Click += new System.EventHandler(this.Action_AutorizeDocument_Click);
             // 
             // Action_CloseDocument
@@ -718,7 +720,6 @@
             this.grid_cortes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.grid_cortes.Size = new System.Drawing.Size(189, 195);
             this.grid_cortes.TabIndex = 110;
-            this.grid_cortes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_cortes_CellContentClick);
             this.grid_cortes.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_cortes_CellEndEdit);
             // 
             // label46
@@ -793,12 +794,11 @@
             // 
             // txt_cort_rollos_cortar
             // 
-            this.txt_cort_rollos_cortar.Location = new System.Drawing.Point(710, 318);
+            this.txt_cort_rollos_cortar.Location = new System.Drawing.Point(706, 321);
             this.txt_cort_rollos_cortar.Name = "txt_cort_rollos_cortar";
             this.txt_cort_rollos_cortar.ReadOnly = true;
             this.txt_cort_rollos_cortar.Size = new System.Drawing.Size(39, 20);
             this.txt_cort_rollos_cortar.TabIndex = 120;
-            this.txt_cort_rollos_cortar.TextChanged += new System.EventHandler(this.Txt_cort_rollos_cortar_TextChanged);
             // 
             // label50
             // 
@@ -826,6 +826,7 @@
             this.txt_width_u.ReadOnly = true;
             this.txt_width_u.Size = new System.Drawing.Size(77, 20);
             this.txt_width_u.TabIndex = 121;
+            this.txt_width_u.Text = " ";
             // 
             // label6
             // 
@@ -908,7 +909,6 @@
             this.txt_width2_r.ReadOnly = true;
             this.txt_width2_r.Size = new System.Drawing.Size(77, 20);
             this.txt_width2_r.TabIndex = 133;
-            this.txt_width2_r.TextChanged += new System.EventHandler(this.Txt_width2_r_TextChanged);
             // 
             // label9
             // 
@@ -964,13 +964,12 @@
             this.txt_cort_largo2.Name = "txt_cort_largo2";
             this.txt_cort_largo2.Size = new System.Drawing.Size(43, 20);
             this.txt_cort_largo2.TabIndex = 138;
-            this.txt_cort_largo2.TextChanged += new System.EventHandler(this.Txt_cort_largo2_TextChanged);
             this.txt_cort_largo2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_cort_largo2_KeyPress);
             this.txt_cort_largo2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_cort_largo2_KeyUp);
             // 
             // txt_cort_rollos_cortar2
             // 
-            this.txt_cort_rollos_cortar2.Location = new System.Drawing.Point(756, 318);
+            this.txt_cort_rollos_cortar2.Location = new System.Drawing.Point(756, 322);
             this.txt_cort_rollos_cortar2.Name = "txt_cort_rollos_cortar2";
             this.txt_cort_rollos_cortar2.ReadOnly = true;
             this.txt_cort_rollos_cortar2.Size = new System.Drawing.Size(43, 20);
@@ -1063,10 +1062,11 @@
             // 
             // TXT_STEP_DOCUMENT
             // 
-            this.TXT_STEP_DOCUMENT.Location = new System.Drawing.Point(722, 644);
+            this.TXT_STEP_DOCUMENT.HideSelection = false;
+            this.TXT_STEP_DOCUMENT.Location = new System.Drawing.Point(794, 644);
             this.TXT_STEP_DOCUMENT.Name = "TXT_STEP_DOCUMENT";
             this.TXT_STEP_DOCUMENT.ReadOnly = true;
-            this.TXT_STEP_DOCUMENT.Size = new System.Drawing.Size(100, 20);
+            this.TXT_STEP_DOCUMENT.Size = new System.Drawing.Size(28, 20);
             this.TXT_STEP_DOCUMENT.TabIndex = 149;
             // 
             // FrmOrdenCorte

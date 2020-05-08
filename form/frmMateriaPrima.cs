@@ -626,13 +626,13 @@ namespace RitramaAPP
             txt_lenght_metros.Text = width_pie_metros.ToString();
         }
 
-        private void bot_excel_Click(object sender, EventArgs e)
+        private void Bot_excel_Click(object sender, EventArgs e)
         {
             FrmImportExcelMP excel = new FrmImportExcelMP();
             excel.ShowDialog();
         }
 
-        private void txt_width_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txt_width_KeyPress(object sender, KeyPressEventArgs e)
         {
             string CaracValid = "0123456789.,";
             if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
@@ -642,7 +642,7 @@ namespace RitramaAPP
             }
         }
 
-        private void txt_lenght_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txt_lenght_KeyPress(object sender, KeyPressEventArgs e)
         {
             string CaracValid = "0123456789.,";
             if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
@@ -652,12 +652,12 @@ namespace RitramaAPP
             }
         }
 
-        private void txt_lenght_TextChanged(object sender, EventArgs e)
+        private void Txt_lenght_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void txt_roll_id_Validating(object sender, CancelEventArgs e)
+        private void Txt_roll_id_Validating(object sender, CancelEventArgs e)
         {
             if (manager.VerificarID(txt_roll_id.Text) && EditMode == 1)
             {

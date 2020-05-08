@@ -531,7 +531,10 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p28", SqlDbType = SqlDbType.Decimal, Value = datos.Rest2_width},
                 new SqlParameter() {ParameterName = "@p29", SqlDbType = SqlDbType.Decimal, Value = datos.Rest2_lenght},
                 new SqlParameter() {ParameterName = "@p30", SqlDbType = SqlDbType.Int, Value = datos.Cortes_Largo2},
-                new SqlParameter() {ParameterName = "@p31", SqlDbType = SqlDbType.Int, Value = datos.Cantidad_Rollos2}
+                new SqlParameter() {ParameterName = "@p31", SqlDbType = SqlDbType.Int, Value = datos.Cantidad_Rollos2},
+                new SqlParameter() {ParameterName = "@p32", SqlDbType = SqlDbType.NChar, Value = datos.Tipo_Mov1},
+                new SqlParameter() {ParameterName = "@p33", SqlDbType = SqlDbType.NChar, Value = datos.Tipo_Mov2}
+
             };
             return sp;
         }
@@ -690,7 +693,7 @@ namespace RitramaAPP.Clases
                    R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_UNIQUE_CODE,
                    UniqueCode, false, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ERROR_UPDATE_UNIQUE_CODE);
         }
-        public Boolean OrderExiste(string codigo)
+        public Boolean OrderExiste(int numero_oc)
         {
             int result;
             Micomm.Conectar(R.SQL.DATABASE.NAME);
@@ -700,7 +703,7 @@ namespace RitramaAPP.Clases
                 CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_VERIFIFY_REPEAT_OC,
                 Connection = Micomm.cnn
             };
-            SqlParameter p1 = new SqlParameter("@p1", codigo);
+            SqlParameter p1 = new SqlParameter("@p1", numero_oc);
             comando.Parameters.Add(p1);
             result = Convert.ToInt16(comando.ExecuteScalar());
             Micomm.Desconectar();
@@ -818,13 +821,29 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public Boolean UpdateDispoRollsDocumentOC(string numeroOC, bool state) 
+        {
+            try
+            {
+                CommandSqlGenericTreeParameters(R.DATABASES.RITRAMA, R.SQL.QUERY_SQL.PRODUCCION.SQL_UPDATE_DISPO_ROLLS_OC,
+                numeroOC, state, DateTime.Now, false, "", 1);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
+
         public Boolean SaveAutorizeOc(AutorizeDocOc doc) 
         {
             try
             {
                 CommandSqlGeneric(R.DATABASES.RITRAMA, 
                 R.SQL.QUERY_SQL.PRODUCCION.SQL_UPDATE_AUTHORIZE_OC,
-                SetParametersAutorizeOc(doc),true, 
+                SetParametersAutorizeOc(doc),false, 
                 R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ERROR_AUTHORIZE_OC);
                 return true;
             }
