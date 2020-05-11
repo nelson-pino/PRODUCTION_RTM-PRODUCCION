@@ -154,7 +154,7 @@ namespace RitramaAPP
             txt_lenght2_rollid.DataBindings.Add("text", bs, "lenght_2");
             txt_product_id.DataBindings.Add("text", bs, "product_id");
             txt_product_name.DataBindings.Add("text", bs, "product_name");
-            chk_process.DataBindings.Add("Checked", bs, "procesado");
+            //chk_process.DataBindings.Add("Checked", bs, "procesado");
             chk_anulado.DataBindings.Add("Checked", bs, "anulada");
             txt_cort_total_ancho.DataBindings.Add("text", bs, "tot_inch_ancho");
             txt_cort_long_cortar.DataBindings.Add("text", bs, "longitud_cortar");
@@ -217,7 +217,7 @@ namespace RitramaAPP
             }
             //llenar el encabezado de la orden de produccion
             managerorden.Add(CrearObjectOrden(1), false);
-            chk_process.DataBindings.Add("Checked", bs, "procesado");
+            //chk_process.DataBindings.Add("Checked", bs, "procesado");
             chk_anulado.DataBindings.Add("Checked", bs, "anulada");
             //actualizar la interfaz grafica.
             DataRowView filaActual;
@@ -232,9 +232,7 @@ namespace RitramaAPP
         private void RUN_INVENTARIO() 
         {
             
-            Orden orden = new Orden();
-            orden = CrearObjectOrden(0);
-
+            Orden orden = CrearObjectOrden(0);
             if (chk_rebobinado.Checked == false)
             {
                 UPDATE_INVENTARIO_MASTER(orden);
@@ -343,7 +341,7 @@ namespace RitramaAPP
                     rollid1_tipomov = ROLLID_A.Tipo_mov;
 
                     //verificar si es rebobinado.
-                    if (rollid.rebobinado == true)
+                    if (rollid.Rebobinado == true)
                     {
                         chk_rebobinado.Checked = true;
                     }
@@ -515,12 +513,6 @@ namespace RitramaAPP
         }
         private void VERIFICAR_DOCUMENTO()
         {
-            if (chk_process.Checked || chk_anulado.Checked)
-            {
-            }
-            else
-            {
-            }
             //buscar los datos de los cortes de la orden.
             grid_cortes.DataSource = managerorden.CargarDataCortes(txt_numero_oc.Text.Trim());
             // verificar documentos cerrados
@@ -538,6 +530,14 @@ namespace RitramaAPP
                 Action_LabelProducts.Enabled = true;
                 Action_AutorizeDocument.Enabled = true;
                 Action_CloseDocument.Enabled = true;
+            }
+            if (Convert.ToBoolean(RowCurrent["anulada"]) == true) 
+            {
+                PictDocumentStatus.Visible = true;
+            }
+            else 
+            {
+                PictDocumentStatus.Visible = false;
             }
             
         }
@@ -848,7 +848,7 @@ namespace RitramaAPP
         }
         private void CREATE_NEW_DOCUMENT() 
         {
-            chk_process.DataBindings.Clear();
+            //chk_process.DataBindings.Clear();
             chk_anulado.DataBindings.Clear();
             ParentRow = (DataRowView)bs.AddNew();
             ParentRow.BeginEdit();
@@ -1027,6 +1027,8 @@ namespace RitramaAPP
                     bot_buscar_rollid1.Enabled = true;
                     bot_buscar_rollid2.Enabled = true;
                     bot_generar_rollos_cortados.Enabled = true;
+                    bot_add_cortes.Enabled = true;
+                    bot_delete_cortes.Enabled = true;
                     break;
                 case 1:
                     // modo cerra forms despues de agregar orden colocar en lectura.
@@ -1043,6 +1045,8 @@ namespace RitramaAPP
                     bot_buscar_rollid2.Enabled = false;
                     bot_generar_rollos_cortados.Enabled = false;
                     grid_rollos.ReadOnly = true;
+                    bot_add_cortes.Enabled = false;
+                    bot_delete_cortes.Enabled = false;
                     break;
                 case 2:
                     txt_fecha_orden.Enabled = true;
@@ -1119,7 +1123,7 @@ namespace RitramaAPP
             {
                 case DialogResult.Yes:
                     managerorden.ProcesarOrden(txt_numero_oc.Text.Trim());
-                    chk_process.Checked = true;
+                    //chk_process.Checked = true;
                     VERIFICAR_DOCUMENTO();
                     break;
                 case DialogResult.No:
@@ -1520,15 +1524,31 @@ namespace RitramaAPP
 
         private void Accion_AnularDocument_Click(object sender, EventArgs e)
         {
+            DataRowView RowCurrent = (DataRowView)bs.Current;
+            Boolean sw = Convert.ToBoolean(RowCurrent["anulada"]);
+            int step = Convert.ToInt16(RowCurrent["step"]); 
+            if (sw) 
+            {
+                MessageBox.Show("Ya este documnento esta anulado...");
+                return;
+            }
+            if (step == 5) 
+            {
+                MessageBox.Show("Orden Cerrada, no se puede anular");
+            }
             DialogResult dialogResult = MessageBox.Show("Esta seguro de Anular esta Orden de Corte (S/N)", "Advertencia", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                //do something
+                string numeroOc = txt_numero_oc.Text;
+                if (step >= 1 || step <= 4) 
+                {
+                    managerorden.AnularOrden(numeroOc);
+                    RowCurrent["anulada"] = true;
+                    bs.EndEdit();
+                    VERIFICAR_DOCUMENTO();
+                }
             }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do something else
-            }
+            
         }
 
         private void Bot_LastRecord_Click(object sender, EventArgs e)
@@ -1546,7 +1566,7 @@ namespace RitramaAPP
             }
         }
 
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
         }
@@ -1564,7 +1584,7 @@ namespace RitramaAPP
                 CrTables = reporte.Database.Tables;
                 ConnectionInfo ConexInfo = new ConnectionInfo
                 {
-                    ServerName = R.SERVERS.SERVER_RITRAMA,
+                    ServerName = R.SERVERS.SERVER_ETIQUETAS,
                     DatabaseName = R.DATABASES.RITRAMA,
                     UserID = R.USERS.UserMaster,
                     Password = R.USERS.KeyMaster
@@ -1576,10 +1596,10 @@ namespace RitramaAPP
                     table.ApplyLogOnInfo(crtablelogoninfo);
                 }
                 frmReportView.crystalReportViewer1.ReportSource = reporte;
-                frmReportView.crystalReportViewer1.Zoom(100);
+                frmReportView.crystalReportViewer1.Zoom(150);
                 frmReportView.Text = "Reporte de la Orden de Corte";
-                frmReportView.Width = 900;
-                frmReportView.Height = 700;
+                frmReportView.Width = 1000;
+                frmReportView.Height = 800;
                 frmReportView.ShowDialog();
             }
         }

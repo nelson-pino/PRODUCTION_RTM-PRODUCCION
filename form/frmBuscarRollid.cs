@@ -11,7 +11,8 @@ namespace RitramaAPP.form
         {
             InitializeComponent();
         }
-        ProduccionManager produccionmanager = new ProduccionManager();
+
+        readonly ProduccionManager produccionmanager = new ProduccionManager();
         public DataTable Dtrollid { get; set; }
         DataView dv = new DataView();
         public string GetrollId { get; set; }
@@ -19,12 +20,12 @@ namespace RitramaAPP.form
         public string GetProduct_name { get; set; }
         public string GetValueWidth { get; set; }
         public string GetvalueLenght { get; set; }
-        public Boolean rebobinado { get; set; }
+        public Boolean Rebobinado { get; set; }
         public string Gettipo_mov { get; set; }
 
         private void FrmBuscarRollid_Load(object sender, EventArgs e)
         {
-            rebobinado = false;
+            Rebobinado = false;
             dv = Dtrollid.DefaultView;
             Grid_Items.AutoGenerateColumns = false;
             AplicarEstilosGrid();
@@ -56,7 +57,7 @@ namespace RitramaAPP.form
             Grid_Items.Columns.Add(col);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void TextBox1_TextChanged(object sender, EventArgs e)
         {
             if (RAD_ROLLID.Checked)
             {
@@ -114,7 +115,7 @@ namespace RitramaAPP.form
             dv = produccionmanager.GetUniqueCodeToList().DefaultView;
             Grid_Items.DataSource = dv;
             CONTADOR_REGISTRO.Text = Convert.ToString(dv.Count) + " registros encontrados.";
-            rebobinado = true;
+            Rebobinado = true;
         }
     }
 }

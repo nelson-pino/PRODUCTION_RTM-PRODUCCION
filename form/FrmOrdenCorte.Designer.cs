@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmOrdenCorte));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txt_numero_oc = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,6 +50,7 @@
             this.Action_LabelProducts = new System.Windows.Forms.ToolStripMenuItem();
             this.Action_AutorizeDocument = new System.Windows.Forms.ToolStripMenuItem();
             this.Action_CloseDocument = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.Accion_AnularDocument = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.BOT_SAVE = new System.Windows.Forms.ToolStripButton();
@@ -78,7 +79,6 @@
             this.txt_product_name = new System.Windows.Forms.TextBox();
             this.bot_generar_rollos_cortados = new System.Windows.Forms.Button();
             this.chk_anulado = new System.Windows.Forms.CheckBox();
-            this.chk_process = new System.Windows.Forms.CheckBox();
             this.txt_pies_malos = new System.Windows.Forms.TextBox();
             this.txt_pies_malos2 = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -124,7 +124,7 @@
             this.LABEL_STATE = new System.Windows.Forms.Label();
             this.PictureStep5 = new System.Windows.Forms.PictureBox();
             this.TXT_STEP_DOCUMENT = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.PictDocumentStatus = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -136,6 +136,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PictureStep3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureStep4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureStep5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictDocumentStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_numero_oc
@@ -223,7 +224,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(918, 27);
             this.toolStrip1.TabIndex = 45;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStrip1_ItemClicked);
             // 
             // bot_primero
             // 
@@ -321,6 +322,11 @@
             this.Action_CloseDocument.Text = "Cerrar Orden";
             this.Action_CloseDocument.Click += new System.EventHandler(this.Action_CloseDocument_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            // 
             // Accion_AnularDocument
             // 
             this.Accion_AnularDocument.Image = ((System.Drawing.Image)(resources.GetObject("Accion_AnularDocument.Image")));
@@ -387,23 +393,23 @@
             this.grid_rollos.AllowUserToDeleteRows = false;
             this.grid_rollos.AllowUserToResizeRows = false;
             this.grid_rollos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle33.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_rollos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_rollos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.grid_rollos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle34.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle34.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_rollos.DefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_rollos.DefaultCellStyle = dataGridViewCellStyle6;
             this.grid_rollos.Location = new System.Drawing.Point(2, 5);
             this.grid_rollos.Margin = new System.Windows.Forms.Padding(2);
             this.grid_rollos.MultiSelect = false;
@@ -603,23 +609,12 @@
             // 
             this.chk_anulado.AutoSize = true;
             this.chk_anulado.Enabled = false;
-            this.chk_anulado.Location = new System.Drawing.Point(101, 644);
+            this.chk_anulado.Location = new System.Drawing.Point(14, 645);
             this.chk_anulado.Name = "chk_anulado";
             this.chk_anulado.Size = new System.Drawing.Size(123, 17);
             this.chk_anulado.TabIndex = 16;
             this.chk_anulado.Text = "Documento Anulado";
             this.chk_anulado.UseVisualStyleBackColor = true;
-            // 
-            // chk_process
-            // 
-            this.chk_process.AutoSize = true;
-            this.chk_process.Enabled = false;
-            this.chk_process.Location = new System.Drawing.Point(18, 644);
-            this.chk_process.Name = "chk_process";
-            this.chk_process.Size = new System.Drawing.Size(77, 17);
-            this.chk_process.TabIndex = 88;
-            this.chk_process.Text = "Procesado";
-            this.chk_process.UseVisualStyleBackColor = true;
             // 
             // txt_pies_malos
             // 
@@ -682,21 +677,27 @@
             // 
             // bot_add_cortes
             // 
+            this.bot_add_cortes.Enabled = false;
+            this.bot_add_cortes.Image = ((System.Drawing.Image)(resources.GetObject("bot_add_cortes.Image")));
             this.bot_add_cortes.Location = new System.Drawing.Point(706, 110);
             this.bot_add_cortes.Name = "bot_add_cortes";
-            this.bot_add_cortes.Size = new System.Drawing.Size(75, 23);
+            this.bot_add_cortes.Size = new System.Drawing.Size(75, 24);
             this.bot_add_cortes.TabIndex = 108;
-            this.bot_add_cortes.Text = "Add";
+            this.bot_add_cortes.Text = "Agregar";
+            this.bot_add_cortes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bot_add_cortes.UseVisualStyleBackColor = true;
             this.bot_add_cortes.Click += new System.EventHandler(this.Bot_add_cortes_Click);
             // 
             // bot_delete_cortes
             // 
+            this.bot_delete_cortes.Enabled = false;
+            this.bot_delete_cortes.Image = ((System.Drawing.Image)(resources.GetObject("bot_delete_cortes.Image")));
             this.bot_delete_cortes.Location = new System.Drawing.Point(706, 135);
             this.bot_delete_cortes.Name = "bot_delete_cortes";
-            this.bot_delete_cortes.Size = new System.Drawing.Size(75, 23);
+            this.bot_delete_cortes.Size = new System.Drawing.Size(75, 24);
             this.bot_delete_cortes.TabIndex = 109;
-            this.bot_delete_cortes.Text = "Delete";
+            this.bot_delete_cortes.Text = "Borrar";
+            this.bot_delete_cortes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bot_delete_cortes.UseVisualStyleBackColor = true;
             this.bot_delete_cortes.Click += new System.EventHandler(this.Bot_delete_cortes_Click);
             // 
@@ -704,23 +705,23 @@
             // 
             this.grid_cortes.AllowUserToAddRows = false;
             this.grid_cortes.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle35.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_cortes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_cortes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.grid_cortes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle36.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_cortes.DefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_cortes.DefaultCellStyle = dataGridViewCellStyle8;
             this.grid_cortes.Location = new System.Drawing.Point(514, 110);
             this.grid_cortes.MultiSelect = false;
             this.grid_cortes.Name = "grid_cortes";
@@ -1077,17 +1078,23 @@
             this.TXT_STEP_DOCUMENT.Size = new System.Drawing.Size(28, 20);
             this.TXT_STEP_DOCUMENT.TabIndex = 149;
             // 
-            // toolStripSeparator2
+            // PictDocumentStatus
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            this.PictDocumentStatus.Image = ((System.Drawing.Image)(resources.GetObject("PictDocumentStatus.Image")));
+            this.PictDocumentStatus.Location = new System.Drawing.Point(773, 638);
+            this.PictDocumentStatus.Name = "PictDocumentStatus";
+            this.PictDocumentStatus.Size = new System.Drawing.Size(50, 49);
+            this.PictDocumentStatus.TabIndex = 150;
+            this.PictDocumentStatus.TabStop = false;
+            this.PictDocumentStatus.Visible = false;
             // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(918, 673);
+            this.ClientSize = new System.Drawing.Size(918, 690);
+            this.Controls.Add(this.PictDocumentStatus);
             this.Controls.Add(this.TXT_STEP_DOCUMENT);
             this.Controls.Add(this.PictureStep5);
             this.Controls.Add(this.LABEL_STATE);
@@ -1132,7 +1139,6 @@
             this.Controls.Add(this.label18);
             this.Controls.Add(this.txt_pies_malos2);
             this.Controls.Add(this.txt_pies_malos);
-            this.Controls.Add(this.chk_process);
             this.Controls.Add(this.chk_anulado);
             this.Controls.Add(this.bot_generar_rollos_cortados);
             this.Controls.Add(this.label12);
@@ -1178,6 +1184,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PictureStep3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureStep4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureStep5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictDocumentStatus)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1220,7 +1227,6 @@
         private System.Windows.Forms.TextBox txt_product_name;
         private System.Windows.Forms.Button bot_generar_rollos_cortados;
         private System.Windows.Forms.CheckBox chk_anulado;
-        private System.Windows.Forms.CheckBox chk_process;
         private System.Windows.Forms.TextBox txt_pies_malos;
         private System.Windows.Forms.TextBox txt_pies_malos2;
         private System.Windows.Forms.Label label18;
@@ -1277,5 +1283,6 @@
         private System.Windows.Forms.ToolStripMenuItem Action_CloseDocument;
         private System.Windows.Forms.ToolStripMenuItem Accion_AnularDocument;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.PictureBox PictDocumentStatus;
     }
 }

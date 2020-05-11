@@ -48,7 +48,7 @@
             this.TXT_BUSCAR.Name = "TXT_BUSCAR";
             this.TXT_BUSCAR.Size = new System.Drawing.Size(677, 20);
             this.TXT_BUSCAR.TabIndex = 0;
-            this.TXT_BUSCAR.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.TXT_BUSCAR.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // Grid_Items
             // 
