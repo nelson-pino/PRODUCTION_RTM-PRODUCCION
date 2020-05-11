@@ -523,8 +523,22 @@ namespace RitramaAPP
             }
             //buscar los datos de los cortes de la orden.
             grid_cortes.DataSource = managerorden.CargarDataCortes(txt_numero_oc.Text.Trim());
-            //Actualizar los ESTADOS DEL DOCUMENTO.
-
+            // verificar documentos cerrados
+            DataRowView RowCurrent = (DataRowView)bs.Current;
+            if (RowCurrent["step"].ToString() == "5") 
+            {
+                Action_UpdateDocument.Enabled = false;
+                Action_LabelProducts.Enabled = false;
+                Action_AutorizeDocument.Enabled = false;
+                Action_CloseDocument.Enabled = false;
+            }
+            else 
+            {
+                Action_UpdateDocument.Enabled = true;
+                Action_LabelProducts.Enabled = true;
+                Action_AutorizeDocument.Enabled = true;
+                Action_CloseDocument.Enabled = true;
+            }
             
         }
       
@@ -1499,6 +1513,8 @@ namespace RitramaAPP
                 LoadTipoMov();
                 //MOMENTO EN EL QUE SE AFECTA INVENTARÍO.
                 RUN_INVENTARIO();
+                //ACTUALIZAR DOCUMENTO
+                VERIFICAR_DOCUMENTO();
             }
         }
 

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmOrdenCorte));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txt_numero_oc = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -124,6 +124,7 @@
             this.LABEL_STATE = new System.Windows.Forms.Label();
             this.PictureStep5 = new System.Windows.Forms.PictureBox();
             this.TXT_STEP_DOCUMENT = new System.Windows.Forms.TextBox();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -272,6 +273,7 @@
             this.Action_LabelProducts,
             this.Action_AutorizeDocument,
             this.Action_CloseDocument,
+            this.toolStripSeparator2,
             this.Accion_AnularDocument});
             this.Menu_Actions.Image = ((System.Drawing.Image)(resources.GetObject("Menu_Actions.Image")));
             this.Menu_Actions.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -281,43 +283,49 @@
             // 
             // Action_NewDocument
             // 
+            this.Action_NewDocument.Image = ((System.Drawing.Image)(resources.GetObject("Action_NewDocument.Image")));
             this.Action_NewDocument.Name = "Action_NewDocument";
-            this.Action_NewDocument.Size = new System.Drawing.Size(206, 22);
+            this.Action_NewDocument.Size = new System.Drawing.Size(210, 26);
             this.Action_NewDocument.Text = "Crear Nuevo Documento";
             this.Action_NewDocument.Click += new System.EventHandler(this.Action_NewDocument_Click);
             // 
             // Action_UpdateDocument
             // 
+            this.Action_UpdateDocument.Image = ((System.Drawing.Image)(resources.GetObject("Action_UpdateDocument.Image")));
             this.Action_UpdateDocument.Name = "Action_UpdateDocument";
-            this.Action_UpdateDocument.Size = new System.Drawing.Size(206, 22);
+            this.Action_UpdateDocument.Size = new System.Drawing.Size(210, 26);
             this.Action_UpdateDocument.Text = "Modificar";
             this.Action_UpdateDocument.Click += new System.EventHandler(this.Action_UpdateDocument_Click);
             // 
             // Action_LabelProducts
             // 
+            this.Action_LabelProducts.Image = ((System.Drawing.Image)(resources.GetObject("Action_LabelProducts.Image")));
             this.Action_LabelProducts.Name = "Action_LabelProducts";
-            this.Action_LabelProducts.Size = new System.Drawing.Size(206, 22);
+            this.Action_LabelProducts.Size = new System.Drawing.Size(210, 26);
             this.Action_LabelProducts.Text = "Etiquetar Orden";
             this.Action_LabelProducts.Click += new System.EventHandler(this.Action_LabelProducts_Click);
             // 
             // Action_AutorizeDocument
             // 
+            this.Action_AutorizeDocument.Image = ((System.Drawing.Image)(resources.GetObject("Action_AutorizeDocument.Image")));
             this.Action_AutorizeDocument.Name = "Action_AutorizeDocument";
-            this.Action_AutorizeDocument.Size = new System.Drawing.Size(206, 22);
+            this.Action_AutorizeDocument.Size = new System.Drawing.Size(210, 26);
             this.Action_AutorizeDocument.Text = "Aprobar Documento";
             this.Action_AutorizeDocument.Click += new System.EventHandler(this.Action_AutorizeDocument_Click);
             // 
             // Action_CloseDocument
             // 
+            this.Action_CloseDocument.Image = ((System.Drawing.Image)(resources.GetObject("Action_CloseDocument.Image")));
             this.Action_CloseDocument.Name = "Action_CloseDocument";
-            this.Action_CloseDocument.Size = new System.Drawing.Size(206, 22);
+            this.Action_CloseDocument.Size = new System.Drawing.Size(210, 26);
             this.Action_CloseDocument.Text = "Cerrar Orden";
             this.Action_CloseDocument.Click += new System.EventHandler(this.Action_CloseDocument_Click);
             // 
             // Accion_AnularDocument
             // 
+            this.Accion_AnularDocument.Image = ((System.Drawing.Image)(resources.GetObject("Accion_AnularDocument.Image")));
             this.Accion_AnularDocument.Name = "Accion_AnularDocument";
-            this.Accion_AnularDocument.Size = new System.Drawing.Size(206, 22);
+            this.Accion_AnularDocument.Size = new System.Drawing.Size(210, 26);
             this.Accion_AnularDocument.Text = "Anular Documento";
             this.Accion_AnularDocument.Click += new System.EventHandler(this.Accion_AnularDocument_Click);
             // 
@@ -379,23 +387,23 @@
             this.grid_rollos.AllowUserToDeleteRows = false;
             this.grid_rollos.AllowUserToResizeRows = false;
             this.grid_rollos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_rollos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle33.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_rollos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle33;
             this.grid_rollos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_rollos.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle34.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle34.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_rollos.DefaultCellStyle = dataGridViewCellStyle34;
             this.grid_rollos.Location = new System.Drawing.Point(2, 5);
             this.grid_rollos.Margin = new System.Windows.Forms.Padding(2);
             this.grid_rollos.MultiSelect = false;
@@ -696,23 +704,23 @@
             // 
             this.grid_cortes.AllowUserToAddRows = false;
             this.grid_cortes.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_cortes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle35.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_cortes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle35;
             this.grid_cortes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_cortes.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_cortes.DefaultCellStyle = dataGridViewCellStyle36;
             this.grid_cortes.Location = new System.Drawing.Point(514, 110);
             this.grid_cortes.MultiSelect = false;
             this.grid_cortes.Name = "grid_cortes";
@@ -1069,6 +1077,11 @@
             this.TXT_STEP_DOCUMENT.Size = new System.Drawing.Size(28, 20);
             this.TXT_STEP_DOCUMENT.TabIndex = 149;
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1263,5 +1276,6 @@
         private System.Windows.Forms.ToolStripMenuItem Action_AutorizeDocument;
         private System.Windows.Forms.ToolStripMenuItem Action_CloseDocument;
         private System.Windows.Forms.ToolStripMenuItem Accion_AnularDocument;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

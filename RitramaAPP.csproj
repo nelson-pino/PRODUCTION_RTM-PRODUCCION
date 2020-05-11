@@ -508,6 +508,7 @@
   <ItemGroup>
     <Content Include="DataBaseApp.ico" />
     <Content Include="images\BUSCAR.ico" />
+    <Content Include="images\action.ico" />
     <None Include="Resources\red_flag.png" />
     <None Include="Resources\red_flag.ico" />
   </ItemGroup>
