@@ -46,7 +46,7 @@
         private void APLICAR_ESTILOS_GRID()
         {
             GridDevol.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("product_id", 65, "Product ID.", "product_id", GridDevol);
+            AGREGAR_COLUMN_GRID("product_id", 40, "Product ID.", "product_id", GridDevol);
             DataGridViewButtonColumn col3 = new DataGridViewButtonColumn
             {
                 Name = "SeachProduct",
@@ -54,10 +54,14 @@
                 HeaderText = "..."
             };
             GridDevol.Columns.Add(col3);
-            AGREGAR_COLUMN_GRID("product_name", 245, "Nombre del Producto", "product_name", GridDevol);
-            AGREGAR_COLUMN_GRID("tipo", 65, "Tipo", "tipo", GridDevol);
-            AGREGAR_COLUMN_GRID("cantidad", 65, "Cantidad", "cantidad", GridDevol);
+            AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", GridDevol);
+            AGREGAR_COLUMN_GRID("tipo", 60, "Tipo", "tipo", GridDevol);
+            AGREGAR_COLUMN_GRID("cantidad", 60, "Cantidad", "cantidad", GridDevol);
             AGREGAR_COLUMN_GRID("roll_id", 65, "Numero ID", "roll_id", GridDevol);
+            AGREGAR_COLUMN_GRID("width", 50, "Width", "width", GridDevol);
+            AGREGAR_COLUMN_GRID("lenght", 50, "Lenght", "lenght", GridDevol);
+            AGREGAR_COLUMN_GRID("msi", 50, "MSI", "msi", GridDevol);
+            AGREGAR_COLUMN_GRID("sw", 50, "Sw.", "sw", GridDevol);
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
@@ -220,7 +224,11 @@
                     Product_id = GridDevol.Rows[fila].Cells["product_id"].Value.ToString(),
                     Cantidad = Convert.ToDouble(GridDevol.Rows[fila].Cells["cantidad"].Value.ToString()),
                     NumeroID = GridDevol.Rows[fila].Cells["roll_id"].Value.ToString(),
-                    Tipo = GridDevol.Rows[fila].Cells["tipo"].Value.ToString()
+                    Tipo = GridDevol.Rows[fila].Cells["tipo"].Value.ToString(),
+                    width = Convert.ToDouble(GridDevol.Rows[fila].Cells["width"].Value),
+                    lenght = Convert.ToDouble(GridDevol.Rows[fila].Cells["lenght"].Value),
+                    msi = Convert.ToDouble(GridDevol.Rows[fila].Cells["msi"].Value),
+                    sw_estado = Convert.ToInt16(GridDevol.Rows[fila].Cells["sw"].Value) 
                 };
                 documento.items.Add(row);
             }
@@ -313,6 +321,9 @@
                     GridDevol.Columns[0].ReadOnly = true;
                     GridDevol.Columns[2].ReadOnly = true;
                     GridDevol.Columns[3].ReadOnly = true;
+                    GridDevol.Columns[8].ReadOnly = true;
+                    GridDevol.Columns[9].ReadOnly = true;
+                    
                     break;
                 case 1:
                     //modo despues guardar.
@@ -367,6 +378,7 @@
                 MessageBox.Show("seleccione el producto primero");
                 return;
             }
+            
             if (e.ColumnIndex == 5 && EditMode == 1 &&
                 !string.IsNullOrEmpty(GridDevol.Rows[e.RowIndex].Cells["roll_id"].Value.ToString()) &&
                 !string.IsNullOrEmpty(GridDevol.Rows[e.RowIndex].Cells["tipo"].Value.ToString())) 
@@ -378,16 +390,19 @@
                 if (CheckDataID(id, tipo, product_id))
                 {
                     //puedo devolver el producto (FUE DESPACHADO)
-                    MessageBox.Show("Correcto.");
+                    MessageBox.Show("Correcto despachado.");
+                    GridDevol.Rows[e.RowIndex].Cells["sw"].Value = "1";
                     GridDevol.CurrentCell = GridDevol[0, e.RowIndex];
                 }
                 else
                 {
                     //no lo puedo devolver
-                    MessageBox.Show("no puede devolver ese producto....");
-                    GridDevol.Rows[e.RowIndex].Cells["roll_id"].Value = "";
+                    MessageBox.Show("No existe ID....");
+                    GridDevol.Rows[e.RowIndex].Cells["sw"].Value = "2";
+
                 }
             }
+            CALCULAR_MSI_RENGLON(e.RowIndex);
         }
 
         private void Bot_Anular_Click(object sender, EventArgs e)
@@ -433,6 +448,28 @@
                      return manager.CheckStatusDespachoID(id, 4, product_id);
                 default:
                     return false;
+            }
+        }
+        private void CALCULAR_MSI_RENGLON(int fila)
+        {
+            if (EditMode != 0 || Convert.ToDouble(GridDevol.Rows[fila].Cells["lenght"].Value) > 0 ||
+                 Convert.ToDouble(GridDevol.Rows[fila].Cells["width"].Value) > 0)
+            {
+                try
+                {
+                    double msi = ((Convert.ToDouble(GridDevol.Rows[fila].Cells["width"].Value)
+                            * Convert.ToDouble(GridDevol.Rows[fila].Cells["lenght"].Value))
+                            * R.CONSTANTES.FACTOR_CALCULO_MSI);
+                    GridDevol.Rows[fila].Cells["msi"].Value = msi.ToString();
+                }
+                catch (Exception)
+                {
+
+
+                    GridDevol.Rows[fila].Cells["msi"].Value = "0";
+                }
+
+
             }
         }
     }

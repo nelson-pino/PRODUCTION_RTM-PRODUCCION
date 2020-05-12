@@ -517,19 +517,13 @@ namespace RitramaAPP
             grid_cortes.DataSource = managerorden.CargarDataCortes(txt_numero_oc.Text.Trim());
             // verificar documentos cerrados
             DataRowView RowCurrent = (DataRowView)bs.Current;
-            if (RowCurrent["step"].ToString() == "5") 
+            if (RowCurrent["step"].ToString() == "5" || Convert.ToBoolean(RowCurrent["anulada"]) == true) 
             {
-                Action_UpdateDocument.Enabled = false;
-                Action_LabelProducts.Enabled = false;
-                Action_AutorizeDocument.Enabled = false;
-                Action_CloseDocument.Enabled = false;
+                NO_ACTIONS();
             }
             else 
             {
-                Action_UpdateDocument.Enabled = true;
-                Action_LabelProducts.Enabled = true;
-                Action_AutorizeDocument.Enabled = true;
-                Action_CloseDocument.Enabled = true;
+                ACTIONS_ENABLED();
             }
             if (Convert.ToBoolean(RowCurrent["anulada"]) == true) 
             {
@@ -541,7 +535,21 @@ namespace RitramaAPP
             }
             
         }
-      
+        private void ACTIONS_ENABLED() 
+        {
+            Action_UpdateDocument.Enabled = true;
+            Action_LabelProducts.Enabled = true;
+            Action_AutorizeDocument.Enabled = true;
+            Action_CloseDocument.Enabled = true;
+            BOT_IMPRIMIR.Enabled = true;
+        }
+        private void NO_ACTIONS() 
+        {
+            Action_UpdateDocument.Enabled = false;
+            Action_LabelProducts.Enabled = false;
+            Action_AutorizeDocument.Enabled = false;
+            Action_CloseDocument.Enabled = false;
+        }
         private void FUNCTION_GENERATE_ROLL_DETAILS()
         {
             if (EditMode == 2 || grid_rollos.Rows.Count > 0)
@@ -1535,6 +1543,7 @@ namespace RitramaAPP
             if (step == 5) 
             {
                 MessageBox.Show("Orden Cerrada, no se puede anular");
+                return;
             }
             DialogResult dialogResult = MessageBox.Show("Esta seguro de Anular esta Orden de Corte (S/N)", "Advertencia", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)

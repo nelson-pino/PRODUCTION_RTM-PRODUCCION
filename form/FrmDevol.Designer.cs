@@ -39,6 +39,7 @@
             this.bot_nuevo = new System.Windows.Forms.ToolStripButton();
             this.bot_cancelar = new System.Windows.Forms.ToolStripButton();
             this.bot_grabar = new System.Windows.Forms.ToolStripButton();
+            this.Bot_Anular = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.TXT_NUMERO = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,7 +58,6 @@
             this.REGISTER_COUNT = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.Bot_Anular = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolsbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridDevol)).BeginInit();
@@ -73,7 +73,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 82);
+            this.panel1.Size = new System.Drawing.Size(862, 82);
             this.panel1.TabIndex = 34;
             // 
             // label15
@@ -101,7 +101,7 @@
             this.Bot_Anular});
             this.toolsbar.Location = new System.Drawing.Point(0, 82);
             this.toolsbar.Name = "toolsbar";
-            this.toolsbar.Size = new System.Drawing.Size(800, 27);
+            this.toolsbar.Size = new System.Drawing.Size(862, 27);
             this.toolsbar.TabIndex = 36;
             this.toolsbar.Text = "toolStrip1";
             // 
@@ -176,6 +176,15 @@
             this.bot_grabar.Size = new System.Drawing.Size(80, 24);
             this.bot_grabar.Text = "Grabar";
             this.bot_grabar.Click += new System.EventHandler(this.Bot_grabar_Click);
+            // 
+            // Bot_Anular
+            // 
+            this.Bot_Anular.Image = ((System.Drawing.Image)(resources.GetObject("Bot_Anular.Image")));
+            this.Bot_Anular.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Bot_Anular.Name = "Bot_Anular";
+            this.Bot_Anular.Size = new System.Drawing.Size(66, 24);
+            this.Bot_Anular.Text = "Anular";
+            this.Bot_Anular.Click += new System.EventHandler(this.Bot_Anular_Click);
             // 
             // label1
             // 
@@ -287,7 +296,7 @@
             this.GridDevol.Name = "GridDevol";
             this.GridDevol.ReadOnly = true;
             this.GridDevol.RowHeadersWidth = 35;
-            this.GridDevol.Size = new System.Drawing.Size(568, 192);
+            this.GridDevol.Size = new System.Drawing.Size(724, 192);
             this.GridDevol.TabIndex = 49;
             this.GridDevol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridDevol_CellContentClick);
             this.GridDevol.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridDevol_CellEndEdit);
@@ -308,7 +317,7 @@
             // 
             this.BTN_AGREGAR_RENGLON.Enabled = false;
             this.BTN_AGREGAR_RENGLON.Image = ((System.Drawing.Image)(resources.GetObject("BTN_AGREGAR_RENGLON.Image")));
-            this.BTN_AGREGAR_RENGLON.Location = new System.Drawing.Point(583, 267);
+            this.BTN_AGREGAR_RENGLON.Location = new System.Drawing.Point(739, 267);
             this.BTN_AGREGAR_RENGLON.Name = "BTN_AGREGAR_RENGLON";
             this.BTN_AGREGAR_RENGLON.Size = new System.Drawing.Size(111, 60);
             this.BTN_AGREGAR_RENGLON.TabIndex = 51;
@@ -321,7 +330,7 @@
             // 
             this.BTN_DELETE_RENGLON.Enabled = false;
             this.BTN_DELETE_RENGLON.Image = ((System.Drawing.Image)(resources.GetObject("BTN_DELETE_RENGLON.Image")));
-            this.BTN_DELETE_RENGLON.Location = new System.Drawing.Point(583, 333);
+            this.BTN_DELETE_RENGLON.Location = new System.Drawing.Point(739, 333);
             this.BTN_DELETE_RENGLON.Name = "BTN_DELETE_RENGLON";
             this.BTN_DELETE_RENGLON.Size = new System.Drawing.Size(111, 60);
             this.BTN_DELETE_RENGLON.TabIndex = 52;
@@ -370,20 +379,11 @@
             this.label6.TabIndex = 55;
             this.label6.Text = "Detalle de Devolución";
             // 
-            // Bot_Anular
-            // 
-            this.Bot_Anular.Image = ((System.Drawing.Image)(resources.GetObject("Bot_Anular.Image")));
-            this.Bot_Anular.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Bot_Anular.Name = "Bot_Anular";
-            this.Bot_Anular.Size = new System.Drawing.Size(66, 24);
-            this.Bot_Anular.Text = "Anular";
-            this.Bot_Anular.Click += new System.EventHandler(this.Bot_Anular_Click);
-            // 
             // FrmDevol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 510);
+            this.ClientSize = new System.Drawing.Size(862, 510);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.REGISTER_COUNT);
