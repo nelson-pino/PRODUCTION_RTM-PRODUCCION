@@ -13,9 +13,9 @@ namespace RitramaAPP.Clases
         public string  Tipo { get; set; }
         public double Cantidad { get; set; }
         public string NumeroID { get; set; }
-        public double width { get; set; }
-        public double lenght { get; set; }
-        public double msi { get; set; }
-        public int sw_estado { get; set; }
+        public double Width { get; set; }
+        public double Lenght { get; set; }
+        public double Msi { get; set; }
+        public int Sw_estado { get; set; }
     }
 }

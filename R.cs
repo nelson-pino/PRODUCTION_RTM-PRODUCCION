@@ -74,9 +74,9 @@ namespace RitramaAPP
 
                     public static string SQL_QUERY_SELECT_INICIALES_MASTERS = "SELECT * FROM (SELECT OrderPurchase, Part_Number, Width, lenght,lenght-lenght_c AS lenght_p,lenght_c,Roll_Id, Proveedor_Id, " +
                     "Splice, Core, Ubicacion, anulado,fecha_reg, hora_reg, fecha_pro, master, resma, graphics,embarque, palet_num, palet_cant, palet_pag, num_sincro, " +
-                    "registro_movil, width_metros, lenght_metros, fecha_recep,'I' AS tipo_mov,status FROM MasterInic WHERE disponible = 1 UNION SELECT OrderPurchase, Part_Number, " +
+                    "registro_movil, width_metros, lenght_metros, fecha_recep,'I' AS tipo_mov,status,master_load,doc_oc FROM MasterInic WHERE disponible = 1 UNION SELECT OrderPurchase, Part_Number, " +
                     "Width, Lenght,lenght-lenght_c AS lenght_p,lenght_c,Roll_Id, Proveedor_Id, Splice, Core, Ubicacion, anulado,fecha_reg, hora_reg, fecha_pro, master, resma, graphics,embarque, palet_num, " +
-                    "palet_cant, palet_pag, num_sincro,registro_movil, width_metros, lenght_metros, fecha_recep,'M' AS tipo_mov,status FROM OrdenRecepcion WHERE disponible = 1 AND master = 1) " +
+                    "palet_cant, palet_pag, num_sincro,registro_movil, width_metros, lenght_metros, fecha_recep,'M' AS tipo_mov,status,master_load,doc_oc FROM OrdenRecepcion WHERE disponible = 1 AND master = 1) " +
                     "T ORDER BY CONVERT(INT , OrderPurchase)";
 
                     public static string SQL_QUERY_SELECT_INICIALES_HOJAS = "SELECT * FROM(SELECT OrderPurchase, Part_Number, Width, Lenght, Roll_Id, Proveedor_Id, Splice,Core, Ubicacion, anulado, fecha_reg," +
@@ -207,7 +207,9 @@ namespace RitramaAPP
                     public static string SQL_UPDATE_DOCUMENT_STATE = "UPDATE orden_corte SET step=@p2,lastupdate=@p3 WHERE numero=@p1";
                     public static string SQL_UPDATE_AUTHORIZE_OC = "UPDATE orden_corte SET fecha_autorize=@p2,ToAutorize=@p3,Notes=@p4,CloseDocument=@p5,Step=4 WHERE numero=@p1";
                     public static string SQL_UPDATE_DISPO_ROLLS_OC = "UPDATE rolls_details SET disponible=@p2 WHERE numero=@p1";
-
+                    public static string SQL_SELECT_CHECK_MASTER_DOCUMENT = "SELECT count(*) FROM orden_corte WHERE rollid_1=@p1 OR rollid_2=@p1";
+                    public static string SQL_MARK_MASTER_INIC = "UPDATE MasterInic SET master_load=1,doc_oc=@p2 WHERE roll_id=@p1";
+                    public static string SQL_MARK_MASTER_RECEP = "UPDATE OrdenRecepcion SET master_load=1,doc_oc=@p2 WHERE Roll_Id=@p1";
                 }
                 public class DESPACHOS
                 {
@@ -235,8 +237,6 @@ namespace RitramaAPP
                     public const string SQL_INSERT_DATA_PALET_DESPACHO = "INSERT INTO Paleta (numero,number_palet,medida,contenido,kilo_neto,kilo_bruto) VALUES(@p1, @p2, @p3, @p4, @p5, @p6)";
                     public const string SQL_SELECT_DATA_PALET_DESPACHO = "SELECT number_palet,medida,contenido,kilo_bruto,kilo_neto,numero FROM Paleta WHERE numero=@p1";
                     public const string SQL_DELETE_DATA_PALET_DESPACHO = "DELETE Paleta WHERE numero=@p1";
-
-
                 }
                 public class INVENTARIO
                 {

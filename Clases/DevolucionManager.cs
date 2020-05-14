@@ -63,10 +63,10 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Decimal, Value = items.Cantidad},
                 new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = items.NumeroID},
                 new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = items.Tipo},
-                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = items.width},
-                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = items.lenght},
-                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Decimal, Value = items.msi},
-                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Int, Value = items.sw_estado},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = items.Width},
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = items.Lenght},
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Decimal, Value = items.Msi},
+                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Int, Value = items.Sw_estado},
             };
             return sp;
         }

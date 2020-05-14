@@ -63,6 +63,12 @@ namespace RitramaAPP
             AGREGAR_COLUMN_GRID("lenght_metros", 70, "Lenght [Mts.]", "lenght_metros", GridItemsMaster);
             AGREGAR_COLUMN_GRID("splice", 70, "# Empalmes", "splice", GridItemsMaster);
             AGREGAR_COLUMN_GRID("status", 30, "St", "status", GridItemsMaster);
+            AGREGAR_COLUMN_GRID("master_load", 30, "load", "master_load", GridItemsMaster);
+            AGREGAR_COLUMN_GRID("num_oc", 30, "oc", "doc_oc", GridItemsMaster);
+            GridItemsMaster.Columns["master_load"].Visible = false;
+            GridItemsMaster.Columns["num_oc"].Visible = false;
+
+
         }
 
         private void AplicarEstilosHojas()
@@ -310,6 +316,7 @@ namespace RitramaAPP
         {
             foreach (DataGridViewRow row in dg.Rows)
             {
+                //producto reservado
                 DataGridViewCell cell = row.Cells["status"];
                 if (cell.Value.ToString() == "Reservado")
                 {
@@ -319,6 +326,15 @@ namespace RitramaAPP
                 {
                     row.Cells["ColumnImage"].Value = null;
                 }
+                //master cargado en documento.
+                cell = row.Cells["master_load"];
+                if (cell.Value.ToString() == "") return;
+                if (Convert.ToBoolean(cell.Value) == true) 
+                {
+                    row.Cells["ColumnImage"].Value = (System.Drawing.Image)Properties.Resources.key_icon;
+                }
+
+
             }
         }
 
@@ -692,6 +708,12 @@ namespace RitramaAPP
                 Report_Name = "Reporte Reserva de Productos"
             };
             DialogPrint.ShowDialog();
+        }
+
+        private void GridItemsMaster_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int rowselect = GridItemsMaster.CurrentRow.Index;
+            MessageBox.Show("Numero de Orden de Corte :" + GridItemsMaster.Rows[rowselect].Cells["num_oc"].Value.ToString());
         }
     }
 }

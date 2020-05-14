@@ -217,6 +217,7 @@ namespace RitramaAPP
             }
             //llenar el encabezado de la orden de produccion
             managerorden.Add(CrearObjectOrden(1), false);
+            
             //chk_process.DataBindings.Add("Checked", bs, "procesado");
             chk_anulado.DataBindings.Add("Checked", bs, "anulada");
             //actualizar la interfaz grafica.
@@ -224,6 +225,11 @@ namespace RitramaAPP
             filaActual = (DataRowView)bs.Current;
             filaActual["step"] = 1;
             bs.EndEdit();
+
+            //marcar los master-rollid como cargado en documentos.
+            managerorden.MarkMasterRollidLoadDocument(orden.Tipo_Mov1,orden.Rollid_1,orden.Numero);   
+
+
             OptionsMenu(1);
             OptionsForm(1);
             EditMode = 0;
@@ -323,8 +329,16 @@ namespace RitramaAPP
 
                 if (state == 0)
                 {
+                    //Validar si el master esta montado en otro documento.
+                    if (managerorden.CheckMasterDocumentOc(rollid.GetrollId)) 
+                    {
+                        MessageBox.Show("El roll-id que acaba se seleccionar esta montada en otra orden de corte.");
+                        return;
+                    }
                     ROLLID_A = new Roll_Details
                     {
+                    
+
                         Product_id = rollid.Getproduct_id,
                         Product_name = rollid.GetProduct_name,
                         Roll_id = rollid.GetrollId,
@@ -352,6 +366,12 @@ namespace RitramaAPP
                 }
                 else
                 {
+                    //Validar si el master esta montado en otro documento.
+                    if (managerorden.CheckMasterDocumentOc(rollid.GetrollId))
+                    {
+                        MessageBox.Show("El roll-id que acaba se seleccionar esta montada en otra orden de corte.");
+                        return;
+                    }
                     ROLLID_B = new Roll_Details
                     {
                         Product_id = rollid.Getproduct_id,
@@ -513,6 +533,11 @@ namespace RitramaAPP
         }
         private void VERIFICAR_DOCUMENTO()
         {
+            if (bs.Count == 0) 
+            {
+                return;
+            }
+
             //buscar los datos de los cortes de la orden.
             grid_cortes.DataSource = managerorden.CargarDataCortes(txt_numero_oc.Text.Trim());
             // verificar documentos cerrados
@@ -1225,6 +1250,7 @@ namespace RitramaAPP
             }
             bs.EndEdit();
             grid_rollos.Rows[0].Selected = true;
+            bot_generar_rollos_cortados.Enabled = false;
         }
         private void Bot_modificar_Click(object sender, EventArgs e)
         {
@@ -1473,6 +1499,7 @@ namespace RitramaAPP
         {
             CREATE_NEW_DOCUMENT();
             Menu_Actions.Enabled = false;
+            bot_generar_rollos_cortados.Enabled = true;
             Update_StepIndicator(0);
         }
 

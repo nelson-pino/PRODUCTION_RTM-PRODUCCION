@@ -460,6 +460,7 @@
             this.GridItemsMaster.ReadOnly = true;
             this.GridItemsMaster.Size = new System.Drawing.Size(826, 376);
             this.GridItemsMaster.TabIndex = 0;
+            this.GridItemsMaster.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GridItemsMaster_CellMouseDoubleClick);
             this.GridItemsMaster.SelectionChanged += new System.EventHandler(this.GridItemsMaster_SelectionChanged);
             // 
             // tabPage3

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
+using System.Web.Services.Protocols;
 using System.Windows.Forms;
 
 namespace RitramaAPP.Clases
@@ -834,9 +835,6 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-
-
-
         public Boolean SaveAutorizeOc(AutorizeDocOc doc) 
         {
             try
@@ -863,6 +861,61 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.Bit, Value = item.CloseDocument},
             };
             return sp;
+        }
+        public Boolean CheckMasterDocumentOc(string rollid) 
+        {
+            //Esta funcion verifica si un master esta montado en alguna Orden de Corte.
+            try
+            {
+                int result;
+                Micomm.Conectar(R.SQL.DATABASE.NAME);
+                SqlCommand comando = new SqlCommand
+                {
+                    CommandType = CommandType.Text,
+                    CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_SELECT_CHECK_MASTER_DOCUMENT,
+                    Connection = Micomm.cnn
+                };
+                SqlParameter p1 = new SqlParameter("@p1", rollid);
+                comando.Parameters.Add(p1);
+                result = Convert.ToInt16(comando.ExecuteScalar());
+                Micomm.Desconectar();
+                comando.Dispose();
+                if (result == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+        public Boolean MarkMasterRollidLoadDocument(string tipomov, string rollid, string oc) 
+        {
+            try
+            {
+                switch (tipomov)
+                {
+                    case "M":
+                        CommandSqlGenericTreeParameters(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.
+                        SQL_MARK_MASTER_RECEP, rollid, oc, true, false, "", 0);
+                        break;
+                    case "I":
+                        CommandSqlGenericTreeParameters(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.
+                        SQL_MARK_MASTER_INIC, rollid, oc, true, false, "", 0);
+                        break;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

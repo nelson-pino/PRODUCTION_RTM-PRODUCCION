@@ -225,10 +225,10 @@
                     Cantidad = Convert.ToDouble(GridDevol.Rows[fila].Cells["cantidad"].Value.ToString()),
                     NumeroID = GridDevol.Rows[fila].Cells["roll_id"].Value.ToString(),
                     Tipo = GridDevol.Rows[fila].Cells["tipo"].Value.ToString(),
-                    width = Convert.ToDouble(GridDevol.Rows[fila].Cells["width"].Value),
-                    lenght = Convert.ToDouble(GridDevol.Rows[fila].Cells["lenght"].Value),
-                    msi = Convert.ToDouble(GridDevol.Rows[fila].Cells["msi"].Value),
-                    sw_estado = Convert.ToInt16(GridDevol.Rows[fila].Cells["sw"].Value) 
+                    Width = Convert.ToDouble(GridDevol.Rows[fila].Cells["width"].Value),
+                    Lenght = Convert.ToDouble(GridDevol.Rows[fila].Cells["lenght"].Value),
+                    Msi = Convert.ToDouble(GridDevol.Rows[fila].Cells["msi"].Value),
+                    Sw_estado = Convert.ToInt16(GridDevol.Rows[fila].Cells["sw"].Value) 
                 };
                 documento.items.Add(row);
             }
