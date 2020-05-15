@@ -171,9 +171,9 @@ namespace RitramaAPP
                     "LEFT JOIN producto b ON a.part_number = b.product_id where b.MasterRolls = 1 and a.disponible = 1 ORDER BY fecha_recep, splice ASC";
                     public static string SQL_QUERY_SELECT_ROLLOS_CORTADOS = "SELECT numero,product_id,product_name,roll_number,unique_code,splice,width,width_c,large,lenght_c,msi,roll_id,code_person,status FROM rolls_details ORDER BY roll_number";
                     public static string SQL_QUERY_SELECT_ROLLOS_CORTADOS_INIC = "SELECT * FROM (SELECT numero, product_id, product_name, roll_number,unique_code, " +
-                    "splice, width, width_c, large, lenght_c,msi, roll_id, code_person, status, 'M' AS tipo_mov FROM rolls_details WHERE disponible = 1 UNION " +
+                    "splice, width, width_c, large, lenght_c,msi, roll_id, code_person, status, 'M' AS tipo_mov,ubic FROM rolls_details WHERE disponible = 1 UNION " +
                     "SELECT numero, product_id, product_name, roll_number, unique_code, splice, width, width_c, large, lenght_c,msi, roll_id, code_person, " +
-                     "status, 'I' AS tipo_mov FROM RollsInic WHERE disponible = 1) T ORDER BY T.numero";
+                     "status, 'I' AS tipo_mov,ubic FROM RollsInic WHERE disponible = 1) T ORDER BY T.numero";
                     public static string SQL_QUERY_INSERT_ROLLID = "INSERT INTO roll_id (numero,roll_id) VALUES (@P1,@p2)";
                     public static string SQL_QUERY_INSERT_ROLLS_DETAILS = "INSERT rolls_details (fecha,numero,roll_number,product_id," +
                         "product_name,roll_id,width,large,msi,splice,code_perso,unique_code) VALUES (@r1,@r2,@r3,@r4,@r5,@r6,@r7,@r8,@r9,@r10,@r11,@r12)";
@@ -267,6 +267,10 @@ namespace RitramaAPP
                     public static string SQL_UPDATE_ITEM_UNMARK_RESERVA3 = "UPDATE RollsInic SET status='Ok.' WHERE unique_code=@p1";
                     public static string SQL_LIST_ID_ITEM_RESERVA = "SELECT id FROM reserva WHERE transac=@p1";
                     public static string SQL_DELETE_DOCUMENT_RESERVA = "DELETE Reserva WHERE transac=@p1";
+                    public static string SQL_GETDATA_ROLLS_FROMRC = "SELECT * FROM (SELECT unique_code,product_id,product_name,width,large,msi,'I' AS tipo FROM RollsInic " +
+                    "UNION SELECT unique_code,product_id,product_name,width,large,msi,'M' AS tipo FROM rolls_details) T WHERE T.unique_code=@p1";
+                    public static string SQL_UPDATE_UBICATION_ROLLS_INIC = "UPDATE RollsInic SET ubic=@p2 WHERE unique_code=@p1";
+                    public static string SQL_UPDATE_UBICATION_ROLLS_ORDEN = "UPDATE rolls_details SET ubic=@p2 WHERE unique_code=@p1";
                 }
                 public class DEVOLUCION 
                 {
@@ -327,6 +331,7 @@ namespace RitramaAPP
                 public static string MESSAGE_ERROR_INFO_RESERVAS = "Error al cargar la informacion de reserva de productos.";
                 public static string MESSAGE_ERROR_DELETE_ITEM_RESERVAS = "Error al tratar de borra item de reserva de productos.";
                 public static string MESSAGE_ERROR_DELETE_DOCUMENT_RESERVAS = "Error al tratar de borra documentos reserva de productos.";
+                public static string MESSAGE_ERROR_UBICATION_FROMRC = "Error al cambiar la ubicacion en el almacen de los rollos cortados.";
 
             }
             public class MODULO_PRODUCTOS

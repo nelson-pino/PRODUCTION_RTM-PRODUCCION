@@ -4,10 +4,8 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-    using System.Drawing;
     using System.IO;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Windows.Forms;
     public class InventarioManager
     {
@@ -106,6 +104,48 @@
             }
             da.Dispose();
             return dt;
+        }
+        public Boolean CommandSqlGenericTreeParameters(string db, string query, object par1, object par2, object par3, Boolean msg, string messagerror, int process)
+        {
+            // Ejecuta comando sql query y no devuleve ni valor ni datos.
+            try
+            {
+                Micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                switch (process)
+                {
+                    case 1:
+                        string po1 = par1.ToString();
+                        int po2 = Convert.ToInt16(par2);
+                        DateTime po3 = Convert.ToDateTime(par3);
+                        break;
+                }
+
+                SqlParameter p1 = new SqlParameter("@p1", par1);
+                SqlParameter p2 = new SqlParameter("@p2", par2);
+                SqlParameter p3 = new SqlParameter("@p3", par3);
+                comando.Parameters.Add(@p1);
+                comando.Parameters.Add(@p2);
+                comando.Parameters.Add(@p3);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                Micomm.Desconectar();
+                if (msg)
+                {
+                    MessageBox.Show("proceso realizado con exito...");
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(messagerror + ex);
+                return false;
+            }
         }
         public List<Item> GetDataIni()
         {
@@ -440,8 +480,52 @@
                 return false;
             }
         }
-
-
-
+        public Item GetDataRollofromRC(string rc) 
+        {
+            //procedimento para buscar los datos de los rollos desde RC
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = CommandSqlGenericDtOnePar(R.DATABASES.RITRAMA,R.SQL.QUERY_SQL.INVENTARIO.SQL_GETDATA_ROLLS_FROMRC,"",rc);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al traer la informacion de los rollos para cambiar las ubicaiones");
+            }
+            Item item = new Item
+            {
+                Product_id = dt.Rows[0]["product_id"].ToString(),
+                Product_name = dt.Rows[0]["product_name"].ToString(),
+                Width = Convert.ToDecimal(dt.Rows[0]["width"]),
+                Lenght = Convert.ToDecimal(dt.Rows[0]["large"]),
+                Msi = Convert.ToDecimal(dt.Rows[0]["msi"]),
+                Tipo = dt.Rows[0]["tipo"].ToString()
+            };
+            return item;
+        }
+        public bool SetDataUbicationToAlmacenFromRC(string tipo, string ubicacion, string rc) 
+        {
+            //procedimiento para guardar en base de datos la ubicacion desde el RC
+            try
+            {
+                switch (tipo) 
+                {
+                    case "I":
+                        CommandSqlGenericTreeParameters(R.DATABASES.RITRAMA,
+                        R.SQL.QUERY_SQL.INVENTARIO.SQL_UPDATE_UBICATION_ROLLS_INIC, rc, ubicacion, "", false, "", 0);
+                        break;
+                    case "M":
+                        CommandSqlGenericTreeParameters(R.DATABASES.RITRAMA,
+                        R.SQL.QUERY_SQL.INVENTARIO.SQL_UPDATE_UBICATION_ROLLS_ORDEN, rc, ubicacion, "", false, "", 0);
+                        break;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_UBICATION_FROMRC);
+                return false;       
+            }
+        }
     }
 }

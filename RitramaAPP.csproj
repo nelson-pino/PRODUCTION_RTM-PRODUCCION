@@ -213,6 +213,12 @@
     <Compile Include="form\frmSincroRecepciones.Designer.cs">
       <DependentUpon>frmSincroRecepciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\FrmUbicacionesAlmacen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmUbicacionesAlmacen.Designer.cs">
+      <DependentUpon>FrmUbicacionesAlmacen.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\PickingList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -381,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmSincroRecepciones.resx">
       <DependentUpon>frmSincroRecepciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmUbicacionesAlmacen.resx">
+      <DependentUpon>FrmUbicacionesAlmacen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\PickingList.resx">
       <DependentUpon>PickingList.cs</DependentUpon>

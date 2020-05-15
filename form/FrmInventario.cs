@@ -129,6 +129,7 @@ namespace RitramaAPP
             AGREGAR_COLUMN_GRID("splice", 50, "Splice", "splice", GridItemsCortados);
             AGREGAR_COLUMN_GRID("code_person", 60, "Code Person.", "code_person", GridItemsCortados);
             AGREGAR_COLUMN_GRID("status", 60, "Status", "status", GridItemsCortados);
+            AGREGAR_COLUMN_GRID("ubic", 60, "Ubicacion", "ubic", GridItemsCortados);
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
@@ -371,6 +372,11 @@ namespace RitramaAPP
             if (RA_UNIQUE_CODE_COR.Checked)
             {
                 DvRolls.RowFilter = "unique_code LIKE '%" + this.txtbuscar_cor.Text + "%'";
+            }
+            //BUSQUEDA POR UBICACION
+            if (!string.IsNullOrEmpty(txt_ubic.Text))
+            {
+                DvRolls.RowFilter = "ubic LIKE '%" + this.txt_ubic.Text.Trim() + "%'";
             }
             RECORDFOUND_COR.Text = DvRolls.Count.ToString() + " ENCONTRADOS.";
             if (GridItemsCortados.Rows.Count == 0)
@@ -721,6 +727,12 @@ namespace RitramaAPP
         {
             int rowselect = GridItemsMaster.CurrentRow.Index;
             MessageBox.Show("Numero de Orden de Corte :" + GridItemsMaster.Rows[rowselect].Cells["num_oc"].Value.ToString());
+        }
+
+        private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmUbicacionesAlmacen ubics = new FrmUbicacionesAlmacen();
+            ubics.ShowDialog();
         }
     }
 }

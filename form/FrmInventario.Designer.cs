@@ -31,7 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInventario));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.LinkUbics = new System.Windows.Forms.LinkLabel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.Link_Reservas = new System.Windows.Forms.LinkLabel();
             this.label25 = new System.Windows.Forms.Label();
             this.link_detele_reserva = new System.Windows.Forms.LinkLabel();
             this.label26 = new System.Windows.Forms.Label();
@@ -122,6 +124,8 @@
             this.bot_buscar_cor = new System.Windows.Forms.Button();
             this.txtbuscar_cor = new System.Windows.Forms.TextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.label28 = new System.Windows.Forms.Label();
+            this.txt_ubic = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.TABINVENTARIO.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -142,7 +146,9 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.linkLabel1);
+            this.panel1.Controls.Add(this.LinkUbics);
+            this.panel1.Controls.Add(this.label27);
+            this.panel1.Controls.Add(this.Link_Reservas);
             this.panel1.Controls.Add(this.label25);
             this.panel1.Controls.Add(this.link_detele_reserva);
             this.panel1.Controls.Add(this.label26);
@@ -156,17 +162,38 @@
             this.panel1.Size = new System.Drawing.Size(846, 98);
             this.panel1.TabIndex = 36;
             // 
-            // linkLabel1
+            // LinkUbics
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.LinkColor = System.Drawing.Color.Black;
-            this.linkLabel1.Location = new System.Drawing.Point(331, 73);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(88, 13);
-            this.linkLabel1.TabIndex = 8;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Reporte Reserva";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
+            this.LinkUbics.AutoSize = true;
+            this.LinkUbics.LinkColor = System.Drawing.Color.Black;
+            this.LinkUbics.Location = new System.Drawing.Point(428, 74);
+            this.LinkUbics.Name = "LinkUbics";
+            this.LinkUbics.Size = new System.Drawing.Size(66, 13);
+            this.LinkUbics.TabIndex = 10;
+            this.LinkUbics.TabStop = true;
+            this.LinkUbics.Text = "Ubicaciones";
+            this.LinkUbics.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel2_LinkClicked);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(417, 75);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(15, 13);
+            this.label27.TabIndex = 9;
+            this.label27.Text = "│";
+            // 
+            // Link_Reservas
+            // 
+            this.Link_Reservas.AutoSize = true;
+            this.Link_Reservas.LinkColor = System.Drawing.Color.Black;
+            this.Link_Reservas.Location = new System.Drawing.Point(331, 73);
+            this.Link_Reservas.Name = "Link_Reservas";
+            this.Link_Reservas.Size = new System.Drawing.Size(88, 13);
+            this.Link_Reservas.TabIndex = 8;
+            this.Link_Reservas.TabStop = true;
+            this.Link_Reservas.Text = "Reporte Reserva";
+            this.Link_Reservas.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
             // 
             // label25
             // 
@@ -998,6 +1025,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label28);
+            this.groupBox4.Controls.Add(this.txt_ubic);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.txt_wid_search);
             this.groupBox4.Controls.Add(this.RA_UNIQUE_CODE_COR);
@@ -1014,7 +1043,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 93);
+            this.label9.Location = new System.Drawing.Point(10, 81);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(81, 13);
             this.label9.TabIndex = 5;
@@ -1022,7 +1051,7 @@
             // 
             // txt_wid_search
             // 
-            this.txt_wid_search.Location = new System.Drawing.Point(94, 90);
+            this.txt_wid_search.Location = new System.Drawing.Point(94, 78);
             this.txt_wid_search.Name = "txt_wid_search";
             this.txt_wid_search.Size = new System.Drawing.Size(100, 20);
             this.txt_wid_search.TabIndex = 4;
@@ -1030,7 +1059,7 @@
             // RA_UNIQUE_CODE_COR
             // 
             this.RA_UNIQUE_CODE_COR.AutoSize = true;
-            this.RA_UNIQUE_CODE_COR.Location = new System.Drawing.Point(19, 67);
+            this.RA_UNIQUE_CODE_COR.Location = new System.Drawing.Point(19, 61);
             this.RA_UNIQUE_CODE_COR.Name = "RA_UNIQUE_CODE_COR";
             this.RA_UNIQUE_CODE_COR.Size = new System.Drawing.Size(87, 17);
             this.RA_UNIQUE_CODE_COR.TabIndex = 3;
@@ -1040,7 +1069,7 @@
             // RA_ROLLID_COR
             // 
             this.RA_ROLLID_COR.AutoSize = true;
-            this.RA_ROLLID_COR.Location = new System.Drawing.Point(19, 51);
+            this.RA_ROLLID_COR.Location = new System.Drawing.Point(19, 45);
             this.RA_ROLLID_COR.Name = "RA_ROLLID_COR";
             this.RA_ROLLID_COR.Size = new System.Drawing.Size(97, 17);
             this.RA_ROLLID_COR.TabIndex = 2;
@@ -1050,7 +1079,7 @@
             // RA_PRODUCTNAME_COR
             // 
             this.RA_PRODUCTNAME_COR.AutoSize = true;
-            this.RA_PRODUCTNAME_COR.Location = new System.Drawing.Point(19, 36);
+            this.RA_PRODUCTNAME_COR.Location = new System.Drawing.Point(19, 30);
             this.RA_PRODUCTNAME_COR.Name = "RA_PRODUCTNAME_COR";
             this.RA_PRODUCTNAME_COR.Size = new System.Drawing.Size(125, 17);
             this.RA_PRODUCTNAME_COR.TabIndex = 1;
@@ -1061,7 +1090,7 @@
             // 
             this.RA_PRODUCTID_COR.AutoSize = true;
             this.RA_PRODUCTID_COR.Checked = true;
-            this.RA_PRODUCTID_COR.Location = new System.Drawing.Point(19, 20);
+            this.RA_PRODUCTID_COR.Location = new System.Drawing.Point(19, 14);
             this.RA_PRODUCTID_COR.Name = "RA_PRODUCTID_COR";
             this.RA_PRODUCTID_COR.Size = new System.Drawing.Size(104, 17);
             this.RA_PRODUCTID_COR.TabIndex = 0;
@@ -1145,6 +1174,22 @@
             this.imageList1.Images.SetKeyName(3, "icons8_toilet_paper_16.png");
             this.imageList1.Images.SetKeyName(4, "icons8_sheets_16.png");
             this.imageList1.Images.SetKeyName(5, "icons8_address_book_16.png");
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(10, 106);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(61, 13);
+            this.label28.TabIndex = 7;
+            this.label28.Text = "Ubicacion :";
+            // 
+            // txt_ubic
+            // 
+            this.txt_ubic.Location = new System.Drawing.Point(94, 103);
+            this.txt_ubic.Name = "txt_ubic";
+            this.txt_ubic.Size = new System.Drawing.Size(100, 20);
+            this.txt_ubic.TabIndex = 6;
             // 
             // FrmInventario
             // 
@@ -1277,7 +1322,11 @@
         private System.Windows.Forms.LinkLabel link_detele_reserva;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel Link_Reservas;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.LinkLabel LinkUbics;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox txt_ubic;
     }
 }
