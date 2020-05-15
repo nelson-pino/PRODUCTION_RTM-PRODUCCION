@@ -5,26 +5,26 @@ namespace RitramaAPP.Clases
 {
     public class ClassDespacho
     {
-        public string numero { get; set; }
-        public DateTime fecha_despacho { get; set; }
-        public string curstomer_id { get; set; }
-        public string curstomer_name { get; set; }
-        public string curstomer_direc { get; set; }
-        public string persona_entrega { get; set; }
-        public string vendedor_id { get; set; }
-        public string vendedor_name { get; set; }
-        public string transport_id { get; set; }
-        public string transport_name { get; set; }
-        public string chofer_id { get; set; }
-        public string chofer_name { get; set; }
-        public string placas_id { get; set; }
-        public string modelo_camion { get; set; }
-        public string tipo_embalaje { get; set; }
-        public string orden_trabajo { get; set; }
-        public string orden_compra { get; set; }
-        public decimal subtotal { get; set; }
-        public decimal monto_itbis { get; set; }
-        public decimal total { get; set; }
+        public string Numero { get; set; }
+        public DateTime Fecha_despacho { get; set; }
+        public string Curstomer_id { get; set; }
+        public string Curstomer_name { get; set; }
+        public string Curstomer_direc { get; set; }
+        public string Persona_entrega { get; set; }
+        public string Vendedor_id { get; set; }
+        public string Vendedor_name { get; set; }
+        public string Transport_id { get; set; }
+        public string Transport_name { get; set; }
+        public string Chofer_id { get; set; }
+        public string Chofer_name { get; set; }
+        public string Placas_id { get; set; }
+        public string Modelo_camion { get; set; }
+        public string Tipo_embalaje { get; set; }
+        public string Orden_trabajo { get; set; }
+        public string Orden_compra { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal Monto_itbis { get; set; }
+        public decimal Total { get; set; }
         public List<Items_despacho> items;
 
 

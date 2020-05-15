@@ -9,5 +9,6 @@
         public string Ubic { get; set; }
         public string Documento { get; set; }
         public decimal Cantidad { get; set; }
- 
+        public string Unique_code { get; set; }
+
 }

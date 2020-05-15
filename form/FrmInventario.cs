@@ -326,13 +326,20 @@ namespace RitramaAPP
                 {
                     row.Cells["ColumnImage"].Value = null;
                 }
-                //master cargado en documento.
-                cell = row.Cells["master_load"];
-                if (cell.Value.ToString() == "") return;
-                if (Convert.ToBoolean(cell.Value) == true) 
+                //master cargado en documento. (SOLO SE EJECUTA EN LA PESTAÑA DE MASTERS)
+                int page_active = TABINVENTARIO.SelectedIndex;
+                if(page_active == 0) 
                 {
-                    row.Cells["ColumnImage"].Value = (System.Drawing.Image)Properties.Resources.key_icon;
+                    DataGridViewCell CellLoad = row.Cells["master_load"];
+                    if (CellLoad.Value.ToString() == "") return;
+                    if (Convert.ToBoolean(CellLoad.Value) == true)
+                    {
+                        row.Cells["ColumnImage"].Value = (System.Drawing.Image)Properties.Resources.key_icon;
+                    }
                 }
+                
+                
+                
 
 
             }

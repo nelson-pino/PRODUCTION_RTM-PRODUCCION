@@ -39,7 +39,6 @@
             this.bot_nuevo = new System.Windows.Forms.ToolStripButton();
             this.bot_cancelar = new System.Windows.Forms.ToolStripButton();
             this.bot_grabar = new System.Windows.Forms.ToolStripButton();
-            this.Bot_Anular = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.TXT_NUMERO = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -97,8 +96,7 @@
             this.bot_ultimo,
             this.bot_nuevo,
             this.bot_cancelar,
-            this.bot_grabar,
-            this.Bot_Anular});
+            this.bot_grabar});
             this.toolsbar.Location = new System.Drawing.Point(0, 82);
             this.toolsbar.Name = "toolsbar";
             this.toolsbar.Size = new System.Drawing.Size(862, 27);
@@ -176,15 +174,6 @@
             this.bot_grabar.Size = new System.Drawing.Size(80, 24);
             this.bot_grabar.Text = "Grabar";
             this.bot_grabar.Click += new System.EventHandler(this.Bot_grabar_Click);
-            // 
-            // Bot_Anular
-            // 
-            this.Bot_Anular.Image = ((System.Drawing.Image)(resources.GetObject("Bot_Anular.Image")));
-            this.Bot_Anular.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Bot_Anular.Name = "Bot_Anular";
-            this.Bot_Anular.Size = new System.Drawing.Size(66, 24);
-            this.Bot_Anular.Text = "Anular";
-            this.Bot_Anular.Click += new System.EventHandler(this.Bot_Anular_Click);
             // 
             // label1
             // 
@@ -439,6 +428,5 @@
         private System.Windows.Forms.Label REGISTER_COUNT;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ToolStripButton Bot_Anular;
     }
 }

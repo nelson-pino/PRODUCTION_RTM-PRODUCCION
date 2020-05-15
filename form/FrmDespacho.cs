@@ -266,26 +266,26 @@ namespace RitramaAPP.form
         {
             despacho = new ClassDespacho
             {
-                numero = (txt_numero_despacho.Text),
-                fecha_despacho = Convert.ToDateTime(txt_fecha_despacho.Text),
-                curstomer_id = txt_customer_id.Text,
-                curstomer_name = txt_customer_name.Text,
-                curstomer_direc = txt_customer_direc.Text,
-                persona_entrega = txt_contact_person.Text,
-                vendedor_id = txt_vendor_id.Text,
-                vendedor_name = txt_vendor_name.Text,
-                transport_id = txt_transport_id.Text,
-                transport_name = txt_transport_name.Text,
-                chofer_id = txt_chofer_id.Text,
-                chofer_name = txt_chofer_name.Text,
-                placas_id = txt_placas.Text,
-                modelo_camion = txt_camion.Text,
-                tipo_embalaje = txt_tipo_embalaje.Text,
-                orden_trabajo = txt_otrabajo.Text,
-                orden_compra = txt_ocompra.Text,
-                subtotal = Convert.ToDecimal(txt_subtotal.Text),
-                monto_itbis = Convert.ToDecimal(txt_monto_itbis.Text),
-                total = Convert.ToDecimal(txt_total_despacho.Text)
+                Numero = (txt_numero_despacho.Text),
+                Fecha_despacho = Convert.ToDateTime(txt_fecha_despacho.Text),
+                Curstomer_id = txt_customer_id.Text,
+                Curstomer_name = txt_customer_name.Text,
+                Curstomer_direc = txt_customer_direc.Text,
+                Persona_entrega = txt_contact_person.Text,
+                Vendedor_id = txt_vendor_id.Text,
+                Vendedor_name = txt_vendor_name.Text,
+                Transport_id = txt_transport_id.Text,
+                Transport_name = txt_transport_name.Text,
+                Chofer_id = txt_chofer_id.Text,
+                Chofer_name = txt_chofer_name.Text,
+                Placas_id = txt_placas.Text,
+                Modelo_camion = txt_camion.Text,
+                Tipo_embalaje = txt_tipo_embalaje.Text,
+                Orden_trabajo = txt_otrabajo.Text,
+                Orden_compra = txt_ocompra.Text,
+                Subtotal = Convert.ToDecimal(txt_subtotal.Text),
+                Monto_itbis = Convert.ToDecimal(txt_monto_itbis.Text),
+                Total = Convert.ToDecimal(txt_total_despacho.Text)
             };
             despacho.items = new List<Items_despacho>();
             for (int fila = 0; fila <= grid_items.Rows.Count - 1; fila++)

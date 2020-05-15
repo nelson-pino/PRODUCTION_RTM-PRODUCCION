@@ -278,12 +278,19 @@ namespace RitramaAPP
                     public const string SQL_CHECK_ID_MASTER_DEVOL = "SELECT * FROM MasterInic WHERE (roll_id=@p1 AND part_number=@p2 AND disponible=0)";
                     public const string SQL_CHECK_ID_ROLL_DEVOL = "SELECT * FROM  RollsInic WHERE (unique_code=@p1 AND product_id=@p2 AND disponible=0)";
                     public const string SQL_CHECK_ID_GRAPHICS_DEVOL = "SELECT * FROM GraphicsInic WHERE (roll_id=@p1 AND part_number=@p2 AND disponible=0)";
-                    public const string SQL_CHECK_ID_HOJAS_DEVOL = "SELECT * FROM HojasInic WHERE (roll_id=@p1 AND part_number=@p2 AND disponible=0)";
+                    public const string SQL_CHECK_ID_HOJAS_DEVOL = "SELECT * FROM HojasInic WHERE (roll_id=@p1 AND part_number=@p2)";
+
+
+                    public const string SQL_GETDATA_ID_ROLL_DEVOL = "SELECT width,large,msi FROM RollsInic WHERE (unique_code=@p1 AND product_id=@p2 AND disponible=0)";
+                    public const string SQL_GETDATA_ID_GRAPHICS_DEVOL = "SELECT width,Lenght,0 FROM GraphicsInic WHERE (roll_id=@p1 AND Part_Number=@p2 AND disponible=0)";
+                    public const string SQL_GETDATA_ID_HOJAS_DEVOL = "SELECT palet_cant,palet_pag,paletpag_c FROM HojasInic WHERE (roll_id=@p1 AND Part_Number=@p2)";
+
+
 
                     public const string SQL_UPDATE_INVENTORY_MASTER_DEVOL = "UPDATE MasterInic SET disponible=@p2 WHERE (roll_id=@p1)";
-                    public const string SQL_UPDATE_INVENTORY_ROLL_DEVOL = "UPDATE RollsInic SET disponible=@p2 WHERE (unique_code=@p1)";
-                    public const string SQL_UPDATE_INVENTORY_GRAPHICS_DEVOL = "UPDATE GraphicsInic SET disponible=@p2 WHERE (roll_id=@p1)";
-                    public const string SQL_UPDATE_INVENTORY_HOJAS_DEVOL = "UPDATE HojasInic SET disponible=@p2 WHERE (roll_id=@p1)";
+                    public const string SQL_UPDATE_INVENTORY_ROLL_DEVOL = "UPDATE RollsInic SET width=@p2,large=@p3,msi=@p4,disponible=@p5 WHERE (unique_code=@p1)";
+                    public const string SQL_UPDATE_INVENTORY_GRAPHICS_DEVOL = "UPDATE GraphicsInic SET width=@p2,lenght=@p3,disponible=@p5 WHERE (roll_id=@p1)";
+                    public const string SQL_UPDATE_INVENTORY_HOJAS_DEVOL = "UPDATE HojasInic SET paletpag_c=@p4,disponible=1 WHERE (roll_id=@p1)";
 
                     public const string SQL_ANULAR_DOCUMENTO_DEVOL = "UPDATE devoluciones SET doc_status=1 WHERE (numero=@p1)";
 
@@ -304,6 +311,8 @@ namespace RitramaAPP
                 public static string MESSAGE_ERROR_INSERT_HEADER = "Error al insertar registro en el Encabezado de la devolucion a clientes.";
                 public static string MESSAGE_ERROR_INSERT_ITEMROWS = "Error al insertar registro en el Detalle de la devolucion a clientes.";
                 public static string MESSAGE_ERROR_ANULAR_DOC = "Error al tratar de anular documentos de devoluciones de clientes.";
+                public static string MESSAGE_ERROR_GETDATA_UNIQUE = "Error al tratar de obtener la informacion del ancho y largo del producto.";
+                public static string MESSAGE_ERROR_UPDATE_INVENTARY = "Error al actualizar los inventarios de los documentos de devoluciones.";
             }
             public class INVENTARIO
             {

@@ -244,6 +244,39 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public DataTable CommandSqlGenericDt(string db, string query,string par1,string par2, string messagefail)
+        {
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+
+                micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                SqlParameter p1 = new SqlParameter("@p1", par1);
+                SqlParameter p2 = new SqlParameter("@p2", par2);
+                comando.Parameters.Add(p1);
+                comando.Parameters.Add(p2);
+                comando.ExecuteNonQuery();
+                da.SelectCommand = comando;
+                da.Fill(dt);
+                comando.Dispose();
+                micomm.Desconectar();
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(messagefail + ex);
+
+            }
+            da.Dispose();
+            return dt;
+        }
         public DataTable GetCustomers() 
         {
 			DataTable dt = new DataTable();
@@ -352,6 +385,40 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public Item GetDataForID(int tipo_product,string unique_code,string product_id) 
+        {
+            DataTable dt = new DataTable();
+            switch (tipo_product) 
+            {
+                case 1:
+                    //MASTER.
+                    break;
+                case 2:
+                    //ROLLOS CORTADOS.
+                     dt = CommandSqlGenericDt(R.DATABASES.RITRAMA,R.SQL.QUERY_SQL.DEVOLUCION.SQL_GETDATA_ID_ROLL_DEVOL,
+                     unique_code,product_id,R.ERROR_MESSAGES.DEVOLUCIONES.MESSAGE_ERROR_GETDATA_UNIQUE);                    
+                    break;
+                case 3:
+                    //GRAPHICS.
+                    dt = CommandSqlGenericDt(R.DATABASES.RITRAMA, R.SQL.QUERY_SQL.DEVOLUCION.SQL_GETDATA_ID_GRAPHICS_DEVOL,
+                    unique_code, product_id, R.ERROR_MESSAGES.DEVOLUCIONES.MESSAGE_ERROR_GETDATA_UNIQUE);
+                    break;
+                case 4:
+                    // HOJAS.
+                    dt = CommandSqlGenericDt(R.DATABASES.RITRAMA, R.SQL.QUERY_SQL.DEVOLUCION.SQL_GETDATA_ID_HOJAS_DEVOL,
+                    unique_code, product_id, R.ERROR_MESSAGES.DEVOLUCIONES.MESSAGE_ERROR_GETDATA_UNIQUE);
+                    break;
+            }
+            Item item = new Item
+            {
+                Unique_code = unique_code,
+                Product_id = product_id,
+                Width = Convert.ToDecimal(dt.Rows[0][0]),
+                Lenght = Convert.ToDecimal(dt.Rows[0][1]),
+                Msi = Convert.ToDecimal(dt.Rows[0][2])
+            };
+            return item;
+        }
         public bool CheckStatusDespachoID(string id, int tipo_product, string product_id) 
         {
             switch (tipo_product)
@@ -376,31 +443,43 @@ namespace RitramaAPP.Clases
                     return false;
             }
         }
-        public void UpdateDataInventory(string id, int tipo_product, bool status) 
+        public void UpdateDataInventory(int tipo_product, bool status,Item item) 
         {
             switch (tipo_product)
             {
                 case 1:
-                    //MASTER.
-                    SqlGenericTwoParamOnlyUpdate(R.DATABASES.RITRAMA,
-                    R.SQL.QUERY_SQL.DEVOLUCION.SQL_UPDATE_INVENTORY_MASTER_DEVOL,id,status,false,"");
+                    ////MASTER.
+                    //SqlGenericTwoParamOnlyUpdate(R.DATABASES.RITRAMA,
+                    //R.SQL.QUERY_SQL.DEVOLUCION.SQL_UPDATE_INVENTORY_MASTER_DEVOL,id,status,false,"");
                     break;
                 case 2:
                     //ROLLOS CORTADOS.
-                    SqlGenericTwoParamOnlyUpdate(R.DATABASES.RITRAMA,
-                    R.SQL.QUERY_SQL.DEVOLUCION.SQL_UPDATE_INVENTORY_ROLL_DEVOL, id, status, false, "");
+                    CommandSqlGeneric(R.DATABASES.RITRAMA, R.SQL.QUERY_SQL.DEVOLUCION.SQL_UPDATE_INVENTORY_ROLL_DEVOL,
+                    SetParametersInventary(item,status),false,R.ERROR_MESSAGES.DEVOLUCIONES.MESSAGE_ERROR_UPDATE_INVENTARY);
                     break;
                 case 3:
                     //GRAPHICS.
-                    SqlGenericTwoParamOnlyUpdate(R.DATABASES.RITRAMA,
-                    R.SQL.QUERY_SQL.DEVOLUCION.SQL_UPDATE_INVENTORY_GRAPHICS_DEVOL, id, status, false, "");
+                    CommandSqlGeneric(R.DATABASES.RITRAMA, R.SQL.QUERY_SQL.DEVOLUCION.SQL_UPDATE_INVENTORY_GRAPHICS_DEVOL,
+                    SetParametersInventary(item, status), false, R.ERROR_MESSAGES.DEVOLUCIONES.MESSAGE_ERROR_UPDATE_INVENTARY);
                     break;
                 case 4:
                     // HOJAS.
-                    SqlGenericTwoParamOnlyUpdate(R.DATABASES.RITRAMA,
-                    R.SQL.QUERY_SQL.DEVOLUCION.SQL_UPDATE_INVENTORY_HOJAS_DEVOL, id, status, false, "");
+                    CommandSqlGeneric(R.DATABASES.RITRAMA, R.SQL.QUERY_SQL.DEVOLUCION.SQL_UPDATE_INVENTORY_HOJAS_DEVOL,
+                    SetParametersInventary(item, status), false, R.ERROR_MESSAGES.DEVOLUCIONES.MESSAGE_ERROR_UPDATE_INVENTARY);
                     break;
             }
+        }
+        public List<SqlParameter> SetParametersInventary(Item item,Boolean sw)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = item.Unique_code},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = item.Width},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Decimal, Value = item.Lenght},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = item.Msi},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = sw}
+            };
+            return sp;
         }
         public bool DisableDocument(string numero) 
         {

@@ -46,7 +46,7 @@
         private void APLICAR_ESTILOS_GRID()
         {
             GridDevol.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("product_id", 40, "Product ID.", "product_id", GridDevol);
+            AGREGAR_COLUMN_GRID("product_id", 80, "Product ID.", "product_id", GridDevol);
             DataGridViewButtonColumn col3 = new DataGridViewButtonColumn
             {
                 Name = "SeachProduct",
@@ -56,12 +56,11 @@
             GridDevol.Columns.Add(col3);
             AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", GridDevol);
             AGREGAR_COLUMN_GRID("tipo", 60, "Tipo", "tipo", GridDevol);
-            AGREGAR_COLUMN_GRID("cantidad", 60, "Cantidad", "cantidad", GridDevol);
+            //AGREGAR_COLUMN_GRID("cantidad", 60, "Cantidad", "cantidad", GridDevol);
             AGREGAR_COLUMN_GRID("roll_id", 65, "Numero ID", "roll_id", GridDevol);
-            AGREGAR_COLUMN_GRID("width", 50, "Width", "width", GridDevol);
-            AGREGAR_COLUMN_GRID("lenght", 50, "Lenght", "lenght", GridDevol);
-            AGREGAR_COLUMN_GRID("msi", 50, "MSI", "msi", GridDevol);
-            AGREGAR_COLUMN_GRID("sw", 50, "Sw.", "sw", GridDevol);
+            AGREGAR_COLUMN_GRID("width", 80, "Width", "width", GridDevol);
+            AGREGAR_COLUMN_GRID("lenght", 80, "Lenght", "lenght", GridDevol);
+            AGREGAR_COLUMN_GRID("msi", 80, "MSI", "msi", GridDevol);
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
@@ -133,9 +132,9 @@
                 products.ShowDialog();
                 GridDevol.Rows[e.RowIndex].Cells["product_id"].Value = products.GetProductId;
                 GridDevol.Rows[e.RowIndex].Cells["tipo"].Value = products.GetProductTipo;
-                GridDevol.Rows[e.RowIndex].Cells["cantidad"].Value = "1";
+                //GridDevol.Rows[e.RowIndex].Cells["cantidad"].Value = "1";
                 GridDevol.Rows[e.RowIndex].Cells["roll_id"].Value = "";
-                GridDevol.CurrentCell = GridDevol[5, e.RowIndex];
+                GridDevol.CurrentCell = GridDevol[4, e.RowIndex];
             }
         }
 
@@ -179,28 +178,33 @@
 
         private void UpdateInventory(bool st)
         {
+            Item item = new Item();
             for (int i=0; i <= GridDevol.Rows.Count-1; i++)
             {
                 string tipo = GridDevol.Rows[i].Cells["tipo"].Value.ToString();
-                string id = GridDevol.Rows[i].Cells["roll_id"].Value.ToString();
+                item.Product_id = GridDevol.Rows[i].Cells["product_id"].Value.ToString();
+                item.Unique_code = GridDevol.Rows[i].Cells["roll_id"].Value.ToString();
+                item.Width = Convert.ToDecimal(GridDevol.Rows[i].Cells["width"].Value);
+                item.Lenght = Convert.ToDecimal(GridDevol.Rows[i].Cells["lenght"].Value);
+                item.Msi = Convert.ToDecimal(GridDevol.Rows[i].Cells["msi"].Value);
                 bool status = st;
                 switch (tipo)
                 {
                     case R.CONSTANTES.TIPO_MASTER:
                         // MASTER.
-                        manager.UpdateDataInventory(id,1,status);
+                        manager.UpdateDataInventory(ReturnTypeProduct(tipo) ,status,item);
                         break;
                     case R.CONSTANTES.TIPO_ROLL:
                         //ROLLO CORTADO.
-                        manager.UpdateDataInventory(id, 2, status);
+                        manager.UpdateDataInventory(ReturnTypeProduct(tipo), status,item);
                         break;
                     case R.CONSTANTES.TIPO_GRAP:
                         //GRAPHICS.
-                        manager.UpdateDataInventory(id, 3, status);
+                        manager.UpdateDataInventory(ReturnTypeProduct(tipo), status, item);
                         break;
                     case R.CONSTANTES.TIPO_HOJA:
                         //HOJAS.
-                        manager.UpdateDataInventory(id, 4, status);
+                        manager.UpdateDataInventory(ReturnTypeProduct(tipo), status, item);
                         break;
                 }
             }
@@ -222,13 +226,12 @@
                 {
                     Numero = TXT_NUMERO.Text.ToString(),
                     Product_id = GridDevol.Rows[fila].Cells["product_id"].Value.ToString(),
-                    Cantidad = Convert.ToDouble(GridDevol.Rows[fila].Cells["cantidad"].Value.ToString()),
+                    Cantidad = 1,
                     NumeroID = GridDevol.Rows[fila].Cells["roll_id"].Value.ToString(),
                     Tipo = GridDevol.Rows[fila].Cells["tipo"].Value.ToString(),
                     Width = Convert.ToDouble(GridDevol.Rows[fila].Cells["width"].Value),
                     Lenght = Convert.ToDouble(GridDevol.Rows[fila].Cells["lenght"].Value),
-                    Msi = Convert.ToDouble(GridDevol.Rows[fila].Cells["msi"].Value),
-                    Sw_estado = Convert.ToInt16(GridDevol.Rows[fila].Cells["sw"].Value) 
+                    Msi = Convert.ToDouble(GridDevol.Rows[fila].Cells["msi"].Value)
                 };
                 documento.items.Add(row);
             }
@@ -287,7 +290,6 @@
                     bot_siguiente.Enabled = false;
                     bot_primero.Enabled = false;
                     bot_ultimo.Enabled = false;
-                    Bot_Anular.Enabled = false;
                     //bot_buscar.Enabled = false;
                     bot_nuevo.Enabled = false;
                     break;
@@ -301,7 +303,6 @@
                     bot_ultimo.Enabled = true;
                     //bot_buscar.Enabled = true;
                     bot_nuevo.Enabled = true;
-                    Bot_Anular.Enabled = true;
                     break;
             }
         }
@@ -321,9 +322,7 @@
                     GridDevol.Columns[0].ReadOnly = true;
                     GridDevol.Columns[2].ReadOnly = true;
                     GridDevol.Columns[3].ReadOnly = true;
-                    GridDevol.Columns[8].ReadOnly = true;
-                    GridDevol.Columns[9].ReadOnly = true;
-                    
+                    //GridDevol.Columns[8].ReadOnly = true;
                     break;
                 case 1:
                     //modo despues guardar.
@@ -348,12 +347,12 @@
                     chk = false;
                     break;
                 }
-                if (Convert.ToDecimal(GridDevol.Rows[i].Cells["cantidad"].Value) <= 0)
-                {
-                    MessageBox.Show("Introduzca la cantidad.?");
-                    chk = false;
-                    break;
-                }
+                //if (Convert.ToDecimal(GridDevol.Rows[i].Cells["cantidad"].Value) <= 0)
+                //{
+                //    MessageBox.Show("Introduzca la cantidad.?");
+                //    chk = false;
+                //    break;
+                //}
                 if (Convert.ToString(GridDevol.Rows[i].Cells["roll_id"].Value) == "")
                 {
                     MessageBox.Show("Introduzca el roll_id.?");
@@ -379,7 +378,7 @@
                 return;
             }
             
-            if (e.ColumnIndex == 5 && EditMode == 1 &&
+            if (e.ColumnIndex == 4 && EditMode == 1 &&
                 !string.IsNullOrEmpty(GridDevol.Rows[e.RowIndex].Cells["roll_id"].Value.ToString()) &&
                 !string.IsNullOrEmpty(GridDevol.Rows[e.RowIndex].Cells["tipo"].Value.ToString())) 
             {
@@ -387,22 +386,38 @@
                 string tipo = GridDevol.Rows[e.RowIndex].Cells["tipo"].Value.ToString();
                 string product_id = GridDevol.Rows[e.RowIndex].Cells["product_id"].Value.ToString();
 
+                //BUSCAR EL RC/ID
                 if (CheckDataID(id, tipo, product_id))
                 {
-                    //puedo devolver el producto (FUE DESPACHADO)
+                    //puedo devolver el producto (FUE DESPACHADO).
                     MessageBox.Show("Correcto despachado.");
-                    GridDevol.Rows[e.RowIndex].Cells["sw"].Value = "1";
+                    Item item = manager.GetDataForID(ReturnTypeProduct(tipo), id, product_id);
+                    GridDevol.Rows[e.RowIndex].Cells["width"].Value = item.Width;
+                    GridDevol.Rows[e.RowIndex].Cells["lenght"].Value = item.Lenght;
+                    GridDevol.Rows[e.RowIndex].Cells["msi"].Value = item.Msi;
                     GridDevol.CurrentCell = GridDevol[0, e.RowIndex];
                 }
-                else
-                {
-                    //no lo puedo devolver
-                    MessageBox.Show("No existe ID....");
-                    GridDevol.Rows[e.RowIndex].Cells["sw"].Value = "2";
-
-                }
             }
-            CALCULAR_MSI_RENGLON(e.RowIndex);
+            // si el producto es de tipo hojas no calculo el msi.
+            int tipo_product = ReturnTypeProduct(GridDevol.Rows[e.RowIndex].Cells["tipo"].Value.ToString());
+            //cambiar los textheader dependiendo del tipo de producto
+            if(tipo_product == 4) 
+            {
+                GridDevol.Columns["width"].HeaderText = "Resmas x Paletas";
+                GridDevol.Columns["lenght"].HeaderText = "Hojas x Resmas";
+                GridDevol.Columns["msi"].HeaderText = "Cantidad Despachada";
+            }
+            else 
+            {
+                GridDevol.Columns["width"].HeaderText = "Width";
+                GridDevol.Columns["lenght"].HeaderText = "Lenght";
+                GridDevol.Columns["msi"].HeaderText = "Msi";
+            }
+            if (tipo_product != 4) 
+            {
+                CALCULAR_MSI_RENGLON(e.RowIndex);
+            } 
+            
         }
 
         private void Bot_Anular_Click(object sender, EventArgs e)
@@ -432,6 +447,24 @@
                     break;
             }
         }
+
+        private int ReturnTypeProduct(string tipo_product) 
+        {
+            switch (tipo_product)
+            {
+                case R.CONSTANTES.TIPO_MASTER:
+                    return 1;
+                case R.CONSTANTES.TIPO_ROLL:
+                    return 2;
+                case R.CONSTANTES.TIPO_GRAP:
+                    return 3;
+                case R.CONSTANTES.TIPO_HOJA:
+                    return 4;
+                default:
+                    return 0;
+            }
+        }
+
 
         private bool CheckDataID(string id, string tipo_product, string product_id)
         {
